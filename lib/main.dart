@@ -23,11 +23,11 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => const SplashScreen(),
+        '/': (context) =>  SplashScreen(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/Home': (context) => const HomeScreen(),
-        '/Login': (context) => const LoginScreen(),
-        '/Details': (context) => const DetailsScreen(),
+        '/Home': (context) =>  HomeScreen(),
+        '/Login': (context) =>  LoginScreen(),
+        '/Details': (context) =>  DetailsScreen(),
       },
     );
   }

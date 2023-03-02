@@ -1,11 +1,12 @@
+import 'package:consultant_app/view_models/auth_view_model.dart';
 import 'package:consultant_app/views/widgets/CustomTabBar.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/Constants.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
+   LoginScreen({Key? key}) : super(key: key);
+  AuthViewModel authModel = AuthViewModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 47, bottom: 29),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
+                  children:  <Widget>[
                     Center(
                       child: Image(
                         image: AssetImage('images/logo.png'),
@@ -39,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     Center(
                       child: Text(
-                        'ديوان رئيس الوزراء',
+                       "${authModel.authScreenTitle}",
                         style: TextStyle(
                           fontSize: 22,
                           fontFamily: 'Gulzar',
