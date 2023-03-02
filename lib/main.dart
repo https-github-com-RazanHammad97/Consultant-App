@@ -1,7 +1,7 @@
-import 'package:consultant_app/view/DetailsScreen.dart';
-import 'package:consultant_app/view/HomeScreen.dart';
-import 'package:consultant_app/view/LoginScreen.dart';
-import 'package:consultant_app/view/SplashScreen.dart';
+import 'package:consultant_app/views/DetailsScreen.dart';
+import 'package:consultant_app/views/HomeScreen.dart';
+import 'package:consultant_app/views/LoginScreen.dart';
+import 'package:consultant_app/views/SplashScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

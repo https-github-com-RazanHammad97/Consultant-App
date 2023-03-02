@@ -1,4 +1,4 @@
-import 'package:consultant_app/view/widgets/CustomTabBar.dart';
+import 'package:consultant_app/views/widgets/CustomTabBar.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/Constants.dart';
