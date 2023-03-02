@@ -15,11 +15,11 @@ class InputField extends StatelessWidget {
       children: <Widget>[
         customTextField('Enter Your Email'),
         customTextField('Enter Your Password'),
-        customTextField('Confirm password'),
+        //customTextField('Confirm password'),
         const SizedBox(
           height: 40,
         ),
-        Button(),
+        Button(title: "Sign In",onPressed: (){},),
         const SizedBox(
           height: 20,
         ),

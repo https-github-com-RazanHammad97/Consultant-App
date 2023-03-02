@@ -12,40 +12,42 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: kLightWhiteColor,
       body: Stack(
         children: [
-          Container(
-            height: 300,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: [kLightPrimaryColor, kPrimaryColor],
+          SingleChildScrollView(
+            child: Container(
+              height: 300,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.topRight,
+                  colors: [kLightPrimaryColor, kPrimaryColor],
+                ),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(80),
+                    bottomRight: Radius.circular(80)),
               ),
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(80),
-                  bottomRight: Radius.circular(80)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 47, bottom: 29),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
-                  Center(
-                    child: Image(
-                      image: AssetImage('images/logo.png'),
-                      height: 75,
-                      width: 56,
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      'ديوان رئيس الوزراء',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontFamily: 'Gulzar',
+              child: Padding(
+                padding: const EdgeInsets.only(top: 47, bottom: 29),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const <Widget>[
+                    Center(
+                      child: Image(
+                        image: AssetImage('images/logo.png'),
+                        height: 75,
+                        width: 56,
                       ),
                     ),
-                  ),
-                ],
+                    Center(
+                      child: Text(
+                        'ديوان رئيس الوزراء',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontFamily: 'Gulzar',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
