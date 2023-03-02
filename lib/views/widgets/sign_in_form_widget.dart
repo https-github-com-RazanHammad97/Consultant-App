@@ -1,3 +1,4 @@
+import 'package:consultant_app/view_models/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,23 +8,29 @@ import 'CustomText.dart';
 import 'SocialIcons.dart';
 import 'customTextField.dart';
 
-class InputField extends StatelessWidget {
+class signInForm extends StatelessWidget {
+  AuthViewModel authModel = AuthViewModel();
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        customTextField('Enter Your Email'),
-        customTextField('Enter Your Password'),
+        customTextField(authModel.emailTFHintText),
+        customTextField(authModel.passTFHint),
         //customTextField('Confirm password'),
         const SizedBox(
           height: 40,
         ),
-        Button(title: "Sign In",onPressed: (){},),
+        Button(
+          title: authModel.signInBtnText,
+          onPressed: () {},
+        ),
         const SizedBox(
           height: 20,
         ),
-        CustomText('Or', 14, 'Poppins', kHintGreyColor, FontWeight.w400),
+        CustomText(
+            authModel.orText, 14, 'Poppins', kHintGreyColor, FontWeight.w400),
         const SizedBox(
           height: 20,
         ),

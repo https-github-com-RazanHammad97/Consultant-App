@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
-import 'InputField.dart';
-import 'InputFieldsignUp.dart';
+import 'sign_in_form_widget.dart';
+import 'sign_up_form_widget.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({Key? key}) : super(key: key);
@@ -61,8 +61,8 @@ class CustomTabBar extends StatelessWidget {
                 // controller: _tabController,
                 children: [
                   // first tab bar view widget
-                  InputField(),
-                  InputFieldSignUp(),
+                  signInForm(),
+                  signUpForm(),
                 ],
               ),
             ),
