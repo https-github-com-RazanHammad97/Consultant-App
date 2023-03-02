@@ -1,8 +1,8 @@
-import 'package:consultant_app/view/tiles/OrgTile.dart';
-import 'package:consultant_app/view/tiles/StatusTile.dart';
-import 'package:consultant_app/view/tiles/TagTile.dart';
-import 'package:consultant_app/view/widgets/CustomSearch.dart';
-import 'package:consultant_app/view/widgets/CustomText.dart';
+import 'package:consultant_app/views/tiles/OrgTile.dart';
+import 'package:consultant_app/views/tiles/StatusTile.dart';
+import 'package:consultant_app/views/tiles/TagTile.dart';
+import 'package:consultant_app/views/widgets/CustomSearch.dart';
+import 'package:consultant_app/views/widgets/CustomText.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/Constants.dart';

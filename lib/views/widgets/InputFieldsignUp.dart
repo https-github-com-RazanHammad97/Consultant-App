@@ -1,6 +1,6 @@
 import 'package:consultant_app/controllers/usercontroler.dart';
-import 'package:consultant_app/view/HomeScreen.dart';
-import 'package:consultant_app/view/LoginScreen.dart';
+import 'package:consultant_app/views/HomeScreen.dart';
+import 'package:consultant_app/views/LoginScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
