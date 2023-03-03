@@ -37,6 +37,7 @@ class UserController {
       var decodedResponse = jsonDecode(value.body);
       print ("response razan:$decodedResponse");
 
+
        return decodedResponse;
 
     },onError: (e){
@@ -46,24 +47,24 @@ class UserController {
 
   }
 
-     void writeToHive(int id,String name, String token, String email,Role role,int role_id) async {
-       var path = Directory.current.path;
-       Hive
-         .init(path);
-
-       var box = await Hive.openBox('testBox');
-
-       var user = User(
-         id: id,
-         name: name,
-          email: email,
-         token: token,
-         role: role, roleId: role_id
-       );
-
-       await box.put(name, User);
-
-       print(box.get('dave')); // Dave: 22
-     }
+     // void writeToHive(int id,String name, String token, String email,Role role,int role_id) async {
+     //   var path = Directory.current.path;
+     //   Hive
+     //     .init(path);
+     //
+     //   var box = await Hive.openBox('testBox');
+     //
+     //   var user = User(
+     //     id: id,
+     //     name: name,
+     //      email: email,
+     //     token: token,
+     //     role: role, roleId: role_id
+     //   );
+     //
+     //   await box.put(name, User);
+     //
+     //   print(box.get('dave')); // Dave: 22
+     // }
 
 }
