@@ -27,26 +27,35 @@ class _SplashScreenState extends State<SplashScreen> {
   //     });
   //   });
 
-  dynamic getTokenValue() async{
-   dynamic val = await ms.readFromHiveBox("token");
-   print(val);
-   return val;
+  getTokenValue() async {
+    var val = await ms.readFromHiveBox("token");
+    token = val;
   }
 
+  //token=val
+
+  //print(val);
 
   @override
   void initState() {
-    token = getTokenValue();
+    getTokenValue();
+    //print(token);
+
     // getLoggedInState();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(token);
+    print("empty${token.toString().isEmpty ? "true" : "false"}");
+    // print("test$token");
     // print(isLoggedIn);
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => token!=null?HomeScreen(): LoginScreen()));
+    Future.delayed(const Duration(seconds: 5), () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => token == "" ? LoginScreen() : HomeScreen()));
+      //token == "" ? LoginScreen() : HomeScreen()
+      // token!= null? HomeScreen():
     });
     return Scaffold(
       body: Container(

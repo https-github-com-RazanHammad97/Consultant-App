@@ -1,3 +1,4 @@
+import 'package:consultant_app/repositories/Inbox/inbox_api.dart';
 import 'package:consultant_app/services/main_services.dart';
 import 'package:consultant_app/views/DetailsScreen.dart';
 import 'package:consultant_app/views/HomeScreen.dart';
@@ -14,6 +15,7 @@ void main() async{
   await Hive.initFlutter(applicationDocDir.path);
   await Hive.openBox(ApiKeys().hiveBoxName);
 
+  await InboxApi().createInbox("ttt","ghghg",1,"kjkjk",(DateTime.now()).toString(),"hjhj",2,"","","");
   runApp(const MyApp());
 }
 

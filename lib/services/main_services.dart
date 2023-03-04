@@ -30,8 +30,13 @@ class MainServices {
   }
 
   Future<bool> getLoggedInUserState() async {
-    bool val =  readFromHiveBox("isLoggedIn");
+    bool val = readFromHiveBox("loggedIn");
     //print(val);
     return val;
   }
+
+
+
+
+// Test our function
 }
