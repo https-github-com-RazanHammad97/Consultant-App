@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import '../../controllers/constants.dart';
 import '../../controllers/hive_keys.dart';
 import '../../services/api_services.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 class AuthApi extends AuthRepository {
   ApiKeys ak = ApiKeys();
@@ -12,19 +13,29 @@ class AuthApi extends AuthRepository {
 
   @override
   login(String email, String pass) async {
+    //String message ="";
     String url = "$baseUrl" "/" "$loginEndPoint";
     Map data = {
       'email': email,
       'password': pass,
     };
     var json =await service.postData(url, data);
-    ms.writeToHiveBox(ak.token, json['token'].toString());
-    ms.writeToHiveBox(ak.createdDate, ms.getCurrentTime());
-    ms.writeToHiveBox(ak.isLoggedInKey, true);
+
+      print ("login can be done and email, pass isn't empty");
+      //message="Logged in Successfully";
+      print("test$json");
+      //ms.writeToHiveBox(ak.token, json['token'].toString());
+     // ms.writeToHiveBox(ak.createdDate, ms.getCurrentTime());
+    await SessionManager().set("token", json['token']);
+       // print(message);
+
+
+    // ms.writeToHiveBox(ak.isLoggedInKey, true);
+
   }
 
   @override
-  Future<void> register(String email, String pass, String name) async {
+  Future<void> register(String email, String pass,  String name) async {
     String url = "$baseUrl" "/" "$registerEndpoint";
     Map data = {
       'email': email,
@@ -33,10 +44,21 @@ class AuthApi extends AuthRepository {
       'name': name
     };
     var json = await service.postData(url, data);
+    print(json);
     ms.writeToHiveBox(ak.token, json['token'].toString());
     ms.writeToHiveBox(ak.createdDate, ms.getCurrentTime());
-    ms.writeToHiveBox(ak.isLoggedInKey, true);
+    // await SessionManager().set("token", json['token']);
+    // print(ms.readFromHiveBox("token"));
+    // ms.writeToHiveBox(ak.isLoggedInKey, true);
     //print(ms.readFromHiveBox(ak.token)); token is printed now
 
+  }
+
+  @override
+  Future<void> logOut() async {
+    String url = "$baseUrl" "/" "$logOutEndPoint";
+     await service.authPostData(url);
+    ms.writeToHiveBox(ak.token, "");
+   // await SessionManager().destroy();
   }
 }

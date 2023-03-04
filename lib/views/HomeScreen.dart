@@ -6,10 +6,25 @@ import 'package:consultant_app/views/widgets/CustomSearch.dart';
 import 'package:consultant_app/views/widgets/CustomText.dart';
 import 'package:flutter/material.dart';
 
+import '../repositories/Auth/auth_api.dart';
 import '../utils/Constants.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool isVisible = false;
+  AuthApi auth = AuthApi();
+
+  showUserContainer() {
+    setState(() {
+      isVisible = !isVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +36,44 @@ class HomeScreen extends StatelessWidget {
           image: AssetImage('images/menu.png'),
         ),
         elevation: 0,
-        actions: const <Widget>[
+        actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 20, top: 10),
             child: CircleAvatar(
               backgroundColor: Colors.white,
               radius: 25,
-              child: CircleAvatar(
-                radius: 20.0,
-                backgroundImage: AssetImage('images/profile.png'),
-                // AssetImage('https://via.placeholder.com/150'),
-                backgroundColor: Colors.transparent,
+              child: TextButton(
+                onPressed: () {
+                  showUserContainer();
+                },
+                child: CircleAvatar(
+                  radius: 20.0,
+                  backgroundImage: AssetImage('images/profile.png'),
+                  // AssetImage('https://via.placeholder.com/150'),
+                  backgroundColor: Colors.transparent,
+                ),
               ),
             ),
           ),
+
+          Visibility(
+              visible: isVisible,
+              child: Container(
+                width: 200,height: 400,
+                // alignment: Alignment.topRight,
+                // padding: EdgeInsets.only(bottom: 500, left: 200),
+
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Colors.white,
+                ),
+                child: TextButton(onPressed: () {
+                  auth.logOut();
+                  if(mounted){
+                    Navigator.pushNamed(context, "/Login");
+                  }
+                }, child: Text("Log Out")),
+              ))
         ],
       ),
       body: SingleChildScrollView(
@@ -112,11 +151,10 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-            NewInbox(
-              child: CustomText('New Inbox', 20, 'Poppins', kLightPrimaryColor,
-                    FontWeight.w600),
-            )
-
+              NewInbox(
+                child: CustomText('New Inbox', 20, 'Poppins',
+                    kLightPrimaryColor, FontWeight.w600),
+              ),
             ],
           ),
         ),
