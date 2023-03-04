@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
 import '../HomeScreen.dart';
+import 'CustomText.dart';
 
 class Button extends StatelessWidget {
 
@@ -28,14 +29,8 @@ class Button extends StatelessWidget {
           ),
         ),
         child:  Center(
-          child: Text(
-            title,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600),
-          ),
+          child: CustomText(title, 20, 'Poppins', kLightPrimaryColor,
+              FontWeight.w600)
         ),
       ),
     );

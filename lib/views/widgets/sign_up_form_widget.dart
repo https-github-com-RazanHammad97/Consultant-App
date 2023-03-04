@@ -1,11 +1,9 @@
 import 'package:consultant_app/controllers/usercontroler.dart';
 import 'package:consultant_app/repositories/Auth/auth_api.dart';
 import 'package:consultant_app/view_models/auth_view_model.dart';
-import 'package:consultant_app/views/HomeScreen.dart';
-import 'package:consultant_app/views/LoginScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../repositories/Auth/auth_api.dart';
+import '../../services/main_services.dart';
 import '../../utils/Constants.dart';
 import 'Button.dart';
 import 'CustomText.dart';
@@ -18,18 +16,16 @@ class signUpForm extends StatefulWidget {
 }
 
 class _signUpFormState extends State<signUpForm> {
+  AuthApi auth = AuthApi();
+  AuthViewModel authModel = AuthViewModel();
   TextEditingController? controller_email = TextEditingController();
-
   TextEditingController? controller_pass = TextEditingController();
   TextEditingController? controller_confirm_pass = TextEditingController();
   TextEditingController? controller_userName = TextEditingController();
 
-  // UserController uc = UserController();
-  AuthApi auth = AuthApi();
-  AuthViewModel authModel = AuthViewModel();
+
   @override
   Widget build(BuildContext context) {
-    // uc.Register("test868@test.com", "123456", "123qidopq");
     return FutureBuilder(builder: (BuildContext context, snapshot) {
       return SingleChildScrollView(
         child: Column(
@@ -56,8 +52,13 @@ class _signUpFormState extends State<signUpForm> {
             ),
             Button(
               onPressed: () async {
+
                 await auth.register(controller_email!.text, controller_pass!.text,
                     controller_userName!.text);
+                if(mounted){
+                  Navigator.of(context).pushNamed("/Home");
+                }
+
               },
               title: authModel.signUpBtnText,
             ),
