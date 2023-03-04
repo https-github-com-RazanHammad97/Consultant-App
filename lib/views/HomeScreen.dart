@@ -1,3 +1,4 @@
+import 'package:consultant_app/views/BottomSheet/NewInbox.dart';
 import 'package:consultant_app/views/tiles/OrgTile.dart';
 import 'package:consultant_app/views/tiles/StatusTile.dart';
 import 'package:consultant_app/views/tiles/TagTile.dart';
@@ -111,8 +112,11 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              CustomText('New Inbox', 20, 'Poppins', kLightPrimaryColor,
-                  FontWeight.w600),
+            NewInbox(
+              child: CustomText('New Inbox', 20, 'Poppins', kLightPrimaryColor,
+                    FontWeight.w600),
+            )
+
             ],
           ),
         ),
