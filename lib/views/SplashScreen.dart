@@ -1,6 +1,7 @@
 import 'package:consultant_app/services/main_services.dart';
 import 'package:consultant_app/views/HomeScreen.dart';
 import 'package:flutter/material.dart';
+
 import '../controllers/hive_keys.dart';
 import '../utils/Constants.dart';
 import 'LoginScreen.dart';
@@ -48,12 +49,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     print(token);
-    print("empty${token.toString().isEmpty ? "true" : "false"}");
-    // print("test$token");
-    // print(isLoggedIn);
+    print(
+      "empty ${token.toString().isEmpty ? "true" : "false"}",
+    );
+    print(token);
+
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => token == "" ? LoginScreen() : HomeScreen()));
+        context,
+        MaterialPageRoute(
+          builder: (context) => token == null ? LoginScreen() : HomeScreen(),
+        ),
+      );
       //token == "" ? LoginScreen() : HomeScreen()
       // token!= null? HomeScreen():
     });
