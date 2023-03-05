@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/Constants.dart';
-import '../widgets/CustomText.dart';
+import '../../../utils/Constants.dart';
+import '../CustomText.dart';
+
 
 class TagTile extends StatelessWidget {
   const TagTile({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
-import '../controllers/constants.dart';
+import '../../controllers/constants.dart';
+
 class ApiServices {
 
   getData(){

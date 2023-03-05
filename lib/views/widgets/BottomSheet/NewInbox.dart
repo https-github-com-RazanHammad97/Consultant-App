@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../widgets/Button.dart';
+
 
 class NewInbox extends StatelessWidget {
   const NewInbox({Key? key,required this.child}) : super(key: key);

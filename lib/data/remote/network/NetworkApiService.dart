@@ -1,19 +1,24 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:http/http.dart' as http;
-
 import '../../../utils/Constants.dart';
+import '../../services/main_services.dart';
 import '../AppException.dart';
 import 'BaseApiService.dart';
 
 class NetworkApiService extends BaseApiService {
   static const id = 'NetworkApiService';
+  MainServices ms = MainServices();
   dynamic responseJson;
   @override
   Future getResponse(String url) async {
     try {
-      final response = await http.get(Uri.parse(baseUrl + url));
+      final response = await http.get(Uri.parse(baseUrl + url),
+        headers: {
+          HttpHeaders.authorizationHeader: '${ms.readFromHiveBox("token")}',
+        },
+      );
+
       responseJson = returnResponse(response);
       print('NetworkApiService - reem');
     } on SocketException {

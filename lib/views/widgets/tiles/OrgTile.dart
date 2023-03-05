@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/Constants.dart';
-import '../widgets/CustomText.dart';
-import '../widgets/TagList.dart';
+import '../../../utils/Constants.dart';
+import '../CustomText.dart';
+import '../TagList.dart';
+
+
 
 class OrgTile extends StatelessWidget {
   int selectedIndex = 0; //will highlight first item

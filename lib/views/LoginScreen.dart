@@ -11,7 +11,8 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kLightWhiteColor,
-      body: Stack(
+      body: SafeArea(
+        child: Stack(
         children: [
           SingleChildScrollView(
             child: Container(
@@ -42,6 +43,7 @@ class LoginScreen extends StatelessWidget {
                       child: Text(
                        "${authModel.authScreenTitle}",
                         style: TextStyle(
+                          color: Colors.white,
                           fontSize: 22,
                           fontFamily: 'Gulzar',
                         ),
@@ -68,7 +70,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ),)
     );
   }
 }

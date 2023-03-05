@@ -3,7 +3,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../controllers/hive_keys.dart';
+import '../../controllers/hive_keys.dart';
+
 
 class MainServices {
   var box = Hive.box(ApiKeys().hiveBoxName);

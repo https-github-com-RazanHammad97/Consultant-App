@@ -19,7 +19,7 @@ class customTextField extends StatelessWidget {
         decoration: InputDecoration(
             hintText: hintText,
             hintStyle: const TextStyle(
-                color: kHintGreyColor, fontSize: 12, fontFamily: 'Poppins'),
+                color: kHintGreyColor, fontSize: 16, fontFamily: 'Poppins'),
             border: InputBorder.none),
       ),
     );

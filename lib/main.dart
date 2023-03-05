@@ -1,12 +1,14 @@
-import 'package:consultant_app/services/main_services.dart';
+
 import 'package:consultant_app/views/DetailsScreen.dart';
 import 'package:consultant_app/views/HomeScreen.dart';
 import 'package:consultant_app/views/LoginScreen.dart';
 import 'package:consultant_app/views/SplashScreen.dart';
+import 'package:consultant_app/controllers/statuscontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 import 'controllers/hive_keys.dart';
+import 'package:provider/provider.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +16,14 @@ void main() async{
   await Hive.initFlutter(applicationDocDir.path);
   await Hive.openBox(ApiKeys().hiveBoxName);
 
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProviderStatus()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

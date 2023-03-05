@@ -1,7 +1,8 @@
-import 'package:consultant_app/repositories/Auth/auth_api.dart';
+
 import 'package:consultant_app/view_models/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../data/repositories/Auth/auth_api.dart';
 import '../../utils/Constants.dart';
 import 'Button.dart';
 import 'CustomText.dart';
@@ -28,7 +29,9 @@ class _signInFormState extends State<signInForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          SizedBox(height: 16,),
           customTextField(authModel.emailTFHintText),
+          SizedBox(height: 16,),
           customTextField(authModel.passTFHint),
           //customTextField('Confirm password'),
           const SizedBox(

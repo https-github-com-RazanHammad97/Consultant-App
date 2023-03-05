@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/Constants.dart';
-import '../widgets/CustomText.dart';
+import '../../../utils/Constants.dart';
+import '../CustomText.dart';
+
 
 class StatusTile extends StatelessWidget {
-  const StatusTile({Key? key}) : super(key: key);
-
+   StatusTile({Key? key, required this.mailsCount, required this.name, required this.color}) : super(key: key);
+  final int mailsCount;
+  final String name;
+  late  String color;
   @override
   Widget build(BuildContext context) {
+    final colorValue = int.parse(color.substring(2), radix: 16);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(22.0),
@@ -22,17 +26,17 @@ class StatusTile extends StatelessWidget {
           children: [
             Row(
               children: [
-                const CircleAvatar(
-                  backgroundColor: Colors.red,
+                 CircleAvatar(
+                  backgroundColor:Color(colorValue),
                   radius: 10,
                 ),
                 const Spacer(),
-                CustomText('9', 20.0, 'Poppins', kBlackColor, FontWeight.w600),
+                CustomText(mailsCount.toString(), 20.0, 'Poppins', kBlackColor, FontWeight.w600),
               ],
             ),
             const SizedBox(height: 14),
             CustomText(
-                'Inbox', 18.0, 'Poppins', kHintGreyColor, FontWeight.w600)
+                name, 18.0, 'Poppins', kHintGreyColor, FontWeight.w600)
           ],
         ),
       ),

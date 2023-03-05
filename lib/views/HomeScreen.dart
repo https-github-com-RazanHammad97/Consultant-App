@@ -1,18 +1,32 @@
-import 'package:consultant_app/views/BottomSheet/NewInbox.dart';
-import 'package:consultant_app/views/tiles/OrgTile.dart';
-import 'package:consultant_app/views/tiles/StatusTile.dart';
-import 'package:consultant_app/views/tiles/TagTile.dart';
+
+import 'package:consultant_app/controllers/statuscontroller.dart';
+import 'package:consultant_app/views/widgets/BottomSheet/NewInbox.dart';
 import 'package:consultant_app/views/widgets/CustomSearch.dart';
 import 'package:consultant_app/views/widgets/CustomText.dart';
+import 'package:consultant_app/views/widgets/tiles/OrgTile.dart';
+import 'package:consultant_app/views/widgets/tiles/StatusTile.dart';
+import 'package:consultant_app/views/widgets/tiles/TagTile.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/Constants.dart';
-
-class HomeScreen extends StatelessWidget {
+import 'package:provider/provider.dart';
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+    final myProvider = Provider.of<ProviderStatus>(context);
+    myProvider.getStatus();
     return Scaffold(
       backgroundColor: kLightWhiteColor,
       appBar: AppBar(
@@ -51,8 +65,9 @@ class HomeScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 childAspectRatio: 1.75,
               ),
-              itemBuilder: (context, i) => StatusTile(),
-              itemCount: 4,
+              itemBuilder: (context, i) => StatusTile(mailsCount:myProvider.temp[i].mailsCount , name:myProvider.temp[i].name,
+                color: myProvider.temp[i].color,),
+              itemCount:myProvider.temp.length,
             ),
             const SizedBox(height: 24),
             OrgTile(),

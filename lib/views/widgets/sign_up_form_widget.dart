@@ -1,9 +1,8 @@
-import 'package:consultant_app/controllers/usercontroler.dart';
-import 'package:consultant_app/repositories/Auth/auth_api.dart';
+
 import 'package:consultant_app/view_models/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../services/main_services.dart';
+import '../../data/repositories/Auth/auth_api.dart';
 import '../../utils/Constants.dart';
 import 'Button.dart';
 import 'CustomText.dart';
@@ -31,30 +30,32 @@ class _signUpFormState extends State<signUpForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(height: 16,),
             customTextField(
               authModel.emailTFHintText,
               controller: controller_email,
             ),
+            SizedBox(height: 8,),
             customTextField(
               authModel.passTFHint,
               controller: controller_pass,
             ),
+            SizedBox(height: 8,),
             customTextField(
               authModel.confirmPassTFHint,
               controller: controller_confirm_pass,
             ),
+            SizedBox(height: 8,),
             customTextField(
               authModel.userNameTFHint,
               controller: controller_userName,
             ),
             const SizedBox(
-              height: 40,
+              height: 15,
             ),
             Button(
               onPressed: () async {
-
-                await auth.register(controller_email!.text, controller_pass!.text,
-                    controller_userName!.text);
+                await auth.register(controller_email!.text, controller_pass!.text,controller_userName!.text);
                 if(mounted){
                   Navigator.of(context).pushNamed("/Home");
                 }

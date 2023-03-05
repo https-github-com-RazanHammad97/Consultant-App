@@ -39,7 +39,7 @@ class CustomTabBar extends StatelessWidget {
                 labelColor: Colors.white,
                 unselectedLabelColor: kPrimaryColor,
                 unselectedLabelStyle:
-                    const TextStyle(fontFamily: 'fonts/Poppins-SemiBold.ttf'),
+                    const TextStyle(fontFamily: 'fonts/Poppins-SemiBold.ttf',fontSize:16),
                 tabs: const [
                   Tab(
                     child: Text(
