@@ -22,6 +22,7 @@ class customTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
+
           prefixIcon: preIcon,
           suffixIcon: suffixIcon,
           icon: icon,
@@ -32,6 +33,7 @@ class customTextField extends StatelessWidget {
               color: kHintGreyColor, fontSize: 12, fontFamily: 'Poppins'),
           border: border,
         ),
+
       ),
     );
   }

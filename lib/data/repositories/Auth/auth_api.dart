@@ -1,10 +1,10 @@
-import 'package:consultant_app/repositories/Auth/auth_repository.dart';
-import 'package:consultant_app/services/main_services.dart';
-import 'package:hive/hive.dart';
-import '../../controllers/constants.dart';
-import '../../controllers/hive_keys.dart';
+
+import '../../../controllers/constants.dart';
+import '../../../controllers/hive_keys.dart';
 import '../../services/api_services.dart';
-import 'package:flutter_session_manager/flutter_session_manager.dart';
+import '../../services/main_services.dart';
+import 'auth_repository.dart';
+
 
 class AuthApi extends AuthRepository {
   ApiKeys ak = ApiKeys();

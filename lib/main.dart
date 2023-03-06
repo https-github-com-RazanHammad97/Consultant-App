@@ -1,22 +1,37 @@
+
 import 'package:consultant_app/repositories/Inbox/inbox_api.dart';
-import 'package:consultant_app/services/main_services.dart';
+
 import 'package:consultant_app/views/DetailsScreen.dart';
 import 'package:consultant_app/views/HomeScreen.dart';
 import 'package:consultant_app/views/LoginScreen.dart';
 import 'package:consultant_app/views/SplashScreen.dart';
+import 'package:consultant_app/controllers/statuscontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 import 'controllers/hive_keys.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:provider/provider.dart';
+
+
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   final applicationDocDir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(applicationDocDir.path);
   await Hive.openBox("myBox");
 
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProviderStatus()),
+      ],
+      child: MyApp(),
+    ),
+  );
+
   // await InboxApi().createInbox("ttt","ghghg",1,"kjkjk",(DateTime.now()).toString(),"hjhj",2,"","","");
-  runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {

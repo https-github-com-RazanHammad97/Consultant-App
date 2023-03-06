@@ -1,7 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:hive/hive.dart';
-import '../models/User.dart';
 import 'constants.dart';
 import 'package:http/http.dart' as http;
 class UserController {

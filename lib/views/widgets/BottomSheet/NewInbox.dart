@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../widgets/CustomText.dart';
-import '../widgets/customTextField.dart';
-import '../widgets/my_card.dart';
-import '../widgets/my_list_tile.dart';
-import '../widgets/my_text_button.dart';
-
+import '../my_text_button.dart';
+import '../CustomText.dart';
+import '../customTextField.dart';
+import '../my_card.dart';
+import '../my_list_tile.dart';
 
 class NewInbox extends StatelessWidget {
   const NewInbox({Key? key,required this.child}) : super(key: key);

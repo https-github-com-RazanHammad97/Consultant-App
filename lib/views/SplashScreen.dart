@@ -1,9 +1,9 @@
-import 'package:consultant_app/services/main_services.dart';
+
 import 'package:consultant_app/views/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import '../controllers/hive_keys.dart';
-import '../repositories/Auth/auth_api.dart';
+import '../data/services/main_services.dart';
 import '../utils/Constants.dart';
 import 'LoginScreen.dart';
 
@@ -39,6 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   //print(val);
 
+
   @override
   void initState() {
     getTokenValue();
@@ -56,11 +57,13 @@ class _SplashScreenState extends State<SplashScreen> {
     // print(token==null ? "null token" : "token isn't null");
     // print("test$token");
     // print(isLoggedIn);
+
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => token == null ? LoginScreen() : HomeScreen()));
       //token == "" ? LoginScreen() : HomeScreen()
       // token!= null? HomeScreen():
+
     });
     return Scaffold(
       body: Container(
@@ -82,6 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
               'ديوان رئيس الوزراء',
               style: TextStyle(
                 fontSize: 31,
+                color: Colors.white,
                 fontFamily: 'Gulzar',
               ),
             ),

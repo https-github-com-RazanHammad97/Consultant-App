@@ -1,15 +1,18 @@
-import 'package:consultant_app/controllers/hive_keys.dart';
-import 'package:consultant_app/services/main_services.dart';
-import 'package:consultant_app/views/BottomSheet/NewInbox.dart';
-import 'package:consultant_app/views/tiles/OrgTile.dart';
-import 'package:consultant_app/views/tiles/StatusTile.dart';
-import 'package:consultant_app/views/tiles/TagTile.dart';
+
+
+import 'package:consultant_app/controllers/statuscontroller.dart';
+import 'package:consultant_app/views/widgets/BottomSheet/NewInbox.dart';
 import 'package:consultant_app/views/widgets/CustomSearch.dart';
 import 'package:consultant_app/views/widgets/CustomText.dart';
+import 'package:consultant_app/views/widgets/tiles/OrgTile.dart';
+import 'package:consultant_app/views/widgets/tiles/StatusTile.dart';
+import 'package:consultant_app/views/widgets/tiles/TagTile.dart';
 import 'package:flutter/material.dart';
-
-import '../repositories/Auth/auth_api.dart';
+import '../data/repositories/Auth/auth_api.dart';
+import '../data/services/main_services.dart';
 import '../utils/Constants.dart';
+
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,6 +22,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+  @override
+
   bool isVisible = false;
   AuthApi auth = AuthApi();
 
@@ -29,7 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+
   Widget build(BuildContext context) {
+    final myProvider = Provider.of<ProviderStatus>(context);
+    myProvider.getStatus();
     return Scaffold(
       backgroundColor: kLightWhiteColor,
       appBar: AppBar(
@@ -94,8 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisCount: 2,
                 childAspectRatio: 1.75,
               ),
-              itemBuilder: (context, i) => StatusTile(),
-              itemCount: 4,
+              itemBuilder: (context, i) => StatusTile(mailsCount:myProvider.temp[i].mailsCount , name:myProvider.temp[i].name,
+                color: myProvider.temp[i].color,),
+              itemCount:myProvider.temp.length,
             ),
             const SizedBox(height: 24),
             OrgTile(),

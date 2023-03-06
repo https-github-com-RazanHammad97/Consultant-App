@@ -1,6 +1,6 @@
 import 'package:consultant_app/controllers/hive_keys.dart';
 import 'package:consultant_app/repositories/Inbox/inbox_repository.dart';
-import 'package:consultant_app/services/api_services.dart';
+import '../../data/services/api_services.dart';
 import 'package:intl/intl.dart';
 
 import '../../controllers/constants.dart';

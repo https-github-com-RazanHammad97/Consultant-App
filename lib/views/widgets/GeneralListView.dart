@@ -1,6 +1,7 @@
+import 'package:consultant_app/views/widgets/tiles/MessageTile.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../tiles/MessageTile.dart';
+
 
 class GeneralListView extends StatelessWidget {
   const GeneralListView({Key? key}) : super(key: key);

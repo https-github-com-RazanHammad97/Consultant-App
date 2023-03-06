@@ -1,4 +1,4 @@
-import '../../models/User.dart';
+
 
 abstract class AuthRepository {
   Future<String?> register(String email, String pass, String name);
