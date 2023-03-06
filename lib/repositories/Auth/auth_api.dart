@@ -12,21 +12,36 @@ class AuthApi extends AuthRepository {
   MainServices ms = MainServices();
 
   @override
-  login(String email, String pass) async {
-    //String message ="";
+  Future<String> login(String email, String pass) async {
+    String token="";
     String url = "$baseUrl" "/" "$loginEndPoint";
     Map data = {
       'email': email,
       'password': pass,
     };
-    var json =await service.postData(url, data);
+    var val =await service.postData(url, data);
+    print("val $val");
+    if(val.toString().contains("message")){
+      print("fail request login");
+      token = "";
+      ms.writeToHiveBox("token", token);
+    }
 
-      print ("login can be done and email, pass isn't empty");
+    else if  (val.toString().contains("token")){
+      print("print success request");
+      // print(val["token"]);
+      token= val["token"];
+      ms.writeToHiveBox("token", token);
+    }
+
+    return token;
+      //print (val);
       //message="Logged in Successfully";
-      print("test$json");
+      // print("login action response : $val");
+      // return val;
       //ms.writeToHiveBox(ak.token, json['token'].toString());
      // ms.writeToHiveBox(ak.createdDate, ms.getCurrentTime());
-    await SessionManager().set("token", json['token']);
+   // await SessionManager().set("token", json['token']);
        // print(message);
 
 
@@ -35,18 +50,33 @@ class AuthApi extends AuthRepository {
   }
 
   @override
-  Future<void> register(String email, String pass,  String name) async {
+  Future<String?> register(String email, String pass,  String name) async {
     String url = "$baseUrl" "/" "$registerEndpoint";
+    String? token;
     Map data = {
       'email': email,
       'password': pass,
       'password_confirmation': pass,
       'name': name
     };
-    var json = await service.postData(url, data);
-    print(json);
-    ms.writeToHiveBox(ak.token, json['token'].toString());
-    ms.writeToHiveBox(ak.createdDate, ms.getCurrentTime());
+    var val = await service.postData(url, data);
+
+    if(val.toString().contains("message")){
+      token = null;
+      ms.writeToHiveBox("token", token);
+    }
+
+    else if  (val.toString().contains("token")){
+      token= val["token"];
+      ms.writeToHiveBox("token", token);
+      print(token);
+    }
+
+    return token;
+    // print(json);
+    // return json["token"];
+    // ms.writeToHiveBox(ak.token, json['token'].toString());
+    // ms.writeToHiveBox(ak.createdDate, ms.getCurrentTime());
     // await SessionManager().set("token", json['token']);
     // print(ms.readFromHiveBox("token"));
     // ms.writeToHiveBox(ak.isLoggedInKey, true);
@@ -54,11 +84,14 @@ class AuthApi extends AuthRepository {
 
   }
 
+
+
   @override
   Future<void> logOut() async {
     String url = "$baseUrl" "/" "$logOutEndPoint";
      await service.authPostData(url);
-    ms.writeToHiveBox(ak.token, "");
+
+
    // await SessionManager().destroy();
   }
 }

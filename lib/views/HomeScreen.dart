@@ -1,3 +1,5 @@
+import 'package:consultant_app/controllers/hive_keys.dart';
+import 'package:consultant_app/services/main_services.dart';
 import 'package:consultant_app/views/BottomSheet/NewInbox.dart';
 import 'package:consultant_app/views/tiles/OrgTile.dart';
 import 'package:consultant_app/views/tiles/StatusTile.dart';
@@ -69,6 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: TextButton(onPressed: () {
                   auth.logOut();
+                  MainServices().saveToken("");
+                  print("after logout token ${MainServices().readFromHiveBox("token")}");
                   if(mounted){
                     Navigator.pushNamed(context, "/Login");
                   }

@@ -18,6 +18,7 @@ class signUpForm extends StatefulWidget {
 class _signUpFormState extends State<signUpForm> {
   AuthApi auth = AuthApi();
   AuthViewModel authModel = AuthViewModel();
+  MainServices ms = MainServices();
   TextEditingController? controller_email = TextEditingController();
   TextEditingController? controller_pass = TextEditingController();
   TextEditingController? controller_confirm_pass = TextEditingController();
@@ -53,11 +54,17 @@ class _signUpFormState extends State<signUpForm> {
             Button(
               onPressed: () async {
 
-                await auth.register(controller_email!.text, controller_pass!.text,
+             var token=   await auth.register(controller_email!.text, controller_pass!.text,
                     controller_userName!.text);
-                if(mounted){
-                  Navigator.of(context).pushNamed("/Home");
-                }
+             print(token);
+             // ms.saveToken(token!);
+              print("token value after sign up$token");
+             if(token!=null){
+               ms.saveToken(token);
+               if (mounted) {
+                 Navigator.pushNamed(context, "/Home");
+               }
+             }
 
               },
               title: authModel.signUpBtnText,
