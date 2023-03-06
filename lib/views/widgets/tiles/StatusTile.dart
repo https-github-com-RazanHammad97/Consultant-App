@@ -7,7 +7,7 @@ import '../CustomText.dart';
 
 class StatusTile extends StatelessWidget {
    StatusTile({Key? key, required this.mailsCount, required this.name, required this.color}) : super(key: key);
-  final int mailsCount;
+  final  String mailsCount;
   final String name;
   late  String color;
   @override

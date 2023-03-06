@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import '../../../controllers/allmail_controller.dart';
 import '../../../utils/Constants.dart';
 import '../CustomText.dart';
 import '../TagList.dart';
@@ -13,6 +14,8 @@ class OrgTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myProvider = Provider.of<ProviderMail>(context);
+    myProvider.getMails();
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(

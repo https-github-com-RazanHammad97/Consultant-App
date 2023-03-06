@@ -2,13 +2,15 @@
 
 class Inbox {
   final int id;
+ // final bool isSelected;
   final String name;
   final String color;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final int mailsCount;
+  final  String createdAt;
+  final  String updatedAt;
+  final  String mailsCount;
 
   Inbox({
+   // this.isSelected=false,
     required this.id,
     required this.name,
     required this.color,
@@ -22,11 +24,13 @@ class Inbox {
       id: json['id'],
       name: json['name'],
       color: json['color'],
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
-      mailsCount: int.parse(json['mails_count']),
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      mailsCount: json['mails_count'],
+      //isSelected: json['isSelected']
     );
   }
+
 }
 
 

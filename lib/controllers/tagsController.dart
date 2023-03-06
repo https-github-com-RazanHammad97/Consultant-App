@@ -2,17 +2,23 @@
 
 
 
+
+
+import 'dart:convert';
+
 import 'package:consultant_app/view_models/statusmode.dart';
 import 'package:flutter/cupertino.dart';
 import '../data/remote/network/NetworkApiService.dart';
+import '../view_models/tags_model.dart';
 
-class ProviderStatus extends ChangeNotifier {
+class ProviderTags extends ChangeNotifier {
   NetworkApiService networkApiService = NetworkApiService();
-  List<Inbox> temp = [];
+  List<Tag> temp = [];
   String previousData = "";
-  Future<List<Inbox>> getStatus() async {
-    var data = await networkApiService.getResponse(
-        'statuses?mail=false}');
+
+  Future<List<Tag>> getTags() async {
+    var data = await networkApiService.getResponse('tags');
+
     if (data.toString() == previousData) {
       // Data has not changed, don't print anything
       return temp;
@@ -22,27 +28,26 @@ class ProviderStatus extends ChangeNotifier {
 
     print(data);
 
-    temp.clear();
-    if (data.toString().contains("statuses")) {
-      for (var item in data["statuses"]) {
+    temp.clear(); // Clear the previous data
+    if (data.toString().contains("tags")) {
+      for (var item in data["tags"]) {
         temp.add(
-            Inbox(
-              id: item['id'],
+            Tag(
+              id: item['id'].toString(),
               name: item['name'],
-              color: item['color'],
               createdAt: item['created_at'],
               updatedAt: item['updated_at'],
-              mailsCount: item['mails_count'],
             )
         );
       }
     }
-    print(temp.length);
+
     notifyListeners();
     return temp;
   }
 
-  Future<Inbox> getSingleStatus(index) async {
+
+  Future<Inbox> getSingleTag(index) async {
     var data = await networkApiService.getResponse(
         'statuses/index?mail=false}');
     late Inbox selectedStatus;
@@ -60,5 +65,14 @@ class ProviderStatus extends ChangeNotifier {
     }
     return selectedStatus;
   }
+
+  void postSingleTag(Tag tag) async {
+    var tagJson = json.encode(tag.toJson());
+    var data = await networkApiService.postResponse('tags',
+        json.decode(tagJson)
+    );
+    notifyListeners();
+  }
+
 
 }

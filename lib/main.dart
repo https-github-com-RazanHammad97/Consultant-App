@@ -1,9 +1,12 @@
 
+import 'package:consultant_app/controllers/tagsController.dart';
 import 'package:consultant_app/views/DetailsScreen.dart';
 import 'package:consultant_app/views/HomeScreen.dart';
 import 'package:consultant_app/views/LoginScreen.dart';
 import 'package:consultant_app/views/SplashScreen.dart';
 import 'package:consultant_app/controllers/statuscontroller.dart';
+import 'package:consultant_app/views/status_screen.dart';
+import 'package:consultant_app/views/tags_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
@@ -20,6 +23,7 @@ void main() async{
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProviderStatus()),
+        ChangeNotifierProvider(create: (_) => ProviderTags()),
       ],
       child: MyApp(),
     ),
@@ -40,16 +44,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: DetailsScreen(),
-      initialRoute: '/',
-      routes: {
+      home:  TagScreen(),
+     /* routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) =>  SplashScreen(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/Home': (context) =>  HomeScreen(),
         '/Login': (context) =>  LoginScreen(),
         '/Details': (context) =>  DetailsScreen(),
-      },
+        '/Status': (context) =>   StatusScreen(),
+      },*/
     );
   }
 }
