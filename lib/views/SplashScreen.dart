@@ -1,7 +1,9 @@
 import 'package:consultant_app/services/main_services.dart';
 import 'package:consultant_app/views/HomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import '../controllers/hive_keys.dart';
+import '../repositories/Auth/auth_api.dart';
 import '../utils/Constants.dart';
 import 'LoginScreen.dart';
 
@@ -14,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool isLoggedIn = false;
-  dynamic token = "";
+  dynamic token;
 
   MainServices ms = MainServices();
   ApiKeys ak = ApiKeys();
@@ -28,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   //   });
 
   getTokenValue() async {
+    Box box = Hive.box("myBox");
     var val = await ms.readFromHiveBox("token");
     token = val;
   }
@@ -47,13 +50,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(token);
-    print("empty${token.toString().isEmpty ? "true" : "false"}");
+    // AuthApi().login("test67@test.net", "123456");
+    // AuthApi().register("test6lk;k7@test.net", "123456","123456");
+    print("splash screen token ${ms.readFromHiveBox("token")}"); // this built twice
+    // print(token==null ? "null token" : "token isn't null");
     // print("test$token");
     // print(isLoggedIn);
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => token == "" ? LoginScreen() : HomeScreen()));
+          context, MaterialPageRoute(builder: (context) => token == null ? LoginScreen() : HomeScreen()));
       //token == "" ? LoginScreen() : HomeScreen()
       // token!= null? HomeScreen():
     });
