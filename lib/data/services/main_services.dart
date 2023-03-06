@@ -7,7 +7,7 @@ import '../../controllers/hive_keys.dart';
 
 
 class MainServices {
-  var box = Hive.box(ApiKeys().hiveBoxName);
+
 
   DateTime getCurrentTime() {
     return DateTime.now();
@@ -17,22 +17,36 @@ class MainServices {
     WidgetsFlutterBinding.ensureInitialized();
     final applicationDocDir = await getApplicationDocumentsDirectory();
     await Hive.initFlutter(applicationDocDir.path);
-    await Hive.openBox(ApiKeys().hiveBoxName);
+    await Hive.openBox("myBox");
   }
 
   checkInternetConnection() {}
 
   writeToHiveBox(dynamic key, dynamic val) {
+    var box = Hive.box("myBox");
     box.put(key, val);
   }
 
   dynamic readFromHiveBox(dynamic key) {
+    var box = Hive.box("myBox");
     return box.get(key);
   }
 
   Future<bool> getLoggedInUserState() async {
-    bool val =  readFromHiveBox("isLoggedIn");
+    bool val = readFromHiveBox("loggedIn");
     //print(val);
     return val;
   }
+
+
+  saveToken(String token){
+    writeToHiveBox("token", token.toString());
+  }
+
+
+
+
+
+
+// Test our function
 }

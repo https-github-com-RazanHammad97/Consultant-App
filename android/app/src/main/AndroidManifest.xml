@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.consultant_app">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- Add this -->
+
+    <application
         android:label="consultant_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
@@ -32,5 +34,6 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
     </application>
 </manifest>

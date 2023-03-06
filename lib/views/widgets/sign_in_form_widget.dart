@@ -3,6 +3,7 @@ import 'package:consultant_app/view_models/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../data/repositories/Auth/auth_api.dart';
+import '../../data/services/main_services.dart';
 import '../../utils/Constants.dart';
 import 'Button.dart';
 import 'CustomText.dart';
@@ -15,8 +16,9 @@ class signInForm extends StatefulWidget {
 }
 
 class _signInFormState extends State<signInForm> {
+  late final token;
   AuthViewModel authModel = AuthViewModel();
-
+  MainServices ms = MainServices();
   AuthApi auth = AuthApi();
 
   TextEditingController emailController = TextEditingController();
@@ -24,15 +26,22 @@ class _signInFormState extends State<signInForm> {
   TextEditingController passController = TextEditingController();
 
   @override
+  void initState() {
+    emailController;
+    passController;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SizedBox(height: 16,),
-          customTextField(authModel.emailTFHintText),
-          SizedBox(height: 16,),
-          customTextField(authModel.passTFHint),
+
+          customTextField(authModel.emailTFHintText,controller: emailController,),
+          customTextField(authModel.passTFHint,controller: passController,),
+
           //customTextField('Confirm password'),
           const SizedBox(
             height: 40,
@@ -40,10 +49,20 @@ class _signInFormState extends State<signInForm> {
           Button(
             title: authModel.signInBtnText,
             onPressed: () async {
-              await auth.login(emailController.text, passController.text);
-              if (mounted) {
-                Navigator.pushNamed(context, "/Home");
+
+              print(passController.text);
+              print(emailController.text);
+           // token=  await auth.login("test67@test.net","123456");
+              token=  await auth.login(emailController.text,passController.text);
+             //ms.readFromHiveBox("token");
+            print(token);
+           ms.saveToken(token);
+              if(token!=""){
+                if (mounted) {
+                  Navigator.pushNamed(context, "/Home");
+                }
               }
+
             },
           ),
           const SizedBox(

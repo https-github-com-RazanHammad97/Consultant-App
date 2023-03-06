@@ -1,4 +1,5 @@
 
+
 import 'package:consultant_app/controllers/statuscontroller.dart';
 import 'package:consultant_app/views/widgets/BottomSheet/NewInbox.dart';
 import 'package:consultant_app/views/widgets/CustomSearch.dart';
@@ -7,9 +8,12 @@ import 'package:consultant_app/views/widgets/tiles/OrgTile.dart';
 import 'package:consultant_app/views/widgets/tiles/StatusTile.dart';
 import 'package:consultant_app/views/widgets/tiles/TagTile.dart';
 import 'package:flutter/material.dart';
-
+import '../data/repositories/Auth/auth_api.dart';
+import '../data/services/main_services.dart';
 import '../utils/Constants.dart';
+
 import 'package:provider/provider.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -19,11 +23,24 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+
   @override
   void initState() {
     super.initState();
   }
   @override
+
+  bool isVisible = false;
+  AuthApi auth = AuthApi();
+
+  showUserContainer() {
+    setState(() {
+      isVisible = !isVisible;
+    });
+  }
+
+  @override
+
   Widget build(BuildContext context) {
     final myProvider = Provider.of<ProviderStatus>(context);
     myProvider.getStatus();
@@ -35,20 +52,46 @@ class _HomeScreenState extends State<HomeScreen> {
           image: AssetImage('images/menu.png'),
         ),
         elevation: 0,
-        actions: const <Widget>[
+        actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 20, top: 10),
             child: CircleAvatar(
               backgroundColor: Colors.white,
               radius: 25,
-              child: CircleAvatar(
-                radius: 20.0,
-                backgroundImage: AssetImage('images/profile.png'),
-                // AssetImage('https://via.placeholder.com/150'),
-                backgroundColor: Colors.transparent,
+              child: TextButton(
+                onPressed: () {
+                  showUserContainer();
+                },
+                child: CircleAvatar(
+                  radius: 20.0,
+                  backgroundImage: AssetImage('images/profile.png'),
+                  // AssetImage('https://via.placeholder.com/150'),
+                  backgroundColor: Colors.transparent,
+                ),
               ),
             ),
           ),
+
+          Visibility(
+              visible: isVisible,
+              child: Container(
+                width: 200,height: 400,
+                // alignment: Alignment.topRight,
+                // padding: EdgeInsets.only(bottom: 500, left: 200),
+
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Colors.white,
+                ),
+                child: TextButton(onPressed: () {
+                  auth.logOut();
+                  MainServices().saveToken("");
+                  print("after logout token ${MainServices().readFromHiveBox("token")}");
+                  if(mounted){
+                    Navigator.pushNamed(context, "/Login");
+                  }
+                }, child: Text("Log Out")),
+              ))
         ],
       ),
       body: SingleChildScrollView(
@@ -127,11 +170,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 width: 8,
               ),
-            NewInbox(
-              child: CustomText('New Inbox', 20, 'Poppins', kLightPrimaryColor,
-                    FontWeight.w600),
-            )
-
+              NewInbox(
+                child: CustomText('New Inbox', 20, 'Poppins',
+                    kLightPrimaryColor, FontWeight.w600),
+              ),
             ],
           ),
         ),

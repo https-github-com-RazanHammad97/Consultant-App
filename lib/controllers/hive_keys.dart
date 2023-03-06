@@ -5,6 +5,6 @@ class ApiKeys {
   String email = "email";
   String roleName = "role";
   String hiveBoxName = "myBox";
-  String isLoggedInKey = "loggedIn";
-  bool? isLoggedInDefaultValue;
+   String isLoggedInKey = "loggedIn";
+  // bool? isLoggedInDefaultValue;
 }
