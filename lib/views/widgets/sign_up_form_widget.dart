@@ -63,7 +63,7 @@ class _signUpFormState extends State<signUpForm> {
                     controller_userName!.text);
              print(token);
              // ms.saveToken(token!);
-              print("token value after sign up$token");
+              print("Razan token value after sign up$token");
              if(token!=null){
                ms.saveToken(token);
                if (mounted) {

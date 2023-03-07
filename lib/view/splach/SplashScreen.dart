@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // AuthApi().login("test67@test.net", "123456");
     // AuthApi().register("test6lk;k7@test.net", "123456","123456");
     print(
-        "splash screen token ${ms.readFromHiveBox("token")}"); // this built twice
+        "Razan splash screen token ${ms.readFromHiveBox("token")}"); // this built twice
     // print(token==null ? "null token" : "token isn't null");
     // print("test$token");
     // print(isLoggedIn);
