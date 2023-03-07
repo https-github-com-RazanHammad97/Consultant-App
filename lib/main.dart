@@ -4,6 +4,7 @@ import 'package:consultant_app/view/details/DetailsVM.dart';
 import 'package:consultant_app/view/home/HomeScreen.dart';
 import 'package:consultant_app/view/home/HomeVM.dart';
 import 'package:consultant_app/view/splach/SplashScreen.dart';
+import 'package:consultant_app/views/status_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
@@ -25,7 +26,6 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ProviderStatus()),
         ChangeNotifierProvider(create: (_) => HomeVM()),
         ChangeNotifierProvider(create: (_) => DetailsVM()),
-
         // ChangeNotifierProvider(create: (_) => ProviderTags()),
       ],
       child: MyApp(),
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
+      initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => SplashScreen(),
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
         '/Home': (context) => HomeScreen(),
         '/Login': (context) => LoginScreen(),
         '/Details': (context) => DetailsScreen(),
-        // '/Status': (context) => StatusScreen(),
+        '/Status': (context) => StatusScreen(),
       },
     );
   }

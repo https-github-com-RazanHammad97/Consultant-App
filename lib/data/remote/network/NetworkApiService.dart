@@ -31,15 +31,24 @@ class NetworkApiService extends BaseApiService {
   }
 
   @override
-  Future postResponse(String url, Map<String, String> JsonBody) async {
+  Future postResponse(String url, Map<String, dynamic> JsonBody) async {
     dynamic responseJson;
     try {
       final response =
-          await http.post(Uri.parse(url), body: JsonBody, headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':
-            'Bearer ' + '95|UHroRXM9Ss28BK6IuzR5A4AHzrmT4n5g53HqSKH9',
-      });
+          //     await http.post(Uri.parse(url), body: JsonBody, headers: {
+          //   'Content-Type': 'application/json; charset=UTF-8',
+          //   'Authorization':
+          //       'Bearer ' + '95|UHroRXM9Ss28BK6IuzR5A4AHzrmT4n5g53HqSKH9',
+          // });
+
+          await http.post(
+        Uri.parse(url),
+        body: JsonBody,
+        headers: {
+          'Authorization':
+              'Bearer 573|HHLG7qE6OZckgq8H8mpt8FUPRYWFYxLH819hP0Gs',
+        },
+      );
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
