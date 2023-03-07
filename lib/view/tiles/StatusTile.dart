@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
+import 'package:consultant_app/model/status/StatusMail.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
 import '../widgets/CustomText.dart';
 
 class StatusTile extends StatelessWidget {
-  const StatusTile({Key? key}) : super(key: key);
+  StatusMail status;
+  StatusTile(this.status, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +23,18 @@ class StatusTile extends StatelessWidget {
           children: [
             Row(
               children: [
-                const CircleAvatar(
-                  backgroundColor: Colors.red,
+                CircleAvatar(
+                  backgroundColor: Color(int.parse(status.color!)),
                   radius: 10,
                 ),
                 const Spacer(),
-                CustomText('9', 20.0, 'Poppins', kBlackColor, FontWeight.w600),
+                CustomText(status.mailsCount!!, 20.0, 'Poppins', kBlackColor,
+                    FontWeight.w600),
               ],
             ),
             const SizedBox(height: 14),
             CustomText(
-                'Inbox', 18.0, 'Poppins', kHintGreyColor, FontWeight.w600)
+                status.name!, 18.0, 'Poppins', kHintGreyColor, FontWeight.w600)
           ],
         ),
       ),

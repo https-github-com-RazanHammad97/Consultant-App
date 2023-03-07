@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import '../../../utils/Constants.dart';
 import '../AppException.dart';
 import 'BaseApiService.dart';
 
@@ -13,7 +12,11 @@ class NetworkApiService extends BaseApiService {
   @override
   Future getResponse(String url) async {
     try {
-      final response = await http.get(Uri.parse(baseUrl + url));
+      final response = await http.get(Uri.parse(url), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization':
+            'Bearer ' + '95|UHroRXM9Ss28BK6IuzR5A4AHzrmT4n5g53HqSKH9',
+      });
       responseJson = returnResponse(response);
       print('NetworkApiService - reem');
     } on SocketException {
@@ -28,7 +31,11 @@ class NetworkApiService extends BaseApiService {
     dynamic responseJson;
     try {
       final response =
-          await http.post(Uri.parse(baseUrl + url), body: JsonBody);
+          await http.post(Uri.parse(url), body: JsonBody, headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization':
+            'Bearer ' + '95|UHroRXM9Ss28BK6IuzR5A4AHzrmT4n5g53HqSKH9',
+      });
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');

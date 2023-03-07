@@ -1,7 +1,7 @@
 import 'package:consultant_app/view/widgets/CustomTabBar.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/Constants.dart';
+import '../../utils/Constants.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

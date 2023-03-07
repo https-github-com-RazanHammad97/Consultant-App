@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-
-const String baseUrl = 'https://palmail.betweenltd.com/api/';
+import 'package:intl/intl.dart';
 
 const kPrimaryColor = Color(0xFF003AFC);
 const kLightPrimaryColor = Color(0xFF6589FF);
@@ -23,3 +22,20 @@ const kGradientColor = BoxDecoration(
     colors: [kPrimaryColor, kLightPrimaryColor],
   ),
 );
+String getDate(String date) {
+  var inputFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
+  var inputDate = inputFormat.parse(date); // <-- dd/MM 24H format
+
+  var outputFormat = DateFormat('MM/dd/yyyy');
+  var outputDate = outputFormat.format(inputDate);
+  return outputDate;
+}
+
+String getArchDate(String date) {
+  var inputFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+  var inputDate = inputFormat.parse(date); // <-- dd/MM 24H format
+
+  var outputFormat = DateFormat('MM/dd/yyyy');
+  var outputDate = outputFormat.format(inputDate);
+  return outputDate;
+}

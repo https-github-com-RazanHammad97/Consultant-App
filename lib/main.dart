@@ -1,8 +1,11 @@
-import 'package:consultant_app/view/DetailsScreen.dart';
-import 'package:consultant_app/view/HomeScreen.dart';
-import 'package:consultant_app/view/LoginScreen.dart';
-import 'package:consultant_app/view/SplashScreen.dart';
+import 'package:consultant_app/view/auth/LoginScreen.dart';
+import 'package:consultant_app/view/details/DetailsScreen.dart';
+import 'package:consultant_app/view/details/DetailsVM.dart';
+import 'package:consultant_app/view/home/HomeScreen.dart';
+import 'package:consultant_app/view/home/HomeVM.dart';
+import 'package:consultant_app/view/splach/SplashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,22 +16,30 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Pal Mail',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => HomeVM(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => DetailsVM(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Pal Mail',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: '/',
+        routes: {
+          // '/': (context) => ExpansionTileSample(),
+          '/': (context) => const SplashScreen(),
+          '/Login': (context) => const LoginScreen(),
+          '/Home': (context) => HomeScreen(),
+          '/Details': (context) => DetailsScreen(),
+        },
       ),
-      // home: DetailsScreen(),
-      initialRoute: '/',
-      routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => const SplashScreen(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
-        '/Home': (context) => const HomeScreen(),
-        '/Login': (context) => const LoginScreen(),
-        '/Details': (context) => const DetailsScreen(),
-      },
     );
   }
 }
