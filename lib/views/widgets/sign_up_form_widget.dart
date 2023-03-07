@@ -3,6 +3,7 @@ import 'package:consultant_app/view_models/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../data/repositories/Auth/auth_api.dart';
+import '../../data/services/main_services.dart';
 import '../../utils/Constants.dart';
 import 'Button.dart';
 import 'CustomText.dart';
@@ -17,6 +18,7 @@ class signUpForm extends StatefulWidget {
 class _signUpFormState extends State<signUpForm> {
   AuthApi auth = AuthApi();
   AuthViewModel authModel = AuthViewModel();
+  MainServices ms = MainServices();
   TextEditingController? controller_email = TextEditingController();
   TextEditingController? controller_pass = TextEditingController();
   TextEditingController? controller_confirm_pass = TextEditingController();
@@ -55,10 +57,20 @@ class _signUpFormState extends State<signUpForm> {
             ),
             Button(
               onPressed: () async {
-                await auth.register(controller_email!.text, controller_pass!.text,controller_userName!.text);
-                if(mounted){
-                  Navigator.of(context).pushNamed("/Home");
-                }
+
+
+             var token=   await auth.register(controller_email!.text, controller_pass!.text,
+                    controller_userName!.text);
+             print(token);
+             // ms.saveToken(token!);
+              print("token value after sign up$token");
+             if(token!=null){
+               ms.saveToken(token);
+               if (mounted) {
+                 Navigator.pushNamed(context, "/Home");
+               }
+             }
+
 
               },
               title: authModel.signUpBtnText,
