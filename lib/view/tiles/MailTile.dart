@@ -3,8 +3,8 @@ import 'package:consultant_app/view/details/DetailsScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
-import '../widgets/CustomText.dart';
-import '../widgets/TagList.dart';
+import '../../views/widgets/CustomText.dart';
+import '../../views/widgets/TagList.dart';
 
 class MailTile extends StatelessWidget {
   MailData mailData;

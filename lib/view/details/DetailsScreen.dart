@@ -1,13 +1,13 @@
 import 'package:consultant_app/model/mail/MailData.dart';
 import 'package:consultant_app/view/details/DetailsVM.dart';
-import 'package:consultant_app/view/widgets/BorderShape.dart';
-import 'package:consultant_app/view/widgets/CustomAppBar.dart';
-import 'package:consultant_app/view/widgets/CustomText.dart';
-import 'package:consultant_app/view/widgets/TagList.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
+import '../../views/widgets/BorderShape.dart';
+import '../../views/widgets/CustomAppBar.dart';
+import '../../views/widgets/CustomText.dart';
+import '../../views/widgets/TagList.dart';
 import '../tiles/ActivityTile.dart';
 
 class DetailsScreen extends StatelessWidget {

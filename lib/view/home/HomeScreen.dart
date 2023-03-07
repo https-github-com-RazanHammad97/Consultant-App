@@ -2,22 +2,41 @@ import 'package:consultant_app/model/mail/MailFilter.dart';
 import 'package:consultant_app/model/status/StatusMail.dart';
 import 'package:consultant_app/view/home/HomeVM.dart';
 import 'package:consultant_app/view/listView/TagList.dart';
-import 'package:consultant_app/view/tiles/StatusTile.dart';
-import 'package:consultant_app/view/widgets/CustomSearch.dart';
-import 'package:consultant_app/view/widgets/CustomText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
+import '../../data/repositories/Auth/auth_api.dart';
 import '../../model/category/Categories.dart';
 import '../../model/mail/MailData.dart';
 import '../../utils/Constants.dart';
+import '../../views/widgets/CustomSearch.dart';
+import '../../views/widgets/CustomText.dart';
+import '../../views/widgets/tiles/StatusTile.dart';
 import '../tiles/MailTile.dart';
 import '../widgets/LoadingWidget.dart';
 import '../widgets/MyErrorWidget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   List<MailFilter> data = <MailFilter>[];
+
+  @override
+  bool isVisible = false;
+  AuthApi auth = AuthApi();
+
+  showUserContainer() {
+    setState(() {
+      isVisible = !isVisible;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final HomeVM viewModel = HomeVM();

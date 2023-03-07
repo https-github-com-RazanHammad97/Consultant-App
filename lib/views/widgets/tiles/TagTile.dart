@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/mail/Tags.dart';
-import '../../utils/Constants.dart';
-import '../widgets/CustomText.dart';
+import '../../../model/mail/Tags.dart';
+import '../../../utils/Constants.dart';
+import '../CustomText.dart';
 
 class TagTile extends StatelessWidget {
   Tags tag;

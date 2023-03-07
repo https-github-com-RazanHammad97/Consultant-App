@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
-import '../home/HomeScreen.dart';
+import 'CustomText.dart';
 
 class Button extends StatelessWidget {
+  Button({required this.title, required this.onPressed});
+
+  String title;
+  Function() onPressed;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()))
-      },
+    return TextButton(
+      onPressed: onPressed,
       child: Container(
         // margin: const EdgeInsets.symmetric(horizontal: 50),
         padding: const EdgeInsets.only(top: 14, bottom: 14),
@@ -22,16 +24,9 @@ class Button extends StatelessWidget {
             colors: [kLightPrimaryColor, kPrimaryColor],
           ),
         ),
-        child: const Center(
-          child: Text(
-            "Login",
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600),
-          ),
-        ),
+        child: Center(
+            child: CustomText(
+                title, 20, 'Poppins', kLightPrimaryColor, FontWeight.w600)),
       ),
     );
   }

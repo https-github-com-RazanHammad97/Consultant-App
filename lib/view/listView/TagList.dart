@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../model/mail/Tags.dart';
-import '../tiles/TagTile.dart';
+import '../../views/widgets/tiles/TagTile.dart';
 
 class TagList extends StatelessWidget {
   List<Tags> tags;

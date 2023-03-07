@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
-import 'InputField.dart';
+import 'sign_in_form_widget.dart';
+import 'sign_up_form_widget.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class CustomTabBar extends StatelessWidget {
                 labelColor: Colors.white,
                 unselectedLabelColor: kPrimaryColor,
                 unselectedLabelStyle:
-                    const TextStyle(fontFamily: 'fonts/Poppins-SemiBold.ttf'),
+                    const TextStyle(fontFamily: 'fonts/Poppins-SemiBold.ttf',fontSize:16),
                 tabs: const [
                   Tab(
                     child: Text(
@@ -60,8 +61,8 @@ class CustomTabBar extends StatelessWidget {
                 // controller: _tabController,
                 children: [
                   // first tab bar view widget
-                  InputField(),
-                  InputField(),
+                  signInForm(),
+                  signUpForm(),
                 ],
               ),
             ),

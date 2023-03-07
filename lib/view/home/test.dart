@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
 import '../../model/mail/Tags.dart';
-import '../tiles/TagTile.dart';
+import '../../views/widgets/tiles/TagTile.dart';
 import '../widgets/LoadingWidget.dart';
 import '../widgets/MyErrorWidget.dart';
 import 'HomeVM.dart';

@@ -8,7 +8,7 @@ class CustomText extends StatelessWidget {
   Color color;
   FontWeight fontWeight;
   CustomText(
-      this.text, this.size, this.fontFamily, this.color, this.fontWeight);
+      this.text, this.size, this.fontFamily, this.color, this.fontWeight,);
 
   @override
   Widget build(BuildContext context) {

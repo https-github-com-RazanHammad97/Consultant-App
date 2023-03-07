@@ -1,13 +1,12 @@
 import 'package:consultant_app/model/status/StatusMail.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/Constants.dart';
-import '../widgets/CustomText.dart';
+import '../../../utils/Constants.dart';
+import '../CustomText.dart';
 
 class StatusTile extends StatelessWidget {
+  StatusTile(this.status);
   StatusMail status;
-  StatusTile(this.status, {Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Card(

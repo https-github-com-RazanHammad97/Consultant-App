@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/Constants.dart';
-import '../widgets/BorderShape.dart';
-import '../widgets/CustomText.dart';
+import '../../../utils/Constants.dart';
+import '../BorderShape.dart';
+import '../CustomText.dart';
+
+
 
 class MessageTile extends StatelessWidget {
   const MessageTile({Key? key}) : super(key: key);
