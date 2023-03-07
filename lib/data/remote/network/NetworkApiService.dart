@@ -15,11 +15,13 @@ class NetworkApiService extends BaseApiService {
     try {
       final response = await http.get(Uri.parse(baseUrl + url),
         headers: {
-          HttpHeaders.authorizationHeader: '${ms.readFromHiveBox("token")}',
+         'Authorization': 'Bearer 573|HHLG7qE6OZckgq8H8mpt8FUPRYWFYxLH819hP0Gs',
         },
       );
 
-      responseJson = returnResponse(response);
+      print("${response.body}");
+
+     responseJson = returnResponse(response);
       print('NetworkApiService - reem');
     } on SocketException {
       print('${id}No Internet Connection');
@@ -29,11 +31,15 @@ class NetworkApiService extends BaseApiService {
   }
 
   @override
-  Future postResponse(String url, Map<String, String> JsonBody) async {
+  Future postResponse(String url, Map<String,dynamic> JsonBody) async {
     dynamic responseJson;
     try {
       final response =
-          await http.post(Uri.parse(baseUrl + url), body: JsonBody);
+          await http.post(Uri.parse(baseUrl + url), body: JsonBody,
+            headers: {
+              'Authorization': 'Bearer 573|HHLG7qE6OZckgq8H8mpt8FUPRYWFYxLH819hP0Gs',
+            },
+          );
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
