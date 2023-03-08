@@ -4,8 +4,7 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
+    return  Drawer(
 
         child: ListView(
           padding: EdgeInsets.zero,
@@ -17,17 +16,25 @@ class MyDrawer extends StatelessWidget {
               child: Text('Admin CRUD'),
             ),
             ListTile(
-              title: const Text('Create New User'),
+              title: const Text('View All Users'),
               onTap: () {
 
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: const Text('Update Existing User'),
+              title: const Text('Create New User'),
               onTap: () {
 
                 Navigator.pop(context);
+                Navigator.pushNamed(context,"/Admin/CreateUser");
+              },
+            ),
+            ListTile(
+              title: const Text('Update Existing User'),
+              onTap: () {
+                Navigator.pop(context);
+                // Navigator.pushNamed(context,"/Login");
               },
             ),
             ListTile(
@@ -39,7 +46,6 @@ class MyDrawer extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }

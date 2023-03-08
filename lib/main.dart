@@ -1,3 +1,5 @@
+import 'package:consultant_app/repositories/Admin/Users/all_users.dart';
+import 'package:consultant_app/repositories/Admin/Users/create_user.dart';
 import 'package:consultant_app/view/auth/LoginScreen.dart';
 import 'package:consultant_app/view/details/DetailsScreen.dart';
 import 'package:consultant_app/view/details/DetailsVM.dart';
@@ -72,6 +74,8 @@ class MyApp extends StatelessWidget {
         '/Login': (context) => LoginScreen(),
         '/Details': (context) => DetailsScreen(),
         '/Status': (context) => StatusScreen(),
+        '/Admin/CreateUser':(context) => CreateUser(),
+        '/Admin/Users':(context)=>AllUsers(),
       },
     );
   }

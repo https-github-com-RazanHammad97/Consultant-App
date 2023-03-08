@@ -45,41 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final HomeVM viewModel = HomeVM();
     return Scaffold(
       key: scaffoldKey,
-      drawer: Drawer(
-
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Admin CRUD'),
-            ),
-            ListTile(
-              title: const Text('Create New User'),
-              onTap: () {
-
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Update Existing User'),
-              onTap: () {
-
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Delete Existing User'),
-              onTap: () {
-
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: MyDrawer(),
       backgroundColor: kLightWhiteColor,
       appBar: AppBar(
         leading: IconButton(
