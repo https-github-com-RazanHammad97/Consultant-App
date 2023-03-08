@@ -11,6 +11,7 @@ import '../../data/services/main_services.dart';
 import '../../model/category/Categories.dart';
 import '../../model/mail/MailData.dart';
 import '../../utils/Constants.dart';
+import '../../views/widgets/BottomSheet/NewInbox.dart';
 import '../../views/widgets/CustomSearch.dart';
 import '../../views/widgets/CustomText.dart';
 import '../../views/widgets/my_drawer_widget.dart';
@@ -206,8 +207,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 width: 8,
               ),
-              CustomText('New Inbox', 20, 'Poppins', kLightPrimaryColor,
-                  FontWeight.w600),
+              NewInbox(
+                child: CustomText('New Inbox', 20, 'Poppins',
+                    kLightPrimaryColor, FontWeight.w600),
+              ),
             ],
           ),
         ),

@@ -15,6 +15,7 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 
 import 'controllers/statuscontroller.dart';
+import 'controllers/tagsController.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ProviderStatus()),
         ChangeNotifierProvider(create: (_) => HomeVM()),
         ChangeNotifierProvider(create: (_) => DetailsVM()),
-        // ChangeNotifierProvider(create: (_) => ProviderTags()),
+        ChangeNotifierProvider(create: (_) => ProviderTags()),
       ],
       child: MyApp(),
     ),

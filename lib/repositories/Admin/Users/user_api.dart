@@ -2,10 +2,15 @@ import '../../../controllers/constants.dart';
 import '../../../data/services/api_services.dart';
 
 class UserApi {
-  getAllUsers(){}
+  ApiServices service = ApiServices();
+  getAllUsers(){
+    final String url = "$baseUrl" "/" "$createNewUser";
+  var json =service.getData(url);
+  return json;
+  }
 
   createNewUSer(String email, String password, String passwordConfirm,String name) async{
-    ApiServices service = ApiServices();
+
       Map data ={
        "name":name,
         "email":email,
@@ -18,5 +23,9 @@ class UserApi {
         print ("Razan Response $json");
         return json;
       }
+    }
+
+    deleteUser(int id){
+
     }
   }
