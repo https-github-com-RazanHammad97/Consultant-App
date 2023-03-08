@@ -18,9 +18,11 @@ class ActivityTile extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 18.0,
-                  backgroundImage: AssetImage('images/profile.png'),
+                  backgroundImage: NetworkImage(activities.user!.image != null
+                      ? activities.user!.image!
+                      : 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
                   backgroundColor: Colors.transparent,
                 ),
                 const SizedBox(
@@ -40,7 +42,7 @@ class ActivityTile extends StatelessWidget {
                           CustomText(
                               activities.sendDate != null
                                   ? getDate(activities.sendDate!)
-                                  : 'Today, 11:00 AM',
+                                  : getDate(activities.createdAt!),
                               12,
                               'Poppins',
                               kHintGreyColor,

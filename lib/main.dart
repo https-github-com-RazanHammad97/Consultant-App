@@ -19,7 +19,7 @@ void main() async {
   final applicationDocDir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(applicationDocDir.path);
   await Hive.openBox("myBox");
-
+  //
   runApp(
     MultiProvider(
       providers: [

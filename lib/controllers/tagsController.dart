@@ -1,13 +1,8 @@
-
-
-
-
-
-
 import 'dart:convert';
 
 import 'package:consultant_app/view_models/statusmode.dart';
 import 'package:flutter/cupertino.dart';
+
 import '../data/remote/network/NetworkApiService.dart';
 import '../view_models/tags_model.dart';
 
@@ -31,14 +26,12 @@ class ProviderTags extends ChangeNotifier {
     temp.clear(); // Clear the previous data
     if (data.toString().contains("tags")) {
       for (var item in data["tags"]) {
-        temp.add(
-            Tag(
-              id: item['id'].toString(),
-              name: item['name'],
-              createdAt: item['created_at'],
-              updatedAt: item['updated_at'],
-            )
-        );
+        temp.add(Tag(
+          id: item['id'].toString(),
+          name: item['name'],
+          createdAt: item['created_at'],
+          updatedAt: item['updated_at'],
+        ));
       }
     }
 
@@ -46,21 +39,20 @@ class ProviderTags extends ChangeNotifier {
     return temp;
   }
 
-
   Future<Inbox> getSingleTag(index) async {
-    var data = await networkApiService.getResponse(
-        'statuses/index?mail=false}');
+    var data =
+        await networkApiService.getResponse('statuses/index?mail=false}');
     late Inbox selectedStatus;
     print(data);
     if (data.toString().contains("statuses")) {
       var item = data;
-      selectedStatus = Inbox(id: item['id'],
+      selectedStatus = Inbox(
+        id: item['id'],
         name: item['name'],
         color: item['color'],
         createdAt: item['created_at'],
         updatedAt: item['updated_at'],
         mailsCount: item['mails_count'],
-
       );
     }
     return selectedStatus;
@@ -68,11 +60,8 @@ class ProviderTags extends ChangeNotifier {
 
   void postSingleTag(Tag tag) async {
     var tagJson = json.encode(tag.toJson());
-    var data = await networkApiService.postResponse('tags',
-        json.decode(tagJson)
-    );
+    var data =
+        await networkApiService.postResponse('tags', json.decode(tagJson));
     notifyListeners();
   }
-
-
 }

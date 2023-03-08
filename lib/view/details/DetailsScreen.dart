@@ -1,5 +1,4 @@
 import 'package:consultant_app/model/mail/MailData.dart';
-import 'package:consultant_app/view/details/DetailsVM.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
@@ -18,9 +17,6 @@ class DetailsScreen extends StatelessWidget {
     MailData mailData = ModalRoute.of(context)!.settings.arguments as MailData;
     print('index detail $mailData');
 
-    // final viewModel = Provider.of<DetailsVM>(context);
-    final DetailsVM viewModel = DetailsVM();
-
     return Scaffold(
       backgroundColor: kLightWhiteColor,
       body: SafeArea(
@@ -28,24 +24,6 @@ class DetailsScreen extends StatelessWidget {
           children: [
             CustomAppBar('Details'),
             _detailWidget(mailData),
-            // ChangeNotifierProvider(
-            //       create: (BuildContext context) => viewModel,
-            //       child: Consumer<DetailsVM>(builder: (context, viewModel, _) {
-            //         switch (viewModel.details.status) {
-            //           case Status.LOADING:
-            //             print("details :: LOADING");
-            //             return LoadingWidget();
-            //           case Status.ERROR:
-            //             print("details :: ERROR ");
-            //             return MyErrorWidget(viewModel.details.message ?? "NA");
-            //           case Status.COMPLETED:
-            //             print("details :: COMPLETED");
-            //             return _detailWidget(mailData);
-            //           default:
-            //         }
-            //         return _detailWidget(mailData);
-            //       }),
-            //     )
           ],
         ),
       ),
@@ -122,14 +100,14 @@ class _detailWidget extends StatelessWidget {
                                       //     CrossAxisAlignment.start,
                                       children: [
                                         CustomText(
-                                            'data.sender!.category!.name!',
+                                            data.sender!.category!.name!,
                                             12,
                                             'Poppins',
                                             kHintGreyColor,
                                             FontWeight.w400),
                                         const Spacer(),
                                         CustomText(
-                                            getArchDate(data.archiveDate!!),
+                                            getArchDate(data.archiveDate!),
                                             12,
                                             'Poppins',
                                             kHintGreyColor,
@@ -255,6 +233,36 @@ class _detailWidget extends StatelessWidget {
                   ),
                   Colors.white),
             ),
+            BorderShape(
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 15, right: 17, top: 12, bottom: 12),
+                  child: Row(
+                    children: [
+                      const Image(image: AssetImage('images/status.png')),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color(int.parse(data.status!.color!)),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(22),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 5, bottom: 5, left: 13, right: 13),
+                          child: CustomText(data.status!.name!, 16, 'Poppins',
+                              kBlackColor, FontWeight.w600),
+                        ),
+                      ),
+                      Spacer(),
+                      const Image(image: AssetImage('images/arrow_right.png')),
+                    ],
+                  ),
+                ),
+                Colors.white),
             Theme(
               data:
                   Theme.of(context).copyWith(dividerColor: Colors.transparent),
@@ -270,7 +278,7 @@ class _detailWidget extends StatelessWidget {
                       return ActivityTile(data.activities![index]);
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(
+                      return const SizedBox(
                         height: 7,
                       );
                     },
@@ -284,21 +292,33 @@ class _detailWidget extends StatelessWidget {
             BorderShape(
                 Padding(
                   padding: const EdgeInsets.only(
-                      right: 13, top: 19, bottom: 19, left: 16),
+                      right: 13, top: 8, bottom: 8, left: 16),
                   child: Row(
-                    children: [
-                      const CircleAvatar(
+                    children: const [
+                      CircleAvatar(
                         radius: 12.0,
                         backgroundImage: AssetImage('images/profile.png'),
                         backgroundColor: Colors.transparent,
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 9,
                       ),
-                      CustomText('Add new Activity …', 14, 'Poppins',
-                          kLightBlackColor, FontWeight.w400),
-                      const Spacer(),
-                      const Image(image: AssetImage('images/send.png')),
+                      Expanded(
+                        flex: 1,
+                        child: TextField(
+                          // style: Theme.of(context).textTheme.bodySmall,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Add new Activity …',
+                            hintStyle: TextStyle(
+                                color: kLightBlackColor,
+                                fontSize: 14,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ),
+                      Image(image: AssetImage('images/send.png')),
                     ],
                   ),
                 ),
