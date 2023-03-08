@@ -2,7 +2,6 @@
 
 class Inbox {
   final int id;
- // final bool isSelected;
   final String name;
   final String color;
   final  String createdAt;

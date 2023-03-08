@@ -15,7 +15,7 @@ class NetworkApiService extends BaseApiService {
     try {
       final response = await http.get(Uri.parse(baseUrl + url),
         headers: {
-         'Authorization': 'Bearer 573|HHLG7qE6OZckgq8H8mpt8FUPRYWFYxLH819hP0Gs',
+         'Authorization': 'Bearer 986|ICChxgI8ROdtlaHrv0toVd8D0dgKFOxlopzzHYyN',
         },
       );
 
