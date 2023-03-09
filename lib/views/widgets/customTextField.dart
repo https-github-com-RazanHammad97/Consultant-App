@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../utils/Constants.dart';
 
@@ -9,31 +9,43 @@ class customTextField extends StatelessWidget {
   Icon? icon;
   Icon? preIcon;
   Icon? suffixIcon;
+  bool? obsecure;
   InputBorder? border;
-
   //double? fontSize; // add font size and font weight;
-  customTextField(this.hintText,{this.controller, this.icon, super.key,this.border=InputBorder.none,this.preIcon,this.suffixIcon});
+  customTextField(
+    this.hintText,
+    this.obsecure, {
+    this.controller,
+    super.key,
+    this.preIcon,
+    this.suffixIcon,
+    this.border,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 262,
+      height: 49.h,
       decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: kGreyColor))),
+        border: Border(
+          bottom: BorderSide(color: kGreyColor),
+        ),
+      ),
       child: TextField(
+        obscureText: obsecure!,
         controller: controller,
         decoration: InputDecoration(
-
           prefixIcon: preIcon,
           suffixIcon: suffixIcon,
           icon: icon,
-          contentPadding: EdgeInsets.all(0.0),
-          hintText: hintText,
+          contentPadding: const EdgeInsets.all(0.0),
+          // hintText: hintText,
+          label: Text('  $hintText'),
           hintStyle: const TextStyle(
-
               color: kHintGreyColor, fontSize: 12, fontFamily: 'Poppins'),
           border: border,
         ),
-
       ),
     );
   }

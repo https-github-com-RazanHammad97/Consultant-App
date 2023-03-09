@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
-void main() async{
+void main() async {
   await Hive.initFlutter();
   await Hive.openBox("razan");
-  runApp(MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key})
+      : super(
+          key: key,
+        );
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -18,10 +22,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late final Box box;
 
-  _addDataToHive(){
-    box.put("name","razan");
-    box.put("age",25);
+  _addDataToHive() {
+    box.put("name", "razan");
+    box.put("age", 25);
   }
+
   @override
   void initState() {
     box = Hive.box("razan");
@@ -34,6 +39,7 @@ class _MyAppState extends State<MyApp> {
     Hive.close();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     print(box.get("name"));

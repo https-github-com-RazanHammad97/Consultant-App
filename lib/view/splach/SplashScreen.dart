@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 
 import '../../controllers/hive_keys.dart';
 import '../../data/services/main_services.dart';
-import '../../utils/Constants.dart';
 import '../auth/LoginScreen.dart';
-import '../home/HomeScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,74 +21,61 @@ class _SplashScreenState extends State<SplashScreen> {
   MainServices ms = MainServices();
   ApiKeys ak = ApiKeys();
 
-  // getLoggedInState() async {
-  //   await ms.getLoggedInUserState().then((value) {
-  //     print("val:$value");
-  //     setState(() {
-  //       isLoggedIn = value!;
-  //     });
-  //   });
-
   getTokenValue() async {
     Box box = Hive.box("myBox");
     var val = await ms.readFromHiveBox("token");
     token = val;
   }
 
-  //token=val
-
-  //print(val);
-
   @override
   void initState() {
     getTokenValue();
-    //print(token);
 
-    // getLoggedInState();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // AuthApi().login("test67@test.net", "123456");
-    // AuthApi().register("test6lk;k7@test.net", "123456","123456");
-    print(
-        "splash screen token ${ms.readFromHiveBox("token")}"); // this built twice
-    // print(token==null ? "null token" : "token isn't null");
-    // print("test$token");
-    // print(isLoggedIn);
-
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.push(
+    // print(
+    //     "splash screen token ${ms.readFromHiveBox("token")}"); // this built twice
+    Future.delayed(
+      const Duration(seconds: 5),
+      () {
+        Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  token == null ? LoginScreen() : HomeScreen()));
-      //token == "" ? LoginScreen() : HomeScreen()
-      // token!= null? HomeScreen():
-    });
+            builder: (context) => token == null ? LoginScreen() : LoginScreen(),
+          ),
+        );
+        //token == "" ? LoginScreen() : HomeScreen()
+        // token!= null? HomeScreen():
+      },
+    );
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [kPrimaryColor, kLightPrimaryColor],
+            colors: [
+              Color(0xFF579BB1),
+              Color(0xFF152238),
+            ],
           ),
         ),
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Image(
-              image: AssetImage('images/logo.png'),
+          children: [
+            const Image(
+              image: AssetImage('assets/images/logo.png'),
             ),
             Text(
-              'ديوان رئيس الوزراء',
-              style: TextStyle(
-                fontSize: 31,
-                color: Colors.white,
-                fontFamily: 'Gulzar',
+              'Complaints App',
+              style: GoogleFonts.caveat(
+                fontSize: 50.sp,
+                color: const Color(0xFFFFF1DC),
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
