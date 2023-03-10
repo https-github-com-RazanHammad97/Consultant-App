@@ -32,22 +32,34 @@ class NetworkApiService extends BaseApiService {
   }
 
   @override
+  Future putResponse(String url, Map<String, dynamic> jsonBody) async {
+    dynamic responseJson;
+    try {
+      final response = await http.put(
+        Uri.parse(url),
+        body: jsonBody,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ' + '${ms.readFromHiveBox("token")}',
+        },
+      );
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet Connection');
+    }
+    return responseJson;
+  }
+
+  @override
   Future postResponse(String url, Map<String, dynamic> JsonBody) async {
     dynamic responseJson;
     try {
-      final response =
-          //     await http.post(Uri.parse(url), body: JsonBody, headers: {
-          //   'Content-Type': 'application/json; charset=UTF-8',
-          //   'Authorization':
-          //       'Bearer ' + '95|UHroRXM9Ss28BK6IuzR5A4AHzrmT4n5g53HqSKH9',
-          // });
-
-          await http.post(
+      final response = await http.post(
         Uri.parse(url),
         body: JsonBody,
         headers: {
-          'Authorization':
-              'Bearer 573|HHLG7qE6OZckgq8H8mpt8FUPRYWFYxLH819hP0Gs',
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ' + '${ms.readFromHiveBox("token")}',
         },
       );
       responseJson = returnResponse(response);
