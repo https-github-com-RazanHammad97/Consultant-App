@@ -3,6 +3,7 @@ import 'package:consultant_app/repositories/Admin/Users/create_user.dart';
 import 'package:consultant_app/controllers/categoriy_contoller.dart';
 import 'package:consultant_app/views/categoriy_screen.dart';
 import 'package:consultant_app/view/auth/LoginScreen.dart';
+import 'package:consultant_app/view/status/status_screen.dart';
 import 'package:consultant_app/view/details/DetailsScreen.dart';
 import 'package:consultant_app/view/details/DetailsVM.dart';
 import 'package:consultant_app/view/home/HomeScreen.dart';
