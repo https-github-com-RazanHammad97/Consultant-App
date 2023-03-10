@@ -19,6 +19,7 @@ class NetworkApiService extends BaseApiService {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer ${ms.readFromHiveBox("token")}',
+
         },
       );
       responseJson = returnResponse(response);

@@ -1,11 +1,12 @@
 import 'dart:convert';
-
 import 'package:consultant_app/data/remote/network/ApiEndPoints.dart';
+import 'package:consultant_app/data/remote/network/NetworkApiService.dart';
 import 'package:consultant_app/model/status/statusmode.dart';
+import 'package:consultant_app/model/tags/tags_model.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../data/remote/network/NetworkApiService.dart';
-import '../../model/tags/tags_model.dart';
+
+
 
 class ProviderTags extends ChangeNotifier {
   NetworkApiService networkApiService = NetworkApiService();
