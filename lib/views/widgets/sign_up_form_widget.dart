@@ -1,7 +1,7 @@
-
 import 'package:consultant_app/view_models/auth_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../data/repositories/Auth/auth_api.dart';
 import '../../data/services/main_services.dart';
 import '../../utils/Constants.dart';
@@ -24,7 +24,6 @@ class _signUpFormState extends State<signUpForm> {
   TextEditingController? controller_confirm_pass = TextEditingController();
   TextEditingController? controller_userName = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(builder: (BuildContext context, snapshot) {
@@ -32,46 +31,59 @@ class _signUpFormState extends State<signUpForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 16,),
-            customTextField(
-              authModel.emailTFHintText,
-              controller: controller_email,
+            SizedBox(
+              height: 150.h,
             ),
-            SizedBox(height: 8,),
-            customTextField(
-              authModel.passTFHint,
-              controller: controller_pass,
-            ),
-            SizedBox(height: 8,),
-            customTextField(
-              authModel.confirmPassTFHint,
-              controller: controller_confirm_pass,
-            ),
-            SizedBox(height: 8,),
             customTextField(
               authModel.userNameTFHint,
+              false,
+              preIcon: Icon(Icons.edit_outlined),
               controller: controller_userName,
             ),
             const SizedBox(
               height: 15,
             ),
+            customTextField(
+              authModel.emailTFHintText,
+              false,
+              preIcon: const Icon(Icons.email_outlined),
+              controller: controller_email,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            customTextField(
+              authModel.passTFHint,
+              true,
+              preIcon: const Icon(Icons.lock_outline),
+              controller: controller_pass,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            customTextField(
+              authModel.confirmPassTFHint,
+              true,
+              preIcon: const Icon(Icons.lock_outline),
+              controller: controller_confirm_pass,
+            ),
+            SizedBox(
+              height: 30.h,
+            ),
+
             Button(
               onPressed: () async {
-
-
-             var token=   await auth.register(controller_email!.text, controller_pass!.text,
-                    controller_userName!.text);
-             print(token);
-             // ms.saveToken(token!);
-              print("token value after sign up$token");
-             if(token!=null){
-               ms.saveToken(token);
-               if (mounted) {
-                 Navigator.pushNamed(context, "/Home");
-               }
-             }
-
-
+                var token = await auth.register(controller_email!.text,
+                    controller_pass!.text, controller_userName!.text);
+                print(token);
+                // ms.saveToken(token!);
+                print("token value after sign up$token");
+                if (token != null) {
+                  ms.saveToken(token);
+                  if (mounted) {
+                    Navigator.pushNamed(context, "/Home");
+                  }
+                }
               },
               title: authModel.signUpBtnText,
             ),
@@ -90,11 +102,42 @@ class _signUpFormState extends State<signUpForm> {
             //     return LoginScreen();
             //   }
             // },);
-
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 15.h,
             ),
-            CustomText(authModel.orText, 14, 'Poppins', kHintGreyColor, FontWeight.w400),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: 25.w,
+                      right: 25.w,
+                    ),
+                    child: const Divider(
+                      thickness: 1.4,
+                    ),
+                  ),
+                ),
+                CustomText(
+                  authModel.orText,
+                  14,
+                  'Poppins',
+                  kHintGreyColor,
+                  FontWeight.w400,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      right: 25.w,
+                      left: 25.w,
+                    ),
+                    child: const Divider(
+                      thickness: 1.4,
+                    ),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(
               height: 20,
             ),

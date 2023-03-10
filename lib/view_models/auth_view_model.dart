@@ -1,10 +1,10 @@
 class AuthViewModel {
-final String authScreenTitle = "ديوان رئيس الوزراء";
-final String emailTFHintText = "Enter your Email";
-final String passTFHint = "Enter your Password";
-final String confirmPassTFHint = "Confirm your Password";
-final String userNameTFHint = "Enter your UserName";
-final String signInBtnText = "Sign In";
-final String signUpBtnText = "Sign Up";
-final String orText ="OR";
+  final String authScreenTitle = "Complaints App";
+  final String emailTFHintText = "Email";
+  final String passTFHint = "Password";
+  final String confirmPassTFHint = "Confirm password";
+  final String userNameTFHint = "Username";
+  final String signInBtnText = "Login";
+  final String signUpBtnText = "Sign Up";
+  final String orText = "OR";
 }
