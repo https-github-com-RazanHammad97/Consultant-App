@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-
+import '../CustomText.dart';
+import '../customTextField.dart';
+import '../my_card.dart';
+import '../my_list_tile.dart';
+import '../my_text_button.dart';
 
 class NewInbox extends StatelessWidget {
-  const NewInbox({Key? key,required this.child}) : super(key: key);
- final Widget child;
+  const NewInbox({Key? key, required this.child}) : super(key: key);
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      child:child,
-      onPressed: (){
+      child: child,
+      onPressed: () {
         showModalBottomSheet(
             useSafeArea: true,
             isScrollControlled: true,
@@ -27,44 +31,29 @@ class NewInbox extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 12.0, right: 12, top: 12),
+                    padding:
+                        const EdgeInsets.only(left: 12.0, right: 12, top: 12),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    "Cancel",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.blue),
-                                  )),
-                              Text(
-                                "New Inbox",
-                                style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                              MyTextButton(
+                                text: "Cancel",
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                               ),
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    "Done",
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blue),
-                                  )),
+                              CustomText("New Inbox", 12.0, "Poppins",
+                                  Colors.black, FontWeight.bold),
+                              MyTextButton(
+                                text: "Done",
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
                             ],
                           ),
                           Container(
@@ -73,42 +62,30 @@ class NewInbox extends StatelessWidget {
                               borderRadius: BorderRadius.circular(35),
                               color: Colors.white,
                             ),
-                            child: ListTile(
-                              minLeadingWidth: 0.5,
-                              // leading: Icon(Icons.person_outline),
-                              title: TextField(
-                                decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.all(0.0),
-                                    icon: Icon(Icons.person_outline),
-                                    hintText: "Sender",
-                                    hintStyle: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold)),
+                            child: MyListTile(
+                              title: customTextField(
+                                "Sender",
+                                false,
+                                preIcon: Icon(Icons.person_outline),
                               ),
-
                               trailing: Image.asset(
                                 "assets/images/warning.png",
                               ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 12, bottom: 12),
+                              subTitle: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 12, bottom: 12),
                                 child: Row(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Category",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 20)),
+                                    CustomText("Category", 20, "Poppins",
+                                        Colors.black, FontWeight.normal),
                                     Wrap(
                                       spacing: 2,
                                       children: [
-                                        Text("Other",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20)),
+                                        CustomText("Other", 20, "Poppins",
+                                            Colors.black, FontWeight.normal),
                                         SvgPicture.asset(
                                             "assets/images/arrow2.svg")
                                       ],
@@ -127,105 +104,48 @@ class NewInbox extends StatelessWidget {
                               borderRadius: BorderRadius.circular(35),
                               color: Colors.white,
                             ),
-                            child: ListTile(
-                                minLeadingWidth: 0.5,
-                                // leading: Icon(Icons.person_outline),
-                                title: TextField(
-                                  decoration: InputDecoration(
-                                      contentPadding:
-                                      EdgeInsets.all(0.0),
-                                      hintText: "Title Of Mail",
-                                      hintStyle: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-
-                                // trailing: Icon(Icons.warning_rounded),
-                                subtitle: TextField(
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Description"),
-                                )),
+                            child: MyListTile(
+                              title: customTextField(
+                                "Title Of Mail",
+                                false,
+                              ),
+                              subTitle: customTextField(
+                                "Description",
+                                false,
+                              ),
+                            ),
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          Card(
-                            //padding: EdgeInsets.all(12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            child: Column(
+                          MyCard(
+                            widget: Column(
                               children: [
-                                ListTile(
-                                  minLeadingWidth: 0.2,
-                                  leading:
-                                  Icon(Icons.calculate_outlined),
-                                  title: Text(
-                                    "Date",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-
-                                  // trailing: Icon(Icons.warning_rounded),
-                                  subtitle: TextField(
-                                    decoration: InputDecoration(
-                                      //labelText: "Tuesday, July 5, 2022",
-                                        contentPadding:
-                                        EdgeInsets.all(0.0),
-                                        hintText:
-                                        "Tuesday, July 5, 2022",
-                                        hintStyle: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.blue,
-                                        )),
-                                  ),
+                                MyListTile(
+                                  leading: Icon(Icons.calculate_outlined),
+                                  title: CustomText("Date", 20, "Poppins",
+                                      Colors.black, FontWeight.normal),
+                                  subTitle: customTextField(
+                                      "Tuesday, July 5, 2022", false),
                                 ),
-                                ListTile(
-                                  minLeadingWidth: 0.5,
+                                MyListTile(
                                   leading: Icon(Icons.archive_outlined),
-                                  title: Text(
-                                    "Archive",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-
-                                  // trailing: Icon(Icons.warning_rounded),
-                                  subtitle: TextField(
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        //  contentPadding: EdgeInsets.all(0.0),
-                                        hintText: "2022/6019",
-                                        hintStyle: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.blue,
-                                        )),
-                                  ),
+                                  title: CustomText("Archive", 20, "Poppins",
+                                      Colors.black, FontWeight.normal),
+                                  subTitle: customTextField("2022/6019", false),
                                 ),
                               ],
                             ),
                           ),
-                          Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(50.0),
-                              ),
-                              child: ListTile(
-                                leading: Icon(Icons.tag),
-                                title: Text("Tags"),
-                                trailing: SvgPicture.asset(
-                                    "assets/images/arrow2.svg"),
-                              )),
-                          Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            child: ListTile(
+                          MyCard(
+                              widget: MyListTile(
+                            leading: Icon(Icons.tag),
+                            title: Text("Tags"),
+                            trailing:
+                                SvgPicture.asset("assets/images/arrow2.svg"),
+                          )),
+                          MyCard(
+                            widget: MyListTile(
                               leading: Icon(Icons.inbox),
                               title: Container(
                                 width: double.maxFinite,
@@ -234,99 +154,52 @@ class NewInbox extends StatelessWidget {
                                 // constraints: BoxConstraints(maxWidth:50),
                                 decoration: BoxDecoration(
                                     color: Colors.red,
-                                    borderRadius:
-                                    BorderRadius.circular(50)),
-                                child: Text(
-                                  "Inbox",
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: CustomText("Inbox", 14, "Poppins",
+                                    Colors.white, FontWeight.normal),
                               ),
-                              trailing: SvgPicture.asset(
-                                  "assets/images/arrow2.svg"),
+                              trailing:
+                                  SvgPicture.asset("assets/images/arrow2.svg"),
                             ),
                           ),
-                          Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0),
+                          MyCard(
+                              widget: MyListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.only(top: 6.0),
+                              child: CustomText("Decission", 18, "Poppins",
+                                  Colors.black, FontWeight.bold),
                             ),
-                            child: ListTile(
-                              title: Padding(
-                                padding:
-                                const EdgeInsets.only(top: 6.0),
-                                child: Text(
-                                  "Decission",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ),
-                              ),
-                              subtitle: TextField(
-                                decoration: InputDecoration(
-                                    hintText: "Add Decision ..",
-                                    hintStyle: TextStyle(
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                    border: InputBorder.none),
-                              ),
+                            subTitle: customTextField("Add Decision ..", false),
+                          )),
+                          MyCard(
+                              widget: MyListTile(
+                            leading: MyTextButton(
+                              text: 'Add Image',
+                              onPressed: () {
+                                // _getFromGallery();
+                              },
                             ),
-                          ),
-                          Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                            color: Colors.white,
-                            child: ListTile(
-                              leading: TextButton(
-                                style: ButtonStyle(
-                                  overlayColor:
-                                  MaterialStateColor.resolveWith(
-                                          (states) => Color(0Xcbe6ef)),
-                                ),
-                                onPressed: () {
-                                 // _getFromGallery();
-                                },
-                                child: Text(
-                                  "Add Image",
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ),
-                          ),
+                          )),
                           Padding(
-                            padding: const EdgeInsets.only(left:4,top:4,bottom:4),
+                            padding: const EdgeInsets.only(
+                                left: 4, top: 4, bottom: 4),
                             child: Row(
-
                               mainAxisAlignment: MainAxisAlignment.start,
-
                               children: [
-                                Text(
-
-                                  "Activity",
-                                  style: TextStyle(
-
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ),
+                                CustomText("Activity", 20, "Poppins",
+                                    Colors.black, FontWeight.bold)
                               ],
                             ),
                           ),
-                          TextField(
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white, //<-- SEE HERE
-                                hintText: "Add New Activity ..",
-                                prefixIcon: Icon(Icons.person),
-                                suffixIcon:  Icon(Icons.send),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(50.0),
-                                ),
-                              )),
-
-
+                          customTextField(
+                            "Add New Activity ..",
+                            false,
+                            preIcon: Icon(Icons.person),
+                            suffixIcon: Icon(Icons.send),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                          )
                         ],
                       ),
                     )),

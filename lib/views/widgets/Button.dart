@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
-
-import '../../utils/Constants.dart';
-import '../HomeScreen.dart';
-import 'CustomText.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Button extends StatelessWidget {
-
-  Button({required this.title,required this.onPressed});
+  Button({required this.title, required this.onPressed});
 
   String title;
   Function() onPressed;
 
-
   @override
   Widget build(BuildContext context) {
     return TextButton(
-
       onPressed: onPressed,
       child: Container(
         // margin: const EdgeInsets.symmetric(horizontal: 50),
-        padding: const EdgeInsets.only(top: 14, bottom: 14),
+        height: 60.h,
+        width: 300.w,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(22.r),
           gradient: const LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: [kLightPrimaryColor, kPrimaryColor],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF579BB1),
+              Color(0xFF152238),
+            ],
           ),
         ),
-        child:  Center(
-          child: CustomText(title, 20, 'Poppins', kLightPrimaryColor,
-              FontWeight.w600)
-        ),
+        child: Center(
+            child: Text(
+          title,
+          style: GoogleFonts.poppins(
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
+        )),
       ),
     );
   }
