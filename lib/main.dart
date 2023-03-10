@@ -72,14 +72,17 @@ class MyApp extends StatelessWidget {
             '/Home': (context) => HomeScreen(),
             '/Login': (context) => LoginScreen(),
             '/Details': (context) => DetailsScreen(),
-      '/Status': (context) => TagScreen(),
+            '/Status': (context) => StatusScreen(),
+            '/Admin/CreateUser':(context) => CreateUser(),
+            '/Admin/Users':(context)=>AllUsers(),
             '/Category':(context)=> CategoriyScreen(),
-      '/Admin/CreateUser':(context) => CreateUser(),
-      '/Admin/Users':(context)=>AllUsers(),
-          });
+            '/Tags': (context) => TagScreen(),
+          },
 
 
-      },
+
+
+
     );
-  }
-}
+
+});}}
