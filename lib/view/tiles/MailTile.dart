@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../utils/Constants.dart';
 import '../../views/widgets/CustomText.dart';
 import '../../views/widgets/TagList.dart';
+import '../widgets/ImageCard.dart';
 
 class MailTile extends StatelessWidget {
   MailData mailData;
@@ -57,46 +58,39 @@ class MailTile extends StatelessWidget {
                 ),
               ],
             ),
-            CustomText(mailData.subject!, 14.0, 'Poppins', kHintGreyColor,
-                FontWeight.w400),
-            CustomText(mailData.description ?? '', 14.0, 'Poppins',
-                kLightBlackColor, FontWeight.w400),
-            const SizedBox(
-              height: 8,
-            ),
-            Visibility(
-                visible: mailData.tags!.isNotEmpty ? true : false,
-                child: TagList(mailData.tags)),
-            Visibility(
-              visible: mailData.attachments!.isNotEmpty ? true : false,
-              child: SizedBox(
-                height: 36,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: mailData.attachments!.length,
-                  itemBuilder: (ctx, index) {
-                    return SizedBox(
+            Container(
+              margin: EdgeInsets.only(left: 37),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText(mailData.subject!, 14.0, 'Poppins', kHintGreyColor,
+                      FontWeight.w400),
+                  CustomText(mailData.description ?? '', 14.0, 'Poppins',
+                      kLightBlackColor, FontWeight.w400),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Visibility(
+                      visible: mailData.tags!.isNotEmpty ? true : false,
+                      child: TagList(mailData.tags)),
+                  Visibility(
+                    visible: mailData.attachments!.isNotEmpty ? true : false,
+                    child: SizedBox(
                       height: 36,
-                      width: 40,
-                      child: Card(
-                        semanticContainer: true,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        elevation: 0,
-                        margin: const EdgeInsets.only(right: 8),
-                        child: Image.network(
-                          'https://palmail.betweenltd.com/storage/${mailData.attachments![index].image!}',
-                          fit: BoxFit.fill,
-                        ),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: mailData.attachments!.length,
+                        itemBuilder: (ctx, index) {
+                          return ImageCard(
+                              mailData.attachments![index].image!, 36, 36);
+                        },
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                ],
               ),
-            ),
+            )
           ]),
         ),
       ),
