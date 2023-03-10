@@ -1,7 +1,4 @@
 
-
-
-
 import 'package:consultant_app/view_models/statusmode.dart';
 import 'package:flutter/cupertino.dart';
 import '../data/remote/network/NetworkApiService.dart';
