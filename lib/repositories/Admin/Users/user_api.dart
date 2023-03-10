@@ -26,6 +26,17 @@ class UserApi {
     }
 
     deleteUser(int id){
-
+      final String url = "$baseUrl" "/" "$createNewUser" "/" "$id";
+       var json= service.deleteData(url);
+       print(json);
+       return json;
+    }
+    updateUser(String name) async{
+      final String url = "$baseUrl" "/" "user" "/" "update";
+      Map data = {
+        "name" :name
+      };
+      var json = await  service.updateData(url, data);
+      return json;
     }
   }

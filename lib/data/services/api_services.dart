@@ -77,9 +77,48 @@ class ApiServices {
     }
   }
 
-  deleteData(int id) {
-
+  deleteData(String url) async {
+    final Uri apiUrl = Uri.parse(url);
+    http.Response response =
+        await http.delete(apiUrl, headers: authHeaders);
+    print(response.statusCode);
+    try {
+      if (response.statusCode == 200) {
+        print(200);
+        var json = jsonDecode(response.body);
+        print(json);
+        return json;
+      }
+      if (response.statusCode==400){
+        print("Unauthenticated");
+        var json = jsonDecode(response.body);
+        return json["message"];
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
-  updateData() {}
+  updateData(String url,Map data) async{
+    final Uri apiUrl = Uri.parse(url);
+    http.Response response =
+        await http.post(apiUrl, headers: authHeaders, body: jsonEncode(data));
+    print(response.statusCode);
+    try {
+      if (response.statusCode == 200) {
+        print(200);
+        var json = jsonDecode(response.body);
+        print(json);
+        return json;
+      }
+      if (response.statusCode==400){
+        print("Unauthenticated");
+        var json = jsonDecode(response.body);
+        return json["message"];
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+
+  }
 }
