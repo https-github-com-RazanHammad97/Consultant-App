@@ -24,6 +24,7 @@ class  ListOfTags extends StatelessWidget {
     child: Wrap(
       spacing: 8.0, // space between tags
       runSpacing: 4.0, // space between rows of tags
+
       children: tags
         .map((tag) =>tagsWidget(label:tag.name)).toList()
     ),

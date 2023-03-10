@@ -1,18 +1,24 @@
+
 import 'package:consultant_app/repositories/Admin/Users/all_users.dart';
 import 'package:consultant_app/repositories/Admin/Users/create_user.dart';
+import 'package:consultant_app/controllers/categoriy_contoller.dart';
+import 'package:consultant_app/controllers/tagsController.dart';
+import 'package:consultant_app/controllers/statuscontroller.dart';
+import 'package:consultant_app/views/categoriy_screen.dart';
+
 import 'package:consultant_app/view/auth/LoginScreen.dart';
 import 'package:consultant_app/view/details/DetailsScreen.dart';
 import 'package:consultant_app/view/details/DetailsVM.dart';
 import 'package:consultant_app/view/home/HomeScreen.dart';
 import 'package:consultant_app/view/home/HomeVM.dart';
 import 'package:consultant_app/view/splach/SplashScreen.dart';
+
 import 'package:consultant_app/views/status_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
-import 'package:responsive_framework/utils/scroll_behavior.dart';
 
 import 'controllers/statuscontroller.dart';
 import 'controllers/tagsController.dart';
@@ -22,14 +28,18 @@ void main() async {
   final applicationDocDir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(applicationDocDir.path);
   await Hive.openBox("myBox");
-
+  //
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProviderStatus()),
+
+        ChangeNotifierProvider(create: (_) => ProviderTags()),
+        ChangeNotifierProvider(create:(_)=>ProviderCategoriy())
+
         ChangeNotifierProvider(create: (_) => HomeVM()),
         ChangeNotifierProvider(create: (_) => DetailsVM()),
-        ChangeNotifierProvider(create: (_) => ProviderTags()),
+
       ],
       child: MyApp(),
     ),
@@ -47,6 +57,7 @@ class MyApp extends StatelessWidget {
     //print(box.get("roro"));
     // print(box.get("token"));
     // print(box.get("isLoggedIn"));
+
     return MaterialApp(
       builder: (context, child) => ResponsiveWrapper.builder(
           BouncingScrollWrapper.builder(context, child!),
@@ -77,6 +88,32 @@ class MyApp extends StatelessWidget {
         '/Status': (context) => StatusScreen(),
         '/Admin/CreateUser':(context) => CreateUser(),
         '/Admin/Users':(context)=>AllUsers(),
+         '/Category':(context)=> CategoriyScreen(),);
+
+
+  /**  return ScreenUtilInit(
+      designSize: const Size(428, 926),
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'RA app',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          initialRoute: '/',
+          routes: {
+            // When navigating to the "/" route, build the FirstScreen widget.
+            '/': (context) => SplashScreen(),
+            // When navigating to the "/second" route, build the SecondScreen widget.
+            '/Home': (context) => HomeScreen(),
+            '/Login': (context) => LoginScreen(),
+            '/Details': (context) => DetailsScreen(),
+            '/Status': (context) => StatusScreen(),
+            '/Category':(context)=> CategoriyScreen(),
+          },
+        );**/
+
+
       },
     );
   }

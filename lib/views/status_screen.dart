@@ -14,7 +14,6 @@ class StatusScreen extends StatefulWidget {
 }
 
 class _StatusScreenState extends State<StatusScreen> {
-  late int clickedItem=0;
   @override
   Widget build(BuildContext context) {
      final myProvider = Provider.of<ProviderStatus>(context);
@@ -39,7 +38,7 @@ class _StatusScreenState extends State<StatusScreen> {
                         fontSize:24
                     ),),
                     kTextButton(text:'Done', onPressed: () {
-                       myProvider.getSingleStatus(clickedItem);
+                       myProvider.getSingleStatus();
                       Navigator.pop(context);
                     })
 
@@ -58,7 +57,7 @@ class _StatusScreenState extends State<StatusScreen> {
                   child:ListView.separated(
                       itemBuilder:(context,index)=>ListTile(
                         onTap:(){
-                          clickedItem=index+1;
+                          myProvider.toggleIndex(index+1);
                         },
                         leading:Container(
                           width:40,
@@ -73,7 +72,7 @@ class _StatusScreenState extends State<StatusScreen> {
                             fontSize:20,
                             color: Colors.black
                         ),),
-                        trailing: myProvider.temp[index].id==clickedItem?
+                        trailing: myProvider.temp[index].id==myProvider.clickedItem?
                         IconButton(onPressed:(){}, icon:Icon(
                           Icons.check,
                           color:Colors.blueAccent,
