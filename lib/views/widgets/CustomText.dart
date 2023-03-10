@@ -14,6 +14,7 @@ class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      maxLines: 2,
       style: TextStyle(
         fontSize: size,
         fontFamily: fontFamily,

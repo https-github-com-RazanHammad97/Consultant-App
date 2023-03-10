@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../model/mail/Tags.dart';
 import '../../../utils/Constants.dart';
 import '../CustomText.dart';
 
-
 class TagTile extends StatelessWidget {
-  const TagTile({Key? key}) : super(key: key);
+  Tags tag;
+  TagTile(this.tag, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class TagTile extends StatelessWidget {
           color: kLightGreyColor,
           borderRadius: BorderRadius.all(Radius.circular(15))),
       child: CustomText(
-          '# All Tags aaa aaa', 14, 'Poppins', kDarkGreyColor, FontWeight.w600),
+          '# ${tag.name}', 14, 'Poppins', kDarkGreyColor, FontWeight.w600),
     );
   }
 }

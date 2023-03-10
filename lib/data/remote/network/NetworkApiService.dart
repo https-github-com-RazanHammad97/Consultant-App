@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:http/http.dart' as http;
-import '../../../utils/Constants.dart';
+
 import '../../services/main_services.dart';
 import '../AppException.dart';
 import 'BaseApiService.dart';
@@ -13,15 +14,14 @@ class NetworkApiService extends BaseApiService {
   @override
   Future getResponse(String url) async {
     try {
-      final response = await http.get(Uri.parse(baseUrl + url),
+      final response = await http.get(
+        Uri.parse(url),
         headers: {
-         'Authorization': 'Bearer 573|HHLG7qE6OZckgq8H8mpt8FUPRYWFYxLH819hP0Gs',
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${ms.readFromHiveBox("token")}',
         },
       );
-
-      print("${response.body}");
-
-     responseJson = returnResponse(response);
+      responseJson = returnResponse(response);
       print('NetworkApiService - reem');
     } on SocketException {
       print('${id}No Internet Connection');
@@ -31,15 +31,24 @@ class NetworkApiService extends BaseApiService {
   }
 
   @override
-  Future postResponse(String url, Map<String,dynamic> JsonBody) async {
+  Future postResponse(String url, Map<String, dynamic> JsonBody) async {
     dynamic responseJson;
     try {
       final response =
-          await http.post(Uri.parse(baseUrl + url), body: JsonBody,
-            headers: {
-              'Authorization': 'Bearer 573|HHLG7qE6OZckgq8H8mpt8FUPRYWFYxLH819hP0Gs',
-            },
-          );
+          //     await http.post(Uri.parse(url), body: JsonBody, headers: {
+          //   'Content-Type': 'application/json; charset=UTF-8',
+          //   'Authorization':
+          //       'Bearer ' + '95|UHroRXM9Ss28BK6IuzR5A4AHzrmT4n5g53HqSKH9',
+          // });
+
+          await http.post(
+        Uri.parse(url),
+        body: JsonBody,
+        headers: {
+          'Authorization':
+              'Bearer 573|HHLG7qE6OZckgq8H8mpt8FUPRYWFYxLH819hP0Gs',
+        },
+      );
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');

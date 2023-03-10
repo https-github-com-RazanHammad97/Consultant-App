@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
-import '../HomeScreen.dart';
 import 'CustomText.dart';
 
 class Button extends StatelessWidget {
-
-  Button({required this.title,required this.onPressed});
+  Button({required this.title, required this.onPressed});
 
   String title;
   Function() onPressed;
 
-
   @override
   Widget build(BuildContext context) {
     return TextButton(
-
       onPressed: onPressed,
       child: Container(
         // margin: const EdgeInsets.symmetric(horizontal: 50),
@@ -28,10 +24,9 @@ class Button extends StatelessWidget {
             colors: [kLightPrimaryColor, kPrimaryColor],
           ),
         ),
-        child:  Center(
-          child: CustomText(title, 20, 'Poppins', kLightPrimaryColor,
-              FontWeight.w600)
-        ),
+        child: Center(
+            child: CustomText(
+                title, 20, 'Poppins', kLightPrimaryColor, FontWeight.w600)),
       ),
     );
   }

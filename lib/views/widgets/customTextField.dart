@@ -6,21 +6,34 @@ import '../../utils/Constants.dart';
 class customTextField extends StatelessWidget {
   String hintText;
   TextEditingController? controller;
-  customTextField(this.hintText, {this.controller,super.key});
+  Icon? icon;
+  Icon? preIcon;
+  Icon? suffixIcon;
+  InputBorder? border;
 
- // late TextEditingController controller;
+  //double? fontSize; // add font size and font weight;
+  customTextField(this.hintText,{this.controller, this.icon, super.key,this.border=InputBorder.none,this.preIcon,this.suffixIcon});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: kGreyColor))),
       child: TextField(
-          controller: controller,
+        controller: controller,
         decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: const TextStyle(
-                color: kHintGreyColor, fontSize: 16, fontFamily: 'Poppins'),
-            border: InputBorder.none),
+
+          prefixIcon: preIcon,
+          suffixIcon: suffixIcon,
+          icon: icon,
+          contentPadding: EdgeInsets.all(0.0),
+          hintText: hintText,
+          hintStyle: const TextStyle(
+
+              color: kHintGreyColor, fontSize: 12, fontFamily: 'Poppins'),
+          border: border,
+        ),
+
       ),
     );
   }

@@ -1,22 +1,32 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../model/mail/Tags.dart';
 import '../../utils/Constants.dart';
 import 'CustomText.dart';
 
 class TagList extends StatelessWidget {
-  const TagList({Key? key}) : super(key: key);
+  List<Tags>? tags;
 
+  TagList(this.tags, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 20,
+      height: 27,
       child: ListView.separated(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: 4,
-        itemBuilder: (ctx, int) {
-          return CustomText(
-              '#Urgent', 14.0, 'Poppins', kDarkGreyColor3, FontWeight.w600);
+        itemCount: tags!.length,
+        itemBuilder: (ctx, index) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CustomText('#${tags![index].name!}', 14, 'Poppins',
+                  kLightPrimaryColor, FontWeight.w600),
+              const SizedBox(
+                height: 6,
+              )
+            ],
+          );
         },
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(
