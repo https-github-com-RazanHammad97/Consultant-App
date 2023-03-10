@@ -73,17 +73,22 @@ class _signUpFormState extends State<signUpForm> {
 
             Button(
               onPressed: () async {
-                var token = await auth.register(controller_email!.text,
-                    controller_pass!.text, controller_userName!.text);
-                print(token);
-                // ms.saveToken(token!);
-                print("token value after sign up$token");
-                if (token != null) {
-                  ms.saveToken(token);
-                  if (mounted) {
-                    Navigator.pushNamed(context, "/Home");
-                  }
-                }
+
+
+             var token=   await auth.register(controller_email!.text, controller_pass!.text,
+                    controller_userName!.text);
+             print(token);
+             // ms.saveToken(token!);
+              print("Razan token value after sign up$token");
+             if(token!=null){
+               ms.saveToken(token);
+               if (mounted) {
+                 Navigator.pushNamed(context, "/Home");
+               }
+             }
+
+
+
               },
               title: authModel.signUpBtnText,
             ),

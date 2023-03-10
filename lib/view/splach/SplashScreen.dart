@@ -36,12 +36,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // print(
-    //     "splash screen token ${ms.readFromHiveBox("token")}"); // this built twice
-    Future.delayed(
-      const Duration(seconds: 5),
-      () {
-        Navigator.push(
+
+    // AuthApi().login("test67@test.net", "123456");
+    // AuthApi().register("test6lk;k7@test.net", "123456","123456");
+    print(
+        "Razan splash screen token ${ms.readFromHiveBox("token")}"); // this built twice
+    // print(token==null ? "null token" : "token isn't null");
+    // print("test$token");
+    // print(isLoggedIn);
+
+    Future.delayed(const Duration(seconds: 5), () {
+      Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => token == null ? LoginScreen() : LoginScreen(),

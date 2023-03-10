@@ -7,11 +7,14 @@ import 'package:provider/provider.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
 import '../../data/repositories/Auth/auth_api.dart';
+import '../../data/services/main_services.dart';
 import '../../model/category/Categories.dart';
 import '../../model/mail/MailData.dart';
 import '../../utils/Constants.dart';
+import '../../views/widgets/BottomSheet/NewInbox.dart';
 import '../../views/widgets/CustomSearch.dart';
 import '../../views/widgets/CustomText.dart';
+import '../../views/widgets/my_drawer_widget.dart';
 import '../../views/widgets/tiles/StatusTile.dart';
 import '../tiles/MailTile.dart';
 import '../widgets/LoadingWidget.dart';
@@ -27,7 +30,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<MailFilter> data = <MailFilter>[];
 
-  @override
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   bool isVisible = false;
   AuthApi auth = AuthApi();
 
@@ -41,27 +45,67 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final HomeVM viewModel = HomeVM();
     return Scaffold(
+      key: scaffoldKey,
+      drawer: MyDrawer(),
       backgroundColor: kLightWhiteColor,
       appBar: AppBar(
-        backgroundColor: kLightWhiteColor,
-        leading: const Image(
-          image: AssetImage('images/menu.png'),
+        leading: IconButton(
+          icon: Icon(Icons.menu,color: Colors.blue,),
+          onPressed: (){scaffoldKey.currentState!.openDrawer();},
         ),
+        backgroundColor: kLightWhiteColor,
+        // leading: IconButton(
+        //   onPressed: (){
+        //     print(1);
+        //
+        //   },
+        //   icon: const Image(
+        //     image: AssetImage('images/menu.png'),
+        //   ),
+        // ),
         elevation: 0,
-        actions: const <Widget>[
+        actions:  <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 20, top: 10),
             child: CircleAvatar(
               backgroundColor: Colors.white,
               radius: 25,
-              child: CircleAvatar(
-                radius: 20.0,
-                backgroundImage: AssetImage('images/profile.png'),
-                // AssetImage('https://via.placeholder.com/150'),
-                backgroundColor: Colors.transparent,
+              child: TextButton(
+                onPressed: (){
+                  showUserContainer();
+                },
+                child: CircleAvatar(
+                  radius: 20.0,
+                  backgroundImage: AssetImage('images/profile.png'),
+                  // AssetImage('https://via.placeholder.com/150'),
+                  backgroundColor: Colors.transparent,
+                ),
               ),
             ),
           ),
+          Visibility(
+              visible: isVisible,
+              child: Container(
+                width: 200, height: 400,
+                // alignment: Alignment.topRight,
+                // padding: EdgeInsets.only(bottom: 500, left: 200),
+
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Colors.white,
+                ),
+                child: TextButton(
+                    onPressed: () {
+                      auth.logOut();
+                      MainServices().saveToken("");
+                      print(
+                          "after logout token ${MainServices().readFromHiveBox("token")}");
+                      if (mounted) {
+                        Navigator.pushNamed(context, "/Login");
+                      }
+                    },
+                    child: Text("Log Out")),
+              ))
         ],
       ),
       body: SingleChildScrollView(
@@ -163,8 +207,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 width: 8,
               ),
-              CustomText('New Inbox', 20, 'Poppins', kLightPrimaryColor,
-                  FontWeight.w600),
+              NewInbox(
+                child: CustomText('New Inbox', 20, 'Poppins',
+                    kLightPrimaryColor, FontWeight.w600),
+              ),
             ],
           ),
         ),

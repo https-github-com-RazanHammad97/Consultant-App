@@ -16,7 +16,7 @@ class signInForm extends StatefulWidget {
 }
 
 class _signInFormState extends State<signInForm> {
-  late final token;
+   late final token;
   AuthViewModel authModel = AuthViewModel();
   MainServices ms = MainServices();
   AuthApi auth = AuthApi();
@@ -69,13 +69,14 @@ class _signInFormState extends State<signInForm> {
             onPressed: () async {
               print(passController.text);
               print(emailController.text);
-              // token=  await auth.login("test67@test.net","123456");
-              token =
-                  await auth.login(emailController.text, passController.text);
-              //ms.readFromHiveBox("token");
-              print(token);
-              ms.saveToken(token);
-              if (token != "") {
+
+           // token=  await auth.login("test67@test.net","123456");
+              token=  await auth.login(emailController.text,passController.text);
+             //ms.readFromHiveBox("token");
+            print("Razan Token after Sign In $token");
+           ms.saveToken(token);
+              if(token!=""){
+
                 if (mounted) {
                   Navigator.pushNamed(context, "/Home");
                 }

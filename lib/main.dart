@@ -1,5 +1,6 @@
 
-
+import 'package:consultant_app/repositories/Admin/Users/all_users.dart';
+import 'package:consultant_app/repositories/Admin/Users/create_user.dart';
 import 'package:consultant_app/controllers/categoriy_contoller.dart';
 import 'package:consultant_app/controllers/tagsController.dart';
 import 'package:consultant_app/controllers/statuscontroller.dart';
@@ -20,6 +21,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/statuscontroller.dart';
+import 'controllers/tagsController.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +58,40 @@ class MyApp extends StatelessWidget {
     // print(box.get("token"));
     // print(box.get("isLoggedIn"));
 
-    return ScreenUtilInit(
+    return MaterialApp(
+      builder: (context, child) => ResponsiveWrapper.builder(
+          BouncingScrollWrapper.builder(context, child!),
+          maxWidth: 1200,
+          minWidth: 450,
+          defaultScale: true,
+          breakpoints: [
+            const ResponsiveBreakpoint.resize(450, name: MOBILE),
+            const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+            const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+            const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+          ],
+          background: Container(color: const Color(0xFFF5F5F5))),
+      debugShowCheckedModeBanner: false,
+      title: 'Pal Mail',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => SplashScreen(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/Home': (context) => HomeScreen(),
+        '/Login': (context) => LoginScreen(),
+        '/Details': (context) => DetailsScreen(),
+        '/Status': (context) => StatusScreen(),
+        '/Admin/CreateUser':(context) => CreateUser(),
+        '/Admin/Users':(context)=>AllUsers(),
+         '/Category':(context)=> CategoriyScreen(),);
+
+
+  /**  return ScreenUtilInit(
       designSize: const Size(428, 926),
       builder: (context, child) {
         return MaterialApp(
@@ -76,7 +111,8 @@ class MyApp extends StatelessWidget {
             '/Status': (context) => StatusScreen(),
             '/Category':(context)=> CategoriyScreen(),
           },
-        );
+        );**/
+
 
       },
     );
