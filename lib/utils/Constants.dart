@@ -15,6 +15,8 @@ const kDividerColor = Color(0xFFD0D0D0);
 const kDarkGreyColor2 = Color(0xFF707070);
 const kDarkGreyColor3 = Color(0xFF959595);
 const kLightGreyColor2 = Color(0xFFEEEEF6);
+const kRedColor = Color(0xFFFF2E2E);
+
 const kGradientColor = BoxDecoration(
   gradient: LinearGradient(
     begin: Alignment.centerLeft,

@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import 'package:consultant_app/view_models/statusmode.dart';
+import 'package:consultant_app/data/remote/network/ApiEndPoints.dart';
+import 'package:consultant_app/model/status/statusmode.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../data/remote/network/NetworkApiService.dart';
-import '../view_models/tags_model.dart';
+import '../../data/remote/network/NetworkApiService.dart';
+import '../../model/tags/tags_model.dart';
 
 class ProviderTags extends ChangeNotifier {
   NetworkApiService networkApiService = NetworkApiService();
@@ -12,7 +13,7 @@ class ProviderTags extends ChangeNotifier {
   String previousData = "";
 
   Future<List<Tag>> getTags() async {
-    var data = await networkApiService.getResponse('tags');
+    var data = await networkApiService.getResponse(ApiEndPoints().getTags);
 
     if (data.toString() == previousData) {
       // Data has not changed, don't print anything

@@ -4,7 +4,9 @@ import 'package:consultant_app/view/details/DetailsVM.dart';
 import 'package:consultant_app/view/home/HomeScreen.dart';
 import 'package:consultant_app/view/home/HomeVM.dart';
 import 'package:consultant_app/view/splach/SplashScreen.dart';
-import 'package:consultant_app/views/status_screen.dart';
+import 'package:consultant_app/view/status/status_screen.dart';
+import 'package:consultant_app/view/tag/TagScreen.dart';
+import 'package:consultant_app/view/tag/TagVM.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,7 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 
-import 'controllers/statuscontroller.dart';
+import 'view/status/StatusVM.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +25,10 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProviderStatus()),
+        ChangeNotifierProvider(create: (_) => StatusVM()),
         ChangeNotifierProvider(create: (_) => HomeVM()),
         ChangeNotifierProvider(create: (_) => DetailsVM()),
+        ChangeNotifierProvider(create: (_) => ProviderTags()),
         // ChangeNotifierProvider(create: (_) => ProviderTags()),
       ],
       child: MyApp(),
@@ -72,6 +75,7 @@ class MyApp extends StatelessWidget {
         '/Login': (context) => LoginScreen(),
         '/Details': (context) => DetailsScreen(),
         '/Status': (context) => StatusScreen(),
+        '/Status': (context) => TagScreen(),
       },
     );
   }
