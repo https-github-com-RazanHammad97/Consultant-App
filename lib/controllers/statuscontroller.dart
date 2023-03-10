@@ -41,10 +41,15 @@ class ProviderStatus extends ChangeNotifier {
     notifyListeners();
     return temp;
   }
+   int clickedItem=0;
+  void toggleIndex(index){
+    clickedItem=index;
+    notifyListeners();
+  }
 
-  Future<Inbox> getSingleStatus(index) async {
+  Future<Inbox> getSingleStatus() async {
     var data = await networkApiService.getResponse(
-        'statuses/index?mail=false}');
+        'statuses/$clickedItem?mail=false}');
     late Inbox selectedStatus;
     print(data);
     if (data.toString().contains("statuses")) {

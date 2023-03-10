@@ -1,9 +1,17 @@
+
+
+import 'package:consultant_app/controllers/categoriy_contoller.dart';
+import 'package:consultant_app/controllers/tagsController.dart';
+import 'package:consultant_app/controllers/statuscontroller.dart';
+import 'package:consultant_app/views/categoriy_screen.dart';
+
 import 'package:consultant_app/view/auth/LoginScreen.dart';
 import 'package:consultant_app/view/details/DetailsScreen.dart';
 import 'package:consultant_app/view/details/DetailsVM.dart';
 import 'package:consultant_app/view/home/HomeScreen.dart';
 import 'package:consultant_app/view/home/HomeVM.dart';
 import 'package:consultant_app/view/splach/SplashScreen.dart';
+
 import 'package:consultant_app/views/status_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,9 +31,13 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProviderStatus()),
+
+        ChangeNotifierProvider(create: (_) => ProviderTags()),
+        ChangeNotifierProvider(create:(_)=>ProviderCategoriy())
+
         ChangeNotifierProvider(create: (_) => HomeVM()),
         ChangeNotifierProvider(create: (_) => DetailsVM()),
-        // ChangeNotifierProvider(create: (_) => ProviderTags()),
+
       ],
       child: MyApp(),
     ),
@@ -43,12 +55,13 @@ class MyApp extends StatelessWidget {
     //print(box.get("roro"));
     // print(box.get("token"));
     // print(box.get("isLoggedIn"));
+
     return ScreenUtilInit(
       designSize: const Size(428, 926),
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Pal Mail',
+          title: 'RA app',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
@@ -61,8 +74,10 @@ class MyApp extends StatelessWidget {
             '/Login': (context) => LoginScreen(),
             '/Details': (context) => DetailsScreen(),
             '/Status': (context) => StatusScreen(),
+            '/Category':(context)=> CategoriyScreen(),
           },
         );
+
       },
     );
   }
