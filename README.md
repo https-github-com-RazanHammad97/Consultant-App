@@ -1,5 +1,6 @@
-# consultant_app
+# Project Name
 
+Consultant App
 
 # Project Description
 
