@@ -65,7 +65,10 @@ class _AllUsersState extends State<AllUsers> {
                                   child: ListTile(
                                     title: Wrap(
                                       children:[ customTextField(
-                                        "Enter the updatedUser name",controller: nameController,
+                                        "Enter the updatedUser name" ,
+                                        false,
+                                        controller: nameController,
+
                                       ),
                                       Button(title: "Update", onPressed: () async{
                                         var response =await user.updateUser(nameController.text);

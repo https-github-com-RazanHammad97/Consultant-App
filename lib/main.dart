@@ -19,6 +19,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:responsive_framework/utils/scroll_behavior.dart';
 
 import 'controllers/statuscontroller.dart';
 import 'controllers/tagsController.dart';
@@ -35,7 +37,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ProviderStatus()),
 
         ChangeNotifierProvider(create: (_) => ProviderTags()),
-        ChangeNotifierProvider(create:(_)=>ProviderCategoriy())
+        ChangeNotifierProvider(create:(_)=>ProviderCategoriy()),
 
         ChangeNotifierProvider(create: (_) => HomeVM()),
         ChangeNotifierProvider(create: (_) => DetailsVM()),
@@ -88,7 +90,7 @@ class MyApp extends StatelessWidget {
         '/Status': (context) => StatusScreen(),
         '/Admin/CreateUser':(context) => CreateUser(),
         '/Admin/Users':(context)=>AllUsers(),
-         '/Category':(context)=> CategoriyScreen(),);
+         '/Category':(context)=> CategoriyScreen(),
 
 
   /**  return ScreenUtilInit(

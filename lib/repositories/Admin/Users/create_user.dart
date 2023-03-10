@@ -47,15 +47,19 @@ class _CreateUserState extends State<CreateUser> {
                 children: <Widget>[
                   customTextField(
                     "Email",
+                    false,
                     controller: emailController,
                   ),
                   customTextField(
                     "password",
+                    true,
                     controller: passwordController,
                   ),
                   customTextField("Password Confirmation",
+                      true,
                       controller: passConfirmController),
                   customTextField("User Name Controller",
+                      false,
                       controller: usernameControlelr),
                   Button(
                     title: 'Create',
