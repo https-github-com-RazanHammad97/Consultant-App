@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/tags/tags_model.dart';
-import '../../views/widgets/AddTagFeild.dart';
-import '../../views/widgets/tags.dart';
+import '../widgets/AddTagFeild.dart';
+import '../widgets/tags.dart';
 
 class TagScreen extends StatefulWidget {
   const TagScreen({Key? key}) : super(key: key);

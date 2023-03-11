@@ -26,7 +26,7 @@ class Button extends StatelessWidget {
         ),
         child: Center(
             child: CustomText(
-                title, 20, 'Poppins', kLightPrimaryColor, FontWeight.w600)),
+                title, 14, 'Poppins', Colors.white, FontWeight.w600)),
       ),
     );
   }

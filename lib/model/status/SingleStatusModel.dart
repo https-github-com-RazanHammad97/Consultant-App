@@ -1,12 +1,15 @@
+import 'StatusMail.dart';
+
 class SingleStatusModel {
   SingleStatusModel({
     this.status,
   });
 
   SingleStatusModel.fromJson(dynamic json) {
-    status = json['status'] != null ? Status.fromJson(json['status']) : null;
+    status =
+        json['status'] != null ? StatusMail.fromJson(json['status']) : null;
   }
-  Status? status;
+  StatusMail? status;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

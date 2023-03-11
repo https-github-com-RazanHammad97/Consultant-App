@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../model/mail/Tags.dart';
-import '../../utils/Constants.dart';
-import 'CustomText.dart';
+import '../../../model/mail/Tags.dart';
+import '../../../utils/Constants.dart';
+import '../CustomText.dart';
 
-class TagList extends StatelessWidget {
+class TagHorizList extends StatelessWidget {
   List<Tags>? tags;
 
-  TagList(this.tags, {Key? key}) : super(key: key);
+  TagHorizList(this.tags, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SizedBox(

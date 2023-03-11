@@ -1,24 +1,24 @@
-import 'Tags.dart';
+import 'TagModel.dart';
 
-class Test {
-  Test({
+class TagMailsModel {
+  TagMailsModel({
     this.tags,
   });
 
-  Test.fromJson(dynamic json) {
+  TagMailsModel.fromJson(dynamic json) {
     if (json['tags'] != null) {
       tags = [];
       json['tags'].forEach((v) {
-        tags.add(Tags.fromJson(v));
+        tags!.add(TagModel.fromJson(v));
       });
     }
   }
-  List<Tags> tags;
+  List<TagModel>? tags;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (tags != null) {
-      map['tags'] = tags.map((v) => v.toJson()).toList();
+      map['tags'] = tags!.map((v) => v.toJson()).toList();
     }
     return map;
   }

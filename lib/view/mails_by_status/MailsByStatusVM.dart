@@ -1,20 +1,21 @@
-import 'package:consultant_app/view/mail_by_status/MailsByStatusRepo.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
+import '../../model/status/SingleStatusModel.dart';
+import 'MailsByStatusRepo.dart';
 
 class MailsByStatusVM extends ChangeNotifier {
-  ApiResponse<StatusModel> statusMain = ApiResponse.loading();
+  ApiResponse<SingleStatusModel> mailsByStatus = ApiResponse.loading();
   MailsByStatusRepo repo = MailsByStatusRepo();
 
   //status
-  void _setStatusMain(ApiResponse<StatusModel> response) {
+  void _setStatusMain(ApiResponse<SingleStatusModel> response) {
     print("_setStatusMain :: $response");
-    statusMain = response;
+    mailsByStatus = response;
     notifyListeners();
   }
 
-  Future<StatusModel?> fetchStatus(int index) async {
+  Future<SingleStatusModel?> fetchMailsByStatus(int index) async {
     _setStatusMain(ApiResponse.loading());
     repo
         .getStatus(index)

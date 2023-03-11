@@ -1,47 +1,67 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
-import '../../model/filter/SearchMailModel.dart';
-import 'SearchRepo.dart';
+import '../../model/category/CategoryModel.dart';
+import '../../model/status/StatusModel.dart';
+import 'FilterRepo.dart';
 
-class SearchVM extends ChangeNotifier {
-  ApiResponse<SearchMailModel> mailsByFilter = ApiResponse.stop();
-  SearchRepo repo = SearchRepo();
-  String text = "", dateStart = "", dateEnd = "";
-  int statusId = -1;
-  int listLength = 0;
-
-  void _setMailByFilter(ApiResponse<SearchMailModel> response) {
-    print("_setMailByFilter:: $response");
-    mailsByFilter = response;
+class FilterVM extends ChangeNotifier {
+  ApiResponse<CategoryModel> catMain = ApiResponse.loading();
+  ApiResponse<StatusModel> statusMain = ApiResponse.loading();
+  int _selectedStatus = 0;
+  int _selectedCats = 0;
+  FilterRepo repo = FilterRepo();
+  FilterVM() {
+    fetchStatus();
+    fetchCategory();
+  }
+  //status
+  void _setStatusMain(ApiResponse<StatusModel> response) {
+    print("_setStatusMain :: $response");
+    statusMain = response;
     notifyListeners();
   }
 
-  Future<SearchMailModel?> getMailsByFilter() async {
-    print("getMailByFilter $text");
-    _setMailByFilter(ApiResponse.loading());
+  Future<StatusModel?> fetchStatus() async {
+    _setStatusMain(ApiResponse.loading());
     repo
-        .getMailByFilter(text)
-        .then((value) => _setMailByFilter(ApiResponse.completed(value)))
+        .getStatus()
+        .then((value) => _setStatusMain(ApiResponse.completed(value)))
         .onError((error, stackTrace) =>
-            _setMailByFilter(ApiResponse.error(error.toString())));
+            _setStatusMain(ApiResponse.error(error.toString())));
   }
 
-  void setText(String val) {
-    text = val;
-    print('_text : $text');
-    getMailsByFilter();
+  //category
+  void _setCategoryMain(ApiResponse<CategoryModel> response) {
+    print("reem response :: $response");
+    catMain = response;
     notifyListeners();
   }
 
-  void setLength(int l) {
-    listLength = l;
-    print('listLength : $listLength');
+  Future<CategoryModel?> fetchCategory() async {
+    _setCategoryMain(ApiResponse.loading());
+    repo
+        .getCategory()
+        .then((value) => _setCategoryMain(ApiResponse.completed(value)))
+        .onError((error, stackTrace) =>
+            _setCategoryMain(ApiResponse.error(error.toString())));
+  }
+
+  void updateSelectedStatus(int index) {
+    _selectedStatus = index;
+    print('updateSelectedStatus $index');
     notifyListeners();
   }
 
-  int getLength() {
-    print('getLength : $listLength');
-    return listLength;
+  int getSelectedStatus() => _selectedStatus;
+  void updateSelectedCats(int index) {
+    _selectedCats = index;
+    notifyListeners();
+  }
+
+  int getSelectedCats() => _selectedCats;
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

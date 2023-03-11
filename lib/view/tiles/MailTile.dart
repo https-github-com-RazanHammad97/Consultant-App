@@ -3,9 +3,9 @@ import 'package:consultant_app/view/details/DetailsScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
-import '../../views/widgets/CustomText.dart';
-import '../../views/widgets/TagList.dart';
+import '../widgets/CustomText.dart';
 import '../widgets/ImageCard.dart';
+import '../widgets/listView/TagHorizList.dart';
 
 class MailTile extends StatelessWidget {
   MailData mailData;
@@ -72,7 +72,7 @@ class MailTile extends StatelessWidget {
                   ),
                   Visibility(
                       visible: mailData.tags!.isNotEmpty ? true : false,
-                      child: TagList(mailData.tags)),
+                      child: TagHorizList(mailData.tags)),
                   Visibility(
                     visible: mailData.attachments!.isNotEmpty ? true : false,
                     child: SizedBox(

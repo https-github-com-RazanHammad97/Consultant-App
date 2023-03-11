@@ -2,7 +2,7 @@ import 'package:consultant_app/utils/Constants.dart';
 import 'package:consultant_app/view/widgets/ImageCard.dart';
 import 'package:flutter/material.dart';
 
-import '../../views/widgets/CustomText.dart';
+import '../widgets/CustomText.dart';
 
 class ImageTile extends StatelessWidget {
   // Attachments attachments;

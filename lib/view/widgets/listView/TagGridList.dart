@@ -5,9 +5,9 @@ import '../../../utils/Constants.dart';
 import '../../tiles/TagTile.dart';
 import '../CustomText.dart';
 
-class TagList extends StatelessWidget {
+class TagGridList extends StatelessWidget {
   List<Tags> tags;
-  TagList(this.tags);
+  TagGridList(this.tags);
   @override
   Widget build(BuildContext context) {
     if (tags.isEmpty) {

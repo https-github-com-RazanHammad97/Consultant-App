@@ -1,7 +1,7 @@
 import 'package:consultant_app/model/mail/MailFilter.dart';
 import 'package:consultant_app/model/status/StatusMail.dart';
 import 'package:consultant_app/view/home/HomeVM.dart';
-import 'package:consultant_app/view/listView/TagList.dart';
+import 'package:consultant_app/view/search/SearchScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,12 +10,12 @@ import '../../data/repositories/Auth/auth_api.dart';
 import '../../model/category/Categories.dart';
 import '../../model/mail/MailData.dart';
 import '../../utils/Constants.dart';
-import '../../views/widgets/CustomSearch.dart';
-import '../../views/widgets/CustomText.dart';
-import '../../views/widgets/tiles/StatusTile.dart';
 import '../tiles/MailTile.dart';
+import '../tiles/StatusTile.dart';
+import '../widgets/CustomText.dart';
 import '../widgets/LoadingWidget.dart';
 import '../widgets/MyErrorWidget.dart';
+import '../widgets/listView/TagGridList.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -48,8 +48,27 @@ class _HomeScreenState extends State<HomeScreen> {
           image: AssetImage('images/menu.png'),
         ),
         elevation: 0,
-        actions: const <Widget>[
-          Padding(
+        actions: <Widget>[
+          GestureDetector(
+            onTap: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchScreen(),
+                ),
+              )
+            },
+            child: Container(
+              padding: const EdgeInsets.only(right: 20, top: 10),
+              child: const Icon(
+                Icons.search,
+                color: kBlackColor,
+                size: 25,
+              ),
+            ),
+          ),
+          // Image(image: AssetImage('images/search.png')),
+          const Padding(
             padding: EdgeInsets.only(right: 20, top: 10),
             child: CircleAvatar(
               backgroundColor: Colors.white,
@@ -69,8 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CustomSearch(),
-            const SizedBox(height: 24),
             ChangeNotifierProvider(
               create: (BuildContext context) => viewModel,
               child: Consumer<HomeVM>(builder: (context, viewModel, _) {
@@ -131,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return MyErrorWidget(viewModel.tagsMain.message ?? "NA");
                   case Status.COMPLETED:
                     print("tagsMain :: COMPLETED");
-                    return TagList(viewModel.tagsMain.data!.tags!);
+                    return TagGridList(viewModel.tagsMain.data!.tags!);
                   default:
                 }
                 return Container();
@@ -189,6 +206,10 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 Widget _getMailsList(List<MailFilter> data) {
+  if (data.isEmpty) {
+    return CustomText(
+        'Not found data', 14, 'Poppins', kDarkGreyColor, FontWeight.w400);
+  }
   return ListView.builder(
       shrinkWrap: true,
       itemCount: data.length,
@@ -220,6 +241,10 @@ Widget _getMailsList(List<MailFilter> data) {
 }
 
 Widget _getStatusGridView(List<StatusMail> statusList) {
+  if (statusList.isEmpty) {
+    return CustomText(
+        'Not found data', 14, 'Poppins', kDarkGreyColor, FontWeight.w400);
+  }
   return GridView.builder(
     itemCount: statusList.length,
     shrinkWrap: true,

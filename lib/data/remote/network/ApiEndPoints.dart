@@ -6,10 +6,12 @@ class ApiEndPoints {
   final String updateMail = "${baseUrl}mails/";
   //status
   final String getStatuses = "${baseUrl}statuses";
-  final String mailStatuses = "${baseUrl}statuses/";
-  // statuses/1?mail=true
+  final String getMailStatuses = "${baseUrl}statuses/";
   //category
   final String categories = "${baseUrl}categories";
   //tags
   final String getTags = "${baseUrl}tags";
+  final String getMailByTag = "${baseUrl}tags?tags=";
+  //search
+  final String search = "${baseUrl}search?";
 }

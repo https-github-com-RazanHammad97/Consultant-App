@@ -1,7 +1,7 @@
-import 'Mails.dart';
+import 'package:consultant_app/model/mail/MailData.dart';
 
-class Tags {
-  Tags({
+class TagModel {
+  TagModel({
     this.id,
     this.name,
     this.createdAt,
@@ -9,7 +9,7 @@ class Tags {
     this.mails,
   });
 
-  Tags.fromJson(dynamic json) {
+  TagModel.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
     createdAt = json['created_at'];
@@ -17,15 +17,15 @@ class Tags {
     if (json['mails'] != null) {
       mails = [];
       json['mails'].forEach((v) {
-        mails.add(Mails.fromJson(v));
+        mails!.add(MailData.fromJson(v));
       });
     }
   }
-  int id;
-  String name;
-  String createdAt;
-  String updatedAt;
-  List<Mails> mails;
+  int? id;
+  String? name;
+  String? createdAt;
+  String? updatedAt;
+  List<MailData>? mails;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -34,7 +34,7 @@ class Tags {
     map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
     if (mails != null) {
-      map['mails'] = mails.map((v) => v.toJson()).toList();
+      map['mails'] = mails!.map((v) => v.toJson()).toList();
     }
     return map;
   }

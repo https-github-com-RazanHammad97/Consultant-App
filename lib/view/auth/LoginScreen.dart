@@ -1,8 +1,8 @@
 import 'package:consultant_app/view_models/auth_view_model.dart';
-import 'package:consultant_app/views/widgets/CustomTabBar.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
+import '../widgets/CustomTabBar.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Center(
+                        const Center(
                           child: Image(
                             image: AssetImage('images/logo.png'),
                             height: 75,
@@ -41,8 +41,8 @@ class LoginScreen extends StatelessWidget {
                         ),
                         Center(
                           child: Text(
-                            "${authModel.authScreenTitle}",
-                            style: TextStyle(
+                            authModel.authScreenTitle,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 22,
                               fontFamily: 'Gulzar',

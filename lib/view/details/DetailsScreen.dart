@@ -1,21 +1,21 @@
 import 'package:consultant_app/model/mail/MailData.dart';
+import 'package:consultant_app/model/status/StatusMail.dart';
 import 'package:consultant_app/view/tag/TagScreen.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/Constants.dart';
-import '../../views/widgets/BorderShape.dart';
-import '../../views/widgets/CustomText.dart';
-import '../../views/widgets/TagList.dart';
+import '../status/StatusScreen.dart';
 import '../status/StatusVM.dart';
-import '../status/status_screen.dart';
 import '../tiles/ActivityTile.dart';
 import '../tiles/ImageTile.dart';
+import '../widgets/BorderShape.dart';
+import '../widgets/CustomText.dart';
+import '../widgets/listView/TagHorizList.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({Key? key}) : super(key: key);
-
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
 }
@@ -49,7 +49,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   CustomText('Details', 18, 'Poppins', kLightPrimaryColor,
                       FontWeight.w600),
                   const Spacer(),
-                  const Image(image: AssetImage('images/more.png')),
+                  TextButton(
+                      onPressed: () {},
+                      child: CustomText('Update', 18, 'Poppins',
+                          kLightPrimaryColor, FontWeight.w400))
+                  // const Image(image: AssetImage('images/more.png')),
                 ],
                 //),
               ),
@@ -101,12 +105,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
 //   }
 // }
 
-class _detailWidget extends StatelessWidget {
+class _detailWidget extends StatefulWidget {
   MailData data;
+
   _detailWidget(
     this.data, {
     super.key,
   });
+
+  @override
+  State<_detailWidget> createState() => _detailWidgetState();
+}
+
+class _detailWidgetState extends State<_detailWidget> {
+  StatusMail? statusData;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,14 +167,14 @@ class _detailWidget extends StatelessWidget {
                                       //     CrossAxisAlignment.start,
                                       children: [
                                         CustomText(
-                                            data!.sender!.name!,
+                                            widget.data!.sender!.name!,
                                             16,
                                             'Poppins',
                                             kBlackColor,
                                             FontWeight.w600),
                                         const Spacer(),
                                         CustomText(
-                                            getDate(data.createdAt!),
+                                            getDate(widget.data.createdAt!),
                                             12,
                                             'Poppins',
                                             kHintGreyColor,
@@ -170,14 +186,15 @@ class _detailWidget extends StatelessWidget {
                                       //     CrossAxisAlignment.start,
                                       children: [
                                         CustomText(
-                                            data.sender!.category!.name!,
+                                            widget.data.sender!.category!.name!,
                                             12,
                                             'Poppins',
                                             kHintGreyColor,
                                             FontWeight.w400),
                                         const Spacer(),
                                         CustomText(
-                                            getArchDate(data.archiveDate!),
+                                            getArchDate(
+                                                widget.data.archiveDate!),
                                             12,
                                             'Poppins',
                                             kHintGreyColor,
@@ -199,16 +216,20 @@ class _detailWidget extends StatelessWidget {
                               iconColor: kLightPrimaryColor,
                               headerAlignment:
                                   ExpandablePanelHeaderAlignment.center),
-                          header: CustomText(data.subject!, 20, 'Poppins',
-                              kBlackColor, FontWeight.w600),
+                          header: CustomText(widget.data.subject!, 20,
+                              'Poppins', kBlackColor, FontWeight.w600),
                           collapsed: Text(
-                            data.description == null ? '' : data.description!,
+                            widget.data.description == null
+                                ? ''
+                                : widget.data.description!,
                             softWrap: false,
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                           ),
                           expanded: Text(
-                            data.description == null ? '' : data.description!,
+                            widget.data.description == null
+                                ? ''
+                                : widget.data.description!,
                             softWrap: true,
                           ),
                         ),
@@ -243,7 +264,7 @@ class _detailWidget extends StatelessWidget {
                           const SizedBox(
                             width: 12,
                           ),
-                          TagList(data.tags!),
+                          TagHorizList(widget.data.tags!),
                           const Spacer(),
                           const Image(
                               image: AssetImage('images/arrow_right.png'))
@@ -256,68 +277,57 @@ class _detailWidget extends StatelessWidget {
             const SizedBox(
               height: 12,
             ),
-            ChangeNotifierProvider(
-              create: (BuildContext context) => StatusVM(),
-              child: Consumer<StatusVM>(builder: (context, viewModel, _) {
-                print('here ${viewModel.getData()}');
-                return GestureDetector(
-                  onTap: () => {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => StatusScreen(),
-                    //   ),
-                    // )
-                    Navigator.of(context)
-                        .push(
-                          MaterialPageRoute<void>(
-                            builder: (_) => ChangeNotifierProvider<StatusVM>(
-                              create: (_) => StatusVM(),
-                              child: StatusScreen(),
+            GestureDetector(
+              onTap: () => {
+                _awaitReturnValueFromSecondScreen(context),
+              },
+              child: BorderShape(
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 15, right: 17, top: 12, bottom: 12),
+                    child: Row(
+                      children: [
+                        const Image(image: AssetImage('images/status.png')),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Color(int.parse(statusData != null
+                                ? statusData!.color!
+                                : widget.data.status!.color!)),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(22),
                             ),
                           ),
-                        )
-                        .then((_) => print('Popped to FirstScreen.')),
-                  },
-                  child: BorderShape(
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 15, right: 17, top: 12, bottom: 12),
-                        child: Row(
-                          children: [
-                            const Image(image: AssetImage('images/status.png')),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color(int.parse(data.status!.color!)),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(22),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 5, bottom: 5, left: 13, right: 13),
-                                child: CustomText(data.status!.name!, 16,
-                                    'Poppins', kBlackColor, FontWeight.w600),
-                              ),
-                            ),
-                            Spacer(),
-                            const Image(
-                                image: AssetImage('images/arrow_right.png')),
-                          ],
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 5, bottom: 5, left: 13, right: 13),
+                            child: CustomText(
+                                statusData != null
+                                    ? statusData!.name!
+                                    : widget.data.status!.name!,
+                                16,
+                                'Poppins',
+                                kBlackColor,
+                                FontWeight.w600),
+                          ),
                         ),
-                      ),
-                      Colors.white),
-                );
-              }),
+                        Spacer(),
+                        const Image(
+                            image: AssetImage('images/arrow_right.png')),
+                      ],
+                    ),
+                  ),
+                  Colors.white),
             ),
+            //   }),
+            //),
             const SizedBox(
               height: 12,
             ),
             Visibility(
-              visible: data.decision == null ? false : true,
+              visible: widget.data.decision == null ? false : true,
               child: BorderShape(
                   Padding(
                     padding: const EdgeInsets.only(
@@ -332,7 +342,7 @@ class _detailWidget extends StatelessWidget {
                       children: [
                         CustomText('Decision', 18, 'Poppins', kBlackColor,
                             FontWeight.w600),
-                        CustomText(data.decision ?? '', 14, 'Poppins',
+                        CustomText(widget.data.decision ?? '', 14, 'Poppins',
                             kBlackColor, FontWeight.w400),
                       ],
                     ),
@@ -380,9 +390,9 @@ class _detailWidget extends StatelessWidget {
                 children: [
                   ListView.separated(
                     shrinkWrap: true,
-                    itemCount: data.activities!.length,
+                    itemCount: widget.data.activities!.length,
                     itemBuilder: (context, index) {
-                      return ActivityTile(data.activities![index]);
+                      return ActivityTile(widget.data.activities![index]);
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return const SizedBox(
@@ -439,5 +449,18 @@ class _detailWidget extends StatelessWidget {
         //  ),
       ),
     );
+  }
+
+  _awaitReturnValueFromSecondScreen(BuildContext context) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StatusScreen(),
+        ));
+    // after the SecondScreen result comes back update the Text widget with it
+    setState(() {
+      statusData = result;
+      print('status data $statusData');
+    });
   }
 }

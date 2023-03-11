@@ -1,10 +1,16 @@
 import 'package:consultant_app/view/auth/LoginScreen.dart';
 import 'package:consultant_app/view/details/DetailsScreen.dart';
 import 'package:consultant_app/view/details/DetailsVM.dart';
+import 'package:consultant_app/view/filter/FilterVM.dart';
 import 'package:consultant_app/view/home/HomeScreen.dart';
 import 'package:consultant_app/view/home/HomeVM.dart';
+import 'package:consultant_app/view/mails_by_status/MailsByStatusScreen.dart';
+import 'package:consultant_app/view/mails_by_status/MailsByStatusVM.dart';
+import 'package:consultant_app/view/mails_by_tag/MailsByTagScreen.dart';
+import 'package:consultant_app/view/mails_by_tag/MailsByTagVM.dart';
+import 'package:consultant_app/view/search/SearchVM.dart';
 import 'package:consultant_app/view/splach/SplashScreen.dart';
-import 'package:consultant_app/view/status/status_screen.dart';
+import 'package:consultant_app/view/status/StatusScreen.dart';
 import 'package:consultant_app/view/tag/TagScreen.dart';
 import 'package:consultant_app/view/tag/TagVM.dart';
 import 'package:flutter/material.dart';
@@ -29,24 +35,21 @@ void main() async {
         ChangeNotifierProvider(create: (_) => HomeVM()),
         ChangeNotifierProvider(create: (_) => DetailsVM()),
         ChangeNotifierProvider(create: (_) => ProviderTags()),
-        // ChangeNotifierProvider(create: (_) => ProviderTags()),
+        ChangeNotifierProvider(create: (_) => MailsByTagVM()),
+        ChangeNotifierProvider(create: (_) => MailsByStatusVM()),
+        ChangeNotifierProvider(create: (_) => SearchVM()),
+        ChangeNotifierProvider(create: (_) => FilterVM()),
       ],
       child: MyApp(),
     ),
   );
-
-  // await InboxApi().createInbox("ttt","ghghg",1,"kjkjk",(DateTime.now()).toString(),"hjhj",2,"","","");
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     Box box = Hive.box("myBox");
-    //print(box.get("roro"));
-    // print(box.get("token"));
-    // print(box.get("isLoggedIn"));
     return MaterialApp(
       builder: (context, child) => ResponsiveWrapper.builder(
           BouncingScrollWrapper.builder(context, child!),
@@ -68,14 +71,14 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => SplashScreen(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
-        '/Home': (context) => HomeScreen(),
         '/Login': (context) => LoginScreen(),
+        '/Home': (context) => HomeScreen(),
         '/Details': (context) => DetailsScreen(),
         '/Status': (context) => StatusScreen(),
-        '/Status': (context) => TagScreen(),
+        '/Tag': (context) => TagScreen(),
+        '/MailByTag': (context) => MailsByTagScreen(),
+        '/MailByStatus': (context) => MailsByStatusScreen(),
       },
     );
   }

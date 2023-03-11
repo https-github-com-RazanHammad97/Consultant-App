@@ -16,7 +16,7 @@ class CustomTabBar extends StatelessWidget {
           children: [
             // give the tab bar a height [can change hheight to preferred height]
             Container(
-              height: 32,
+              height: 35,
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(
@@ -37,23 +37,28 @@ class CustomTabBar extends StatelessWidget {
                   color: kPrimaryColor,
                 ),
                 labelColor: Colors.white,
+                labelStyle: const TextStyle(
+                    color: kPrimaryColor,
+                    fontSize: 14,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w600),
                 unselectedLabelColor: kPrimaryColor,
-                unselectedLabelStyle:
-                    const TextStyle(fontFamily: 'fonts/Poppins-SemiBold.ttf',fontSize:16),
+                unselectedLabelStyle: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400),
                 tabs: const [
                   Tab(
-                    child: Text(
-                      'log In',
-                      style: TextStyle(fontFamily: 'Poppins'),
-                    ),
+                    child: Text('Log In'),
                   ),
                   Tab(
-                    child: Text(
-                      'Sign Up',
-                    ),
+                    child: Text('Sign Up'),
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 30,
             ),
             // tab bar view here
             Expanded(

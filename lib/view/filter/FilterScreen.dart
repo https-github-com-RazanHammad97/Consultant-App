@@ -1,185 +1,236 @@
-import 'dart:convert';
-
-import 'package:consultant_app/view/search/SearchVM.dart';
+import 'package:consultant_app/model/category/Categories.dart';
+import 'package:consultant_app/model/filter/SearchPost.dart';
 import 'package:consultant_app/view/widgets/LoadingWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
-import '../../model/mail/Category.dart';
-import '../../model/mail/MailData.dart';
-import '../../model/mail/MailFilter.dart';
+import '../../model/status/StatusMail.dart';
 import '../../utils/Constants.dart';
-import '../tiles/MailTile.dart';
-import '../widgets/CustomSearch.dart';
 import '../widgets/CustomText.dart';
 import '../widgets/MyErrorWidget.dart';
+import 'FilterVM.dart';
 
-List<MailFilter> data = <MailFilter>[];
+class FilterScreen extends StatelessWidget {
+  // const FilterScreen({Key? key}) : super(key: key);
+  final FilterVM viewModel;
 
-class SearchScreen extends StatelessWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+  FilterScreen({required this.viewModel});
   @override
   Widget build(BuildContext context) {
-    SearchVM vm = SearchVM();
+    // final FilterVM viewModel = FilterVM();
+    List<StatusMail> data = [];
+
     return Scaffold(
       backgroundColor: kLightWhiteColor,
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 60,
+        child: Column(children: [
+          //app bar
+          ChangeNotifierProvider(
+            create: (BuildContext context) => viewModel,
+            child: Consumer<FilterVM>(builder: (context, viewModel, _) {
+              return Container(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 14),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Image(image: AssetImage('images/arrow_left.png')),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    CustomText('Search', 18, 'Poppins', kLightPrimaryColor,
-                        FontWeight.w400),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: CustomText('Cancel', 18, 'Poppins',
+                            kLightPrimaryColor, FontWeight.w400)),
+                    CustomText(
+                        'Filter', 18, 'Poppins', kBlackColor, FontWeight.w600),
+                    TextButton(
+                        onPressed: () {
+                          print('pop ${viewModel.getSelectedStatus()}');
+                          Navigator.pop(
+                              context,
+                              SearchPost(viewModel.getSelectedStatus(),
+                                  viewModel.getSelectedCats()));
+                          // Navigator.pop(
+                          //     context, data[viewModel.getSelectedItem() - 1]);
+                        },
+                        child: CustomText('Done', 18, 'Poppins',
+                            kLightPrimaryColor, FontWeight.w600)),
                   ],
-                  //),
                 ),
-              ),
-              Row(
-                children: [
-                  Expanded(child: CustomSearch(vm)),
-                  const SizedBox(
-                    width: 17,
-                  ),
-                  const Image(image: AssetImage('images/filter.png')),
-                ],
-              ),
-              Row(
-                children: [
-                  ChangeNotifierProvider(
-                    create: (BuildContext context) => vm,
-                    child: Consumer<SearchVM>(builder: (context, viewModel, _) {
-                      return CustomText('${vm.getLength()} Completed ', 14,
-                          'Poppins', kDarkGreyColor, FontWeight.w400);
-                    }),
-                  ),
-                  Spacer(),
-                  TextButton(
-                    child: CustomText('Show ', 14, 'Poppins',
-                        kLightPrimaryColor, FontWeight.w400),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              const Divider(
-                height: 0.5,
-                color: kDividerColor,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.only(top: 30),
-                  child: ChangeNotifierProvider(
-                    create: (BuildContext context) => vm,
-                    child: Consumer<SearchVM>(
-                      builder: (context, viewModel, _) {
-                        switch (viewModel.mailsByFilter.status) {
-                          case Status.STOP:
-                            print("mails by filter: STOP");
-                            return Container();
+              );
+            }),
+          ),
+          //body
+          Expanded(
+            child: SingleChildScrollView(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    ChangeNotifierProvider(
+                      create: (BuildContext context) => viewModel,
+                      child:
+                          Consumer<FilterVM>(builder: (context, viewModel, _) {
+                        switch (viewModel.statusMain.status) {
                           case Status.LOADING:
-                            print("mails by filter: Loading");
+                            print("Status :: LOADING");
                             return LoadingWidget();
                           case Status.ERROR:
-                            print("mails by filter:: ERROR ");
+                            print("Status :: ERROR ");
                             return MyErrorWidget(
-                                viewModel.mailsByFilter.message ?? "NA");
+                                viewModel.statusMain.message ?? "NA");
                           case Status.COMPLETED:
-                            print("mails by filter: COMPLETED");
-                            getMailsByFilter(viewModel);
-                            return _getMailsList(data);
+                            print("Status :: COMPLETED");
+                            data = viewModel.statusMain.data!.status!;
+                            return _getStatusListView(
+                                viewModel.statusMain.data!.status!, viewModel);
                           default:
                         }
                         return Container();
-                      },
+                      }),
                     ),
-                  ),
-                ),
-              ),
-            ],
+                    const SizedBox(height: 16),
+                    ChangeNotifierProvider(
+                      create: (BuildContext context) => viewModel,
+                      child:
+                          Consumer<FilterVM>(builder: (context, viewModel, _) {
+                        switch (viewModel.catMain.status) {
+                          case Status.LOADING:
+                            print("Status :: LOADING");
+                            return LoadingWidget();
+                          case Status.ERROR:
+                            print("Status :: ERROR ");
+                            return MyErrorWidget(
+                                viewModel.statusMain.message ?? "NA");
+                          case Status.COMPLETED:
+                            print("Status :: COMPLETED");
+                            //  data = viewModel.catMain.data!.categories!;
+                            return _getCategoryListView(
+                                viewModel.catMain.data!.categories, viewModel);
+                          default:
+                        }
+                        return Container();
+                      }),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 17),
+                      // padding: const EdgeInsets.only(
+                      //     top: 20, left: 16, right: 16, bottom: 20),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: ListTile(
+                        leading:
+                            Image(image: AssetImage('images/datePicker.png')),
+                        title: CustomText('Date', 16, 'Poppins', kBlackColor,
+                            FontWeight.w400),
+                        subtitle: Row(
+                          children: [
+                            CustomText('From: ', 12, 'Poppins', kDarkGreyColor,
+                                FontWeight.w400),
+                            CustomText('July 5, 2022', 12, 'Poppins',
+                                kLightPrimaryColor, FontWeight.w400),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            CustomText('To: ', 12, 'Poppins', kDarkGreyColor,
+                                FontWeight.w400),
+                            CustomText('July 5, 2022', 12, 'Poppins',
+                                kLightPrimaryColor, FontWeight.w400),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
           ),
-        ),
+        ]),
       ),
     );
   }
 }
 
-Future<List<MailFilter>> getMailsByFilter(SearchVM viewModel) async {
-  data = <MailFilter>[];
-  List<Category> cats = [];
-  List<MailData> mails = viewModel.mailsByFilter.data!.mails!;
-  viewModel.setLength(mails.length);
-
-  print('Mails length search ${mails.length}');
-  List<MailData> tmp = [];
-  for (int i = 0; i < mails.length; i++) {
-    cats.add(mails[i].sender!.category!);
-  }
-  // convert each item to a string by using JSON encoding
-  final jsonList = cats.map((item) => jsonEncode(item)).toList();
-  // using toSet - toList strategy
-  final uniqueJsonList = jsonList.toSet().toList();
-  // convert each item back to the original form using JSON decoding
-  List result = uniqueJsonList.map((item) => jsonDecode(item)).toList();
-  List<Category> categories =
-      List<Category>.from(result.map((model) => Category.fromJson(model)));
-
-  print('length car ${categories[0].id}');
-  for (var item in categories) {
-    for (int j = 0; j < mails.length; j++) {
-      if (mails[j].sender!.category!.id == item.id) tmp.add(mails[j]);
-    }
-    data.add(MailFilter(item.name!, tmp));
-    tmp = [];
-  }
-  return data;
+Widget _getCategoryListView(List<Categories>? categories, FilterVM viewModel) {
+  return Container(
+    padding: const EdgeInsets.only(top: 20, left: 19, right: 19, bottom: 20),
+    decoration: BoxDecoration(
+        color: Colors.white, borderRadius: BorderRadius.circular(30)),
+    child: ListView.separated(
+      itemBuilder: (context, index) =>
+          _getCategoryTile(categories[index], viewModel),
+      separatorBuilder: (context, index) {
+        return const SizedBox(
+          height: 15,
+          child: Divider(
+            height: 1,
+            color: kDividerColor,
+          ),
+        );
+      },
+      itemCount: categories!.length,
+      shrinkWrap: true,
+    ),
+  );
 }
 
-Widget _getMailsList(List<MailFilter> data) {
-  if (data.isEmpty) {
-    return CustomText(
-        'Not found data', 14, 'Poppins', kDarkGreyColor, FontWeight.w400);
-  }
-  return ListView.builder(
-      shrinkWrap: true,
-      itemCount: data.length,
-      itemBuilder: (BuildContext context, int idx) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CustomText(data[idx].title, 18, 'Poppins', kDarkGreyColor,
-                    FontWeight.w600),
-                Spacer(),
-                CustomText('${data[idx].children!.length} Found', 14, 'Poppins',
-                    kHintGreyColor, FontWeight.w400),
-              ],
-            ),
-            SizedBox(
-              height: 14,
-            ),
-            ListView.separated(
-              shrinkWrap: true,
-              itemCount: data[idx].children.length,
-              itemBuilder: (context, index) {
-                return MailTile(data[idx].children[index]);
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(
-                  height: 16,
-                );
-              },
-            )
-          ],
+_getCategoryTile(Categories categories, FilterVM viewModel) {
+  return ListTile(
+    onTap: () {
+      viewModel.updateSelectedCats(categories.id!);
+    },
+    title: CustomText(
+        categories.name!, 16, 'Poppins', kBlackColor, FontWeight.w400),
+    trailing: categories.id == viewModel.getSelectedCats()
+        ? IconButton(
+            onPressed: () {},
+            icon: const Image(
+              image: AssetImage('images/check.png'),
+            ))
+        : null,
+  );
+}
+
+Widget _getStatusListView(List<StatusMail> statusList, FilterVM viewModel) {
+  return Container(
+    padding: const EdgeInsets.only(top: 20, left: 19, right: 19, bottom: 20),
+    decoration: BoxDecoration(
+        color: Colors.white, borderRadius: BorderRadius.circular(30)),
+    child: ListView.separated(
+      itemBuilder: (context, index) =>
+          _getStatusTile(statusList[index], viewModel),
+      separatorBuilder: (context, index) {
+        return const SizedBox(
+          height: 15,
+          child: Divider(
+            height: 1,
+            color: kDividerColor,
+          ),
         );
-      });
+      },
+      itemCount: statusList.length,
+      shrinkWrap: true,
+    ),
+  );
+}
+
+Widget _getStatusTile(StatusMail status, FilterVM viewModel) {
+  return ListTile(
+    onTap: () {
+      viewModel.updateSelectedStatus(status.id!);
+    },
+    leading: Container(
+      width: 38,
+      height: 38,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Color(int.parse(status.color!.substring(2), radix: 16))),
+    ),
+    title:
+        CustomText(status.name!, 16, 'Poppins', kBlackColor, FontWeight.w400),
+    trailing: status.id == viewModel.getSelectedStatus()
+        ? IconButton(
+            onPressed: () {},
+            icon: const Image(
+              image: AssetImage('images/check.png'),
+            ))
+        : null,
+  );
 }

@@ -1,11 +1,10 @@
-import 'package:consultant_app/views/widgets/kbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
 import '../../model/status/StatusMail.dart';
 import '../../utils/Constants.dart';
-import '../../views/widgets/CustomText.dart';
+import '../widgets/CustomText.dart';
 import '../widgets/LoadingWidget.dart';
 import '../widgets/MyErrorWidget.dart';
 import 'StatusVM.dart';
@@ -29,27 +28,21 @@ class StatusScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    kTextButton(
-                      widget: CustomText('Cancel', 18, 'Poppins',
-                          kLightPrimaryColor, FontWeight.w400),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: CustomText('Cancel', 18, 'Poppins',
+                            kLightPrimaryColor, FontWeight.w400)),
                     CustomText(
                         'Status', 18, 'Poppins', kBlackColor, FontWeight.w600),
-                    kTextButton(
-                        widget: CustomText('Done', 18, 'Poppins',
-                            kLightPrimaryColor, FontWeight.w600),
+                    TextButton(
                         onPressed: () {
-                          // print('done btn: ${viewModel.getSelectedItem()}');
-                          print(
-                              'done btn: ${data[viewModel.getSelectedItem() - 1]}');
-                          // viewModel
-                          //     .setData(data[viewModel.getSelectedItem() - 1]);
                           Navigator.pop(
                               context, data[viewModel.getSelectedItem() - 1]);
-                        })
+                        },
+                        child: CustomText('Done', 18, 'Poppins',
+                            kLightPrimaryColor, FontWeight.w600)),
                   ],
                 ),
               );
@@ -132,8 +125,8 @@ Widget _getStatusListView(List<StatusMail> statusList, StatusVM viewModel) {
         viewModel.updateSelectedItem(index + 1);
       },
       leading: Container(
-        width: 32,
-        height: 32,
+        width: 38,
+        height: 38,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Color(
@@ -149,9 +142,12 @@ Widget _getStatusListView(List<StatusMail> statusList, StatusVM viewModel) {
               ))
           : null,
     ),
-    separatorBuilder: (context, index) => const Divider(
-      thickness: 0.5,
-      color: Color(0xFFAFAFAF),
+    separatorBuilder: (context, index) => const SizedBox(
+      height: 15,
+      child: Divider(
+        height: 1,
+        color: kDividerColor,
+      ),
     ),
     itemCount: statusList.length,
     shrinkWrap: true,

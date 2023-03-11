@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
@@ -10,9 +9,13 @@ class customTextField extends StatelessWidget {
   Icon? preIcon;
   Icon? suffixIcon;
   InputBorder? border;
-
-  //double? fontSize; // add font size and font weight;
-  customTextField(this.hintText,{this.controller, this.icon, super.key,this.border=InputBorder.none,this.preIcon,this.suffixIcon});
+  customTextField(this.hintText,
+      {this.controller,
+      this.icon,
+      super.key,
+      this.border = InputBorder.none,
+      this.preIcon,
+      this.suffixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +25,15 @@ class customTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
-
           prefixIcon: preIcon,
           suffixIcon: suffixIcon,
           icon: icon,
           contentPadding: EdgeInsets.all(0.0),
           hintText: hintText,
           hintStyle: const TextStyle(
-
               color: kHintGreyColor, fontSize: 12, fontFamily: 'Poppins'),
           border: border,
         ),
-
       ),
     );
   }

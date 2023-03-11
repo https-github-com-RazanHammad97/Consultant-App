@@ -1,9 +1,9 @@
 import 'package:consultant_app/model/tags/tags_model.dart';
-import 'package:consultant_app/views/widgets/tagswidget.dart';
+import 'package:consultant_app/view/widgets/tagswidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../view/tag/TagVM.dart';
+import '../tag/TagVM.dart';
 
 class ListOfTags extends StatelessWidget {
   @override

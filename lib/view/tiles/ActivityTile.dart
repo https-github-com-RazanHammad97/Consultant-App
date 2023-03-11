@@ -2,8 +2,8 @@ import 'package:consultant_app/model/mail/Activities.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
-import '../../views/widgets/BorderShape.dart';
-import '../../views/widgets/CustomText.dart';
+import '../widgets/BorderShape.dart';
+import '../widgets/CustomText.dart';
 
 class ActivityTile extends StatelessWidget {
   Activities activities;

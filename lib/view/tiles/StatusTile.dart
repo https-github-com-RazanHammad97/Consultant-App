@@ -2,8 +2,8 @@ import 'package:consultant_app/model/status/StatusMail.dart';
 import 'package:consultant_app/view/mails_by_status/MailsByStatusScreen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/Constants.dart';
-import '../CustomText.dart';
+import '../../utils/Constants.dart';
+import '../widgets/CustomText.dart';
 
 class StatusTile extends StatelessWidget {
   StatusTile(this.status);
