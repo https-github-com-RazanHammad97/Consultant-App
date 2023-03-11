@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 import '../../controllers/constants.dart';
 
 class ApiServices {
-  getData(String url) async{
+  getSingleRecourse(String url) async{
     final Uri apiUrl = Uri.parse(url);
     http.Response response =
-        await http.get(apiUrl, headers: authHeaders);
+    await http.get(apiUrl, headers: authHeaders);
     print(response.statusCode);
     try {
       if (response.statusCode == 200) {
@@ -27,11 +27,36 @@ class ApiServices {
     }
   }
 
+  getData(String url) async{
+    final Uri apiUrl = Uri.parse(url);
+    http.Response response =
+        await http.get(apiUrl, headers: authHeaders);
+    print(response.statusCode);
+    try {
+      if (response.statusCode == 200) {
+        print("all Users response 200");
+        var json = jsonDecode(response.body);
+        print(json);
+        return json;
+
+      }
+      if (response.statusCode==401){
+        // print("Unauthenticated");
+        var json = jsonDecode(response.body);
+        print(json);
+       // return json["message"];
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future authPostData(String url,  {Map? data}) async {
     final Uri apiUrl = Uri.parse(url);
     http.Response response =
         await http.post(apiUrl, headers: authHeaders, body: jsonEncode(data));
-   print(response.statusCode);
+   print("status Code of request ${response.statusCode}");
+   print(response.body);
     try {
       if (response.statusCode == 200) {
         print(200);

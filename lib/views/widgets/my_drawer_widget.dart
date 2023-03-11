@@ -13,7 +13,7 @@ class MyDrawer extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Text('Admin CRUD'),
+              child: Text('Admin CRUD Area'),
             ),
             ListTile(
               title: const Text('View All Users'),
@@ -32,17 +32,27 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('Update Existing User'),
+              title: const Text('Create new Category'),
               onTap: () {
                 Navigator.pop(context);
-                // Navigator.pushNamed(context,"/Login");
+                Navigator.pushNamed(context,"/Admin/Category/create");
               },
             ),
             ListTile(
-              title: const Text('Delete Existing User'),
+              title: const Text('View All Categories'),
               onTap: () {
 
                 Navigator.pop(context);
+                Navigator.pushNamed(context,"Admin/Category");
+              },
+            ),
+
+            ListTile(
+              title: const Text('View All Tags'),
+              onTap: () {
+
+                Navigator.pop(context);
+                Navigator.pushNamed(context,"/Tags");
               },
             ),
           ],

@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Button extends StatelessWidget {
-  Button({required this.title, required this.onPressed});
+  Button({required this.title, required this.onPressed,  this.child});
 
   String title;
   Function() onPressed;
+  Widget? child;
 
   @override
   Widget build(BuildContext context) {

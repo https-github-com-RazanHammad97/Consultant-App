@@ -33,9 +33,11 @@ class customTextField extends StatelessWidget {
         ),
       ),
       child: TextField(
+
         obscureText: obsecure!,
         controller: controller,
         decoration: InputDecoration(
+
           prefixIcon: preIcon,
           suffixIcon: suffixIcon,
           icon: icon,

@@ -1,7 +1,10 @@
 
-import 'package:consultant_app/view_models/statusmode.dart';
-import 'package:flutter/cupertino.dart';
+
+
+import 'package:flutter/material.dart';
+
 import '../data/remote/network/NetworkApiService.dart';
+import '../model/status/statusmode.dart';
 
 class ProviderStatus extends ChangeNotifier {
   NetworkApiService networkApiService = NetworkApiService();

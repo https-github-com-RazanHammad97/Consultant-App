@@ -58,7 +58,7 @@ class _CreateUserState extends State<CreateUser> {
                   customTextField("Password Confirmation",
                       true,
                       controller: passConfirmController),
-                  customTextField("User Name Controller",
+                  customTextField("User Name",
                       false,
                       controller: usernameControlelr),
                   Button(
@@ -68,20 +68,25 @@ class _CreateUserState extends State<CreateUser> {
 
                           emailController.text,
                           passwordController.text,
-                          passConfirmController.text,
-                      usernameControlelr.text);
+                          usernameControlelr.text);
                     print(response);
                     if(response.toString().contains("user")){
                       if(mounted){
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("User Created Successfully"),));
-                        Navigator.pushNamed(context, "/users");
+                        //Navigator.pushNamed(context, "/users");
+                        emailController.clear();
+                      passwordController.clear();
+                      usernameControlelr.clear();
+                      passConfirmController.clear();
+                      Navigator.pushNamed(context,"/Admin/Users");
                       }
 
                     }
+
                     else {
                       if(mounted){
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(
-                            "${response["message"]}"),));
+                            "${response}"),));
 
                       }
                     }

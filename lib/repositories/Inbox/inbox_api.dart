@@ -25,12 +25,31 @@ class InboxApi extends InboxRepository{
       "tags" :tags,
       "activities":activities
     };
-    String url = "$baseUrl" "/" "$createCategoryEndPoint";
+    String url = "$baseUrl" "/" "mails";
    var json = await service.authPostData(url,data: data);
    if(json.toString().isNotEmpty){
      print ("mail $json");
      return json;
    }
+  }
+  createSender(String name,String phoneNum,int catId) async{
+    Map data={
+      "name":name,
+      "mobile":phoneNum,
+      "address":"test",
+      "category_id":catId
+    };
+    String url = "$baseUrl" "/" "senders";
+    var json = await service.authPostData(url,data: data);
+    if(json.toString().isNotEmpty) {
+      print("Sender $json");
+      return json;
+    }}
+
+
+
+  getAllStatus(){
+
   }
 
 }

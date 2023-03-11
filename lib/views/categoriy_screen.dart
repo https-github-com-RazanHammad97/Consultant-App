@@ -1,14 +1,9 @@
-
-
-
-import 'package:consultant_app/controllers/categoriy_contoller.dart';
-import 'package:consultant_app/views/widgets/kbutton.dart';
+import 'package:consultant_app/repositories/Admin/Category/category_api.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
+import '../repositories/Inbox/Sender.dart';
+import '../view/tag/TagScreen.dart';
 
 class CategoriyScreen extends StatefulWidget {
-
   const CategoriyScreen({Key? key}) : super(key: key);
 
   @override
@@ -16,73 +11,97 @@ class CategoriyScreen extends StatefulWidget {
 }
 
 class _CategoriyScreenState extends State<CategoriyScreen> {
+  CatApi capi = CatApi();
+  int? selectedIndex; // selected index in the category list view.
+  String category = ""; // category name to view in the new inbox screen.
+  int cat_id = 4; // category id to send with new added inbox request.
+  late Sender senderData = Sender(cat_id, category); // Object from sender to pass it's values to the new inbox screen.
+
   @override
   Widget build(BuildContext context) {
-    final myProvider = Provider.of<ProviderCategoriy>(context);
-    myProvider.getCategoriy();
     return Scaffold(
-      backgroundColor:Color(0xffF7F6FF),
-      body:  SingleChildScrollView(
-        child: SafeArea(child:
-        Padding(
-          padding:EdgeInsets.all(16),
-          child: Column(
-              children:[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    kTextButton(text:'Cancel',
-                        onPressed: () {Navigator.pop(context);}
-                    ),
-                    Text('Category',style:TextStyle(
-                        color: Colors.black,
-                        fontWeight:FontWeight.bold,
-                        fontSize:24
-                    ),),
-                    kTextButton(text:'Done', onPressed: () {
-                      //myProvider.getSingleStatus(clickedItem);
-                      Navigator.pop(context);
-                    })
-
-                  ],
-                ),
-                SizedBox(height:80,),
-                Container(
-                  key:UniqueKey(),
-                  padding:EdgeInsets.all(8),
-                  decoration:BoxDecoration(
-                      color:Colors.white,
-                      borderRadius:BorderRadius.circular(25)
-                  ),
-                  height:300,
-                  width:double.infinity,
-                  child:ListView.separated(
-                    itemBuilder:(context,index)=>ListTile(
-                      onTap:(){
-                         myProvider.toggleIndex(index+1);
+      backgroundColor: Color(0xffF7F6FF),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  kTextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
                       },
-                       title: Text(myProvider.temp[index].name,style:TextStyle(
-                          fontSize:20,
-                          color: Colors.black
-                      ),),
-                      trailing: myProvider.temp[index].id==myProvider.clickedItem?
-                      IconButton(onPressed:(){}, icon:Icon(
-                        Icons.check,
-                        color:Colors.blueAccent,
-                      ))
-                          :null,
-                    ),
-                    separatorBuilder:(context,index)=>const Divider(
-                      thickness: 1,
-                      color: Color(0xFFAFAFAF),
-                    ),
-                    itemCount:myProvider.temp.length,
+                      text: 'Cancel'),
+                const  Text(
+                    'Category',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24),
                   ),
-
-                ),
-              ]
+                  kTextButton(
+                      text: 'Done',
+                      onPressed: () {
+                        Navigator.pop(context, senderData);
+                      })
+                ],
+              ),
+              SizedBox(
+                height: 80,
+              ),
+              Container(
+                  key: UniqueKey(),
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25)),
+                    height: 800,
+                    width: double.infinity,
+                    child: FutureBuilder(
+                      future: capi.getAllCategories(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          print(snapshot.data);
+                          Map<String, dynamic> results =
+                              snapshot.data as Map<String, dynamic>;
+                          List<dynamic> resultsData = results["categories"];
+                          print(
+                              "results from th catgory screen page $resultsData");
+                          print(resultsData.length);
+                          return ListView.builder(
+                              itemBuilder: (context, index) {
+                                return TextButton(
+                                  onPressed: () {
+                                    category = resultsData[index]["name"];
+                                    cat_id = resultsData[index]["id"];
+                                    print("${resultsData[index]["id"]}");
+                                  },
+                                  child: ListTile(
+                                      title:
+                                          Text("${resultsData[index]["name"]}"),
+                                      onTap: () {
+                                        setState(() {
+                                          selectedIndex = index;
+                                          category = resultsData[index]["name"];
+                                        });
+                                      },
+                                      trailing: selectedIndex == index
+                                          ? Icon(
+                                              Icons.check,
+                                              color: Colors.green,
+                                            )
+                                          : null),
+                                );
+                              },
+                              itemCount: resultsData.length);
+                        } else {
+                          return Container(child: CircularProgressIndicator());
+                        }
+                      })),
+            ]),
           ),
-        ),
         ),
       ),
     );
