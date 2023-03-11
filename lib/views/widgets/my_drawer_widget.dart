@@ -55,6 +55,15 @@ class MyDrawer extends StatelessWidget {
                 Navigator.pushNamed(context,"/Tags");
               },
             ),
+
+            ListTile(
+              title: const Text('View All Statuses'),
+              onTap: () {
+
+                Navigator.pop(context);
+                Navigator.pushNamed(context,"/Statuses");
+              },
+            ),
           ],
         ),
       );

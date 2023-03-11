@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
                 '/Home': (context) => HomeScreen(),
                 '/Login': (context) => LoginScreen(),
                 '/Details': (context) => DetailsScreen(),
-                '/Status': (context) => StatusScreen(),
+                '/Statuses': (context) => StatusScreen(),
                 '/Admin/CreateUser': (context) => CreateUser(),
                 '/Admin/Users': (context) => AllUsers(),
                 'Admin/Category':(context)=>AdminCatgeoryScreen(),
