@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../../model/mail/Tags.dart';
-import '../../views/widgets/tiles/TagTile.dart';
+import '../../../model/mail/Tags.dart';
+import '../../../utils/Constants.dart';
+import '../../tiles/TagTile.dart';
+import '../CustomText.dart';
 
 class TagList extends StatelessWidget {
   List<Tags> tags;
-  TagList(this.tags, {Key? key}) : super(key: key);
+  TagList(this.tags);
   @override
   Widget build(BuildContext context) {
+    if (tags.isEmpty) {
+      return CustomText(
+          'Not found data', 14, 'Poppins', kDarkGreyColor, FontWeight.w400);
+    }
     return Container(
       decoration: const BoxDecoration(
           color: Colors.white,
@@ -23,7 +29,8 @@ class TagList extends StatelessWidget {
             mainAxisSpacing: 8
             //   childAspectRatio: 1.75,
             ),
-        itemBuilder: (context, i) => TagTile(tags[i]),
+        //   multiSelect: true,
+        itemBuilder: (context, i) => TagTile(tags[i], tags),
         itemCount: tags.length,
       ),
     );

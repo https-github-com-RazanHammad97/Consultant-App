@@ -42,12 +42,13 @@ class StatusScreen extends StatelessWidget {
                         widget: CustomText('Done', 18, 'Poppins',
                             kLightPrimaryColor, FontWeight.w600),
                         onPressed: () {
-                          print('done btn: ${viewModel.getSelectedItem()}');
+                          // print('done btn: ${viewModel.getSelectedItem()}');
                           print(
                               'done btn: ${data[viewModel.getSelectedItem() - 1]}');
-                          viewModel
-                              .setData(data[viewModel.getSelectedItem() - 1]);
-                          Navigator.pop(context);
+                          // viewModel
+                          //     .setData(data[viewModel.getSelectedItem() - 1]);
+                          Navigator.pop(
+                              context, data[viewModel.getSelectedItem() - 1]);
                         })
                   ],
                 ),

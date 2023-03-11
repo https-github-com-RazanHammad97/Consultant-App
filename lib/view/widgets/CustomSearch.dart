@@ -1,19 +1,24 @@
-import 'package:flutter/cupertino.dart';
+import 'package:consultant_app/view/search/SearchVM.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';
 
 class CustomSearch extends StatelessWidget {
-  const CustomSearch({
+  CustomSearch(
+    this.vm, {
     Key? key,
   }) : super(key: key);
-
+  SearchVM vm;
   @override
   Widget build(BuildContext context) {
     return TextField(
       keyboardType: TextInputType.text,
+      onChanged: (value) {
+        vm.setText(value);
+        print('value : $value');
+      },
       decoration: InputDecoration(
-        fillColor: Colors.white,
+        fillColor: kLightGreyColor,
         filled: true,
         border: InputBorder.none,
         enabledBorder: OutlineInputBorder(
