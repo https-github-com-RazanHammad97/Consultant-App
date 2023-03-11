@@ -12,7 +12,7 @@ class _TagScreenState extends State<TagScreen> {
   TagApi tag = TagApi();
   int? selectedIndex;
   bool isSelected = false;
-  late String? selectedTag="";
+  late String? tagName="";
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _TagScreenState extends State<TagScreen> {
         title: Text('All tags'),
         actions: [TextButton(
             onPressed:  ()async{
-               Navigator.pop(context,selectedTag);},
+               Navigator.pop(context,tagName);},
             child: Text("Done",style:TextStyle (color:Colors.white),))],
       ),
       body: Scaffold(
@@ -43,6 +43,8 @@ class _TagScreenState extends State<TagScreen> {
                             setState(() {
                               selectedIndex = index;
                               isSelected = true;
+                              print("name tap tap tag razan  :${tagsData[index]["name"]}");
+                              tagName = tagsData[index]["name"];
                             });
                           },
                           leading: Icon(
