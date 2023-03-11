@@ -61,7 +61,7 @@ class MyDrawer extends StatelessWidget {
               onTap: () {
 
                 Navigator.pop(context);
-                Navigator.pushNamed(context,"/Statuses");
+                Navigator.pushNamed(context,"Admin/status");
               },
             ),
           ],

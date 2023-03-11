@@ -21,6 +21,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
+import 'package:consultant_app/repositories/Admin/Status/r_status_screen.dart';
 
 import 'controllers/statuscontroller.dart';
 
@@ -91,6 +92,7 @@ class MyApp extends StatelessWidget {
                 '/Admin/CreateUser': (context) => CreateUser(),
                 '/Admin/Users': (context) => AllUsers(),
                 'Admin/Category':(context)=>AdminCatgeoryScreen(),
+                'Admin/status':(context)=>RStatusScreen(),
                 '/Admin/Category/create': (context) => CreateCategory(),
                 '/Category': (context) => CategoriyScreen(),
                 '/Tags': (context) => TagScreen(),

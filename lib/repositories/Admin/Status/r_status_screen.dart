@@ -1,14 +1,14 @@
 import 'package:consultant_app/repositories/Admin/Status/status_api.dart';
 import 'package:flutter/material.dart';
 
-class StatusScreen extends StatefulWidget {
-  const StatusScreen({Key? key}) : super(key: key);
+class RStatusScreen extends StatefulWidget {
+  const RStatusScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatusScreen> createState() => _StatusScreenState();
+  State<RStatusScreen> createState() => _RStatusScreenState();
 }
 
-class _StatusScreenState extends State<StatusScreen> {
+class _RStatusScreenState extends State<RStatusScreen> {
   ApiStatus status = ApiStatus();
   late String? statusName;
   int? selectedIndex;
@@ -72,7 +72,7 @@ class _StatusScreenState extends State<StatusScreen> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text("Tag details"),
+                                        title: Text("Status details"),
                                         content: Container(
                                           decoration: BoxDecoration(
                                               borderRadius:
@@ -80,9 +80,9 @@ class _StatusScreenState extends State<StatusScreen> {
                                           height: 200,
                                           child: ListTile(
                                               leading: Icon(Icons.tag),
-                                              title: Text("Tag id : $tagId"),
+                                              title: Text("Status id : $tagId"),
                                               subtitle:
-                                              Text("Tag Name $tagName")),
+                                              Text("Status Name $tagName")),
                                         ),
                                       );
                                     });
