@@ -123,6 +123,7 @@ class MyParentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final myDataModel = Provider.of<FilterVM>(context);
     print('MyParentWidget ${myDataModel.getSelectedStatus()}');
+    vm.setStatusId(myDataModel.getSelectedStatus());
     return MyChildWidget(
       viewModel: myDataModel,
     );

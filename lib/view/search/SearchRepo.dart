@@ -7,7 +7,7 @@ class SearchRepo {
   final BaseApiService _apiService = NetworkApiService();
 
   Future<SearchMailModel> getMailByFilter(String text, int statusId) async {
-    // Future<SearchMailModel> getMailByFilter(String text, String dateStart, String dateEnd, int statusId) async {
+    print('status_id SearchRepo $statusId');
     String url =
         '${ApiEndPoints().search}text=$text${statusId != -1 ? '&status_id=$statusId' : ''}';
     try {

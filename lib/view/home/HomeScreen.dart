@@ -2,6 +2,7 @@ import 'package:consultant_app/model/mail/MailFilter.dart';
 import 'package:consultant_app/model/status/StatusMail.dart';
 import 'package:consultant_app/view/home/HomeVM.dart';
 import 'package:consultant_app/view/search/SearchScreen.dart';
+import 'package:consultant_app/view/widgets/BottomSheet/NewInbox.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,7 @@ import '../widgets/CustomText.dart';
 import '../widgets/LoadingWidget.dart';
 import '../widgets/MyErrorWidget.dart';
 import '../widgets/listView/TagGridList.dart';
+import '../widgets/my_drawer_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,7 +29,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<MailFilter> data = <MailFilter>[];
-
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   bool isVisible = false;
   AuthApi auth = AuthApi();
@@ -42,13 +44,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     print('user model ${ms.getUser()}');
+    String role = ms.getUser().user!.role!.name!;
     final HomeVM viewModel = HomeVM();
     return Scaffold(
+      key: scaffoldKey,
+      drawer: role == "admin" ? MyDrawer() : Drawer(),
       backgroundColor: kLightWhiteColor,
       appBar: AppBar(
         backgroundColor: kLightWhiteColor,
-        leading: const Image(
-          image: AssetImage('images/menu.png'),
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+            color: Colors.blue,
+          ),
+          onPressed: () {
+            scaffoldKey.currentState!.openDrawer();
+          },
         ),
         elevation: 0,
         actions: <Widget>[
@@ -188,8 +199,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 width: 8,
               ),
-              CustomText('New Inbox', 20, 'Poppins', kLightPrimaryColor,
-                  FontWeight.w600),
+              NewInbox(
+                child: CustomText('New Inbox', 20, 'Poppins',
+                    kLightPrimaryColor, FontWeight.w600),
+              ),
             ],
           ),
         ),
@@ -251,10 +264,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 0.5,
                   color: kDividerColor,
                 ),
-                ListTile(
-                  leading: Icon(Icons.logout),
-                  title: CustomText('Logout', 14, 'Poppins', kLightBlackColor,
-                      FontWeight.w400),
+                GestureDetector(
+                  onTap: () {
+                    auth.logOut(context);
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.logout),
+                    title: CustomText('Logout', 14, 'Poppins', kLightBlackColor,
+                        FontWeight.w400),
+                  ),
                 )
               ]),
             ),

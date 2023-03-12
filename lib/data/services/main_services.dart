@@ -38,6 +38,10 @@ class MainServices {
     writeToHiveBox("token", token.toString());
   }
 
+  String getToken() {
+    return readFromHiveBox("token");
+  }
+
   saveUser(UserModel user) {
     writeToHiveBox("user", user.toJson());
   }

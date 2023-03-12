@@ -4,8 +4,11 @@ import '../../data/services/api_services.dart';
 import 'package:intl/intl.dart';
 
 import '../../controllers/constants.dart';
+import 'package:http/http.dart' as http;
 
+import '../../data/services/main_services.dart';
 class InboxApi extends InboxRepository{
+  MainServices ms = MainServices();
 
   ApiServices service = ApiServices();
 
@@ -25,12 +28,53 @@ class InboxApi extends InboxRepository{
       "tags" :tags,
       "activities":activities
     };
-    String url = "$baseUrl" "/" "$createCategoryEndPoint";
+    String url = "$baseUrl" "/" "mails";
    var json = await service.authPostData(url,data: data);
    if(json.toString().isNotEmpty){
      print ("mail $json");
      return json;
    }
   }
+  createSender(String name,String phoneNum,int catId) async{
+    Map data={
+      "name":name,
+      "mobile":phoneNum,
+      "address":"test",
+      "category_id":catId
+    };
+    String url = "$baseUrl" "/" "senders";
+    var json = await service.authPostData(url,data: data);
+    if(json.toString().isNotEmpty) {
+      print("Sender $json");
+      return json;
+    }}
+
+
+
+  getAllStatus(){
+
+  }
+
+
+  void uploadAttachment(String filename, String url) async {
+  var request = http.MultipartRequest('POST', Uri.parse(url));
+  request.fields.addAll({
+    'mail_id': '383',
+    'title': 'RazanimageTest'
+  });
+  var headers = {
+    'Authorization': 'Bearer ${ms.readFromHiveBox("token")}'
+  };
+  request.headers.addAll(headers);
+
+  request.files.add(
+  await http.MultipartFile.fromPath(
+  'image',
+  filename
+  )
+  );
+  var res = await request.send();
+  print("razan upload request ${res.statusCode}");
+}
 
 }

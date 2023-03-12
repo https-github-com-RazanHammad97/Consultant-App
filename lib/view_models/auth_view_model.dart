@@ -1,5 +1,5 @@
 class AuthViewModel {
-  final String authScreenTitle = "ديوان رئيس الوزراء";
+  final String authScreenTitle = "Complaints App";
   final String emailTFHintText = "Enter your Email";
   final String passTFHint = "Enter your Password";
   final String confirmPassTFHint = "Confirm your Password";

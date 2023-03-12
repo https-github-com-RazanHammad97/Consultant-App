@@ -38,6 +38,7 @@ class _signInFormState extends State<signInForm> {
         children: <Widget>[
           customTextField(
             authModel.emailTFHintText,
+            false,
             controller: emailController,
           ),
           const SizedBox(
@@ -45,6 +46,7 @@ class _signInFormState extends State<signInForm> {
           ),
           customTextField(
             authModel.passTFHint,
+            true,
             controller: passController,
           ),
           const SizedBox(

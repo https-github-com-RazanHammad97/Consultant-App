@@ -1,4 +1,10 @@
+import 'package:consultant_app/repositories/Admin/Category/all_categories.dart';
+import 'package:consultant_app/repositories/Admin/Category/category_create.dart';
+import 'package:consultant_app/repositories/Admin/Status/r_status_screen.dart';
+import 'package:consultant_app/repositories/Admin/Users/all_users.dart';
+import 'package:consultant_app/repositories/Admin/Users/create_user.dart';
 import 'package:consultant_app/view/auth/LoginScreen.dart';
+import 'package:consultant_app/view/category/categoriy_screen.dart';
 import 'package:consultant_app/view/details/DetailsScreen.dart';
 import 'package:consultant_app/view/details/DetailsVM.dart';
 import 'package:consultant_app/view/filter/FilterVM.dart';
@@ -49,7 +55,6 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    Box box = Hive.box("myBox");
     return MaterialApp(
       builder: (context, child) => ResponsiveWrapper.builder(
           BouncingScrollWrapper.builder(context, child!),
@@ -75,11 +80,33 @@ class MyApp extends StatelessWidget {
         '/Login': (context) => LoginScreen(),
         '/Home': (context) => HomeScreen(),
         '/Details': (context) => DetailsScreen(),
-        '/Status': (context) => StatusScreen(),
-        '/Tag': (context) => TagScreen(),
+        '/Statuses': (context) => StatusScreen(),
+        '/Tags': (context) => TagScreen(),
         '/MailByTag': (context) => MailsByTagScreen(),
         '/MailByStatus': (context) => MailsByStatusScreen(),
+        '/Admin/CreateUser': (context) => CreateUser(),
+        '/Admin/Users': (context) => AllUsers(),
+        'Admin/Category': (context) => AdminCatgeoryScreen(),
+        'Admin/status': (context) => RStatusScreen(),
+        '/Admin/Category/create': (context) => CreateCategory(),
+        '/Category': (context) => CategoriyScreen(),
       },
     );
   }
 }
+//routes: {
+// // When navigating to the "/" route, build the FirstScreen widget.
+// '/': (context) => SplashScreen(),
+// // When navigating to the "/second" route, build the SecondScreen widget.
+// '/Home': (context) => HomeScreen(),
+// '/Login': (context) => LoginScreen(),
+// '/Details': (context) => DetailsScreen(),
+// '/Statuses': (context) => StatusScreen(),
+// '/Admin/CreateUser': (context) => CreateUser(),
+// '/Admin/Users': (context) => AllUsers(),
+// 'Admin/Category':(context)=>AdminCatgeoryScreen(),
+// 'Admin/status':(context)=>RStatusScreen(),
+// '/Admin/Category/create': (context) => CreateCategory(),
+// '/Category': (context) => CategoriyScreen(),
+// '/Tags': (context) => TagScreen(),
+// });

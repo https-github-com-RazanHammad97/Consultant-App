@@ -1,4 +1,6 @@
 import 'package:consultant_app/data/models/UserModel.dart';
+import 'package:consultant_app/utils/Constants.dart';
+import 'package:consultant_app/view/auth/LoginScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../controllers/constants.dart';
@@ -45,6 +47,10 @@ class AuthApi extends AuthRepository {
       print('token ${value.token}');
       ms.saveToken(value.token.toString());
       ms.saveUser(value);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(value.user!.role!.name!),
+        backgroundColor: kLightPrimaryColor,
+      ));
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (BuildContext context) {
         return HomeScreen();
@@ -55,15 +61,23 @@ class AuthApi extends AuthRepository {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(error.toString()),
-        backgroundColor: Colors.green.shade300,
+        backgroundColor: Colors.red.shade300,
       ));
     });
   }
 
   @override
-  Future<void> logOut() async {
+  Future<void> logOut(BuildContext context) async {
     String url = "$baseUrl" "/" "$logOutEndPoint";
     await service.authPostData(url);
+    ms.writeToHiveBox('token', null);
+    ms.writeToHiveBox('role', null);
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (BuildContext context) {
+      return LoginScreen();
+    }), (r) {
+      return false;
+    });
   }
 
   @override
@@ -95,6 +109,10 @@ class AuthApi extends AuthRepository {
       ms.saveToken(value!.token!);
       ms.saveUser(value);
       print('token ${value.token}');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(value.user!.role!.name!),
+        backgroundColor: kLightPrimaryColor,
+      ));
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (BuildContext context) {
         return HomeScreen();
@@ -105,7 +123,7 @@ class AuthApi extends AuthRepository {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(error.toString()),
-        backgroundColor: Colors.green.shade300,
+        backgroundColor: Colors.red.shade300,
       ));
     });
   }

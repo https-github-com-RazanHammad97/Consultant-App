@@ -36,6 +36,7 @@ class _signUpFormState extends State<signUpForm> {
             ),
             customTextField(
               authModel.emailTFHintText,
+              false,
               controller: controller_email,
             ),
             const SizedBox(
@@ -43,6 +44,7 @@ class _signUpFormState extends State<signUpForm> {
             ),
             customTextField(
               authModel.passTFHint,
+              true,
               controller: controller_pass,
             ),
             const SizedBox(
@@ -50,6 +52,7 @@ class _signUpFormState extends State<signUpForm> {
             ),
             customTextField(
               authModel.confirmPassTFHint,
+              true,
               controller: controller_confirm_pass,
             ),
             const SizedBox(
@@ -57,6 +60,7 @@ class _signUpFormState extends State<signUpForm> {
             ),
             customTextField(
               authModel.userNameTFHint,
+              false,
               controller: controller_userName,
             ),
             const SizedBox(

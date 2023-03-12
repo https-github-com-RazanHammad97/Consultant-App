@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import '../../controllers/hive_keys.dart';
 import '../../data/services/main_services.dart';
@@ -30,12 +31,23 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        "splash screen token ${ms.readFromHiveBox("token")}"); // this built twice
+    Box box = Hive.box("myBox");
+
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (BuildContext context) {
-        return token == null ? LoginScreen() : HomeScreen();
+        // return LoginScreen();
+        // if (box.values.isEmpty) {
+        //   return LoginScreen();
+        // } else {
+        //   if (ms.getToken().isEmpty)
+        //     return LoginScreen();
+        //   else
+        //     return HomeScreen();
+        // }
+        return ms.readFromHiveBox("token") == null
+            ? LoginScreen()
+            : HomeScreen();
       }));
     });
     return Scaffold(
@@ -52,10 +64,10 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Image(
-              image: AssetImage('images/logo.png'),
+              image: AssetImage('images/logo2.png'),
             ),
             Text(
-              'ديوان رئيس الوزراء',
+              'Complaints App',
               style: TextStyle(
                 fontSize: 31,
                 color: Colors.white,
