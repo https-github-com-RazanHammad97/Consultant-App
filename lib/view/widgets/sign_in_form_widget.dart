@@ -1,5 +1,4 @@
 import 'package:consultant_app/view_models/auth_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/repositories/Auth/auth_api.dart';
@@ -22,7 +21,6 @@ class _signInFormState extends State<signInForm> {
   AuthApi auth = AuthApi();
 
   TextEditingController emailController = TextEditingController();
-
   TextEditingController passController = TextEditingController();
 
   @override
@@ -49,26 +47,16 @@ class _signInFormState extends State<signInForm> {
             authModel.passTFHint,
             controller: passController,
           ),
-
-          //customTextField('Confirm password'),
           const SizedBox(
             height: 40,
           ),
           Button(
             title: authModel.signInBtnText,
             onPressed: () async {
+              auth.loginRequest(
+                  emailController.text, passController.text, context);
               print(passController.text);
               print(emailController.text);
-              token =
-                  await auth.login(emailController.text, passController.text);
-              //ms.readFromHiveBox("token");
-              print(token);
-              ms.saveToken(token);
-              if (token != "") {
-                if (mounted) {
-                  Navigator.pushNamed(context, "/Home");
-                }
-              }
             },
           ),
           const SizedBox(

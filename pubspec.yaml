@@ -48,6 +48,7 @@ dependencies:
   flutter_session_manager: ^1.0.3
   shared_preferences: ^2.0.18
   responsive_framework: ^0.2.0
+  flutter_smart_dialog: ^4.9.0+3
 
 dev_dependencies:
   flutter_test:

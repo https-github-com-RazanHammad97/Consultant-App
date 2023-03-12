@@ -17,7 +17,7 @@ class NetworkApiService extends BaseApiService {
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer ${ms.readFromHiveBox("token")}',
         },
       );
@@ -38,7 +38,6 @@ class NetworkApiService extends BaseApiService {
         Uri.parse(url),
         body: jsonBody,
         headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer ' + '${ms.readFromHiveBox("token")}',
         },
       );
@@ -50,14 +49,14 @@ class NetworkApiService extends BaseApiService {
   }
 
   @override
-  Future postResponse(String url, Map<String, dynamic> JsonBody) async {
+  Future postResponse(String url, Map JsonBody) async {
     dynamic responseJson;
     try {
       final response = await http.post(
         Uri.parse(url),
         body: JsonBody,
         headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
+          // 'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer ' + '${ms.readFromHiveBox("token")}',
         },
       );

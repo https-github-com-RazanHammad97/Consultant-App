@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../models/UserModel.dart';
+
 class MainServices {
   DateTime getCurrentTime() {
     return DateTime.now();
@@ -34,6 +36,15 @@ class MainServices {
 
   saveToken(String token) {
     writeToHiveBox("token", token.toString());
+  }
+
+  saveUser(UserModel user) {
+    writeToHiveBox("user", user.toJson());
+  }
+
+  UserModel getUser() {
+    UserModel jsonData = UserModel.fromJson(readFromHiveBox("user"));
+    return jsonData;
   }
 
 // Test our function

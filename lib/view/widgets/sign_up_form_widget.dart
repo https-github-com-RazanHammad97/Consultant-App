@@ -1,7 +1,7 @@
-
 import 'package:consultant_app/view_models/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../data/repositories/Auth/auth_api.dart';
 import '../../data/services/main_services.dart';
 import '../../utils/Constants.dart';
@@ -24,7 +24,6 @@ class _signUpFormState extends State<signUpForm> {
   TextEditingController? controller_confirm_pass = TextEditingController();
   TextEditingController? controller_userName = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(builder: (BuildContext context, snapshot) {
@@ -32,22 +31,30 @@ class _signUpFormState extends State<signUpForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 16,),
+            const SizedBox(
+              height: 16,
+            ),
             customTextField(
               authModel.emailTFHintText,
               controller: controller_email,
             ),
-            SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             customTextField(
               authModel.passTFHint,
               controller: controller_pass,
             ),
-            SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             customTextField(
               authModel.confirmPassTFHint,
               controller: controller_confirm_pass,
             ),
-            SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             customTextField(
               authModel.userNameTFHint,
               controller: controller_userName,
@@ -57,44 +64,16 @@ class _signUpFormState extends State<signUpForm> {
             ),
             Button(
               onPressed: () async {
-
-
-             var token=   await auth.register(controller_email!.text, controller_pass!.text,
-                    controller_userName!.text);
-             print(token);
-             // ms.saveToken(token!);
-              print("token value after sign up$token");
-             if(token!=null){
-               ms.saveToken(token);
-               if (mounted) {
-                 Navigator.pushNamed(context, "/Home");
-               }
-             }
-
-
+                auth.registerRequest(controller_email!.text,
+                    controller_pass!.text, controller_userName!.text, context);
               },
               title: authModel.signUpBtnText,
             ),
-            // print(1);
-
-            // FutureBuilder(
-            //   future: uc.Register(controller_email!.text,controller_pass!.text!,"test"),
-            //   builder: (BuildContext context, AsyncSnapshot<dynamic>snapshot) {
-            //     print(2);
-            //     print(snapshot.error);
-            //   //return SizedBox();
-            //   if(snapshot.hasData){
-            //      return HomeScreen();
-            //   }
-            //   else{
-            //     return LoginScreen();
-            //   }
-            // },);
-
             const SizedBox(
               height: 20,
             ),
-            CustomText(authModel.orText, 14, 'Poppins', kHintGreyColor, FontWeight.w400),
+            CustomText(authModel.orText, 14, 'Poppins', kHintGreyColor,
+                FontWeight.w400),
             const SizedBox(
               height: 20,
             ),

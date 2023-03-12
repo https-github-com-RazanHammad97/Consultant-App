@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
 import '../../data/repositories/Auth/auth_api.dart';
+import '../../data/services/main_services.dart';
 import '../../model/category/Categories.dart';
 import '../../model/mail/MailData.dart';
 import '../../utils/Constants.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   bool isVisible = false;
   AuthApi auth = AuthApi();
+  MainServices ms = MainServices();
 
   showUserContainer() {
     setState(() {
@@ -39,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('user model ${ms.getUser()}');
     final HomeVM viewModel = HomeVM();
     return Scaffold(
       backgroundColor: kLightWhiteColor,
@@ -68,16 +71,21 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           // Image(image: AssetImage('images/search.png')),
-          const Padding(
-            padding: EdgeInsets.only(right: 20, top: 10),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 25,
+          GestureDetector(
+            onTapUp: (details) {
+              _showPopUpMenu(details.globalPosition);
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(right: 20, top: 10),
               child: CircleAvatar(
-                radius: 20.0,
-                backgroundImage: AssetImage('images/profile.png'),
-                // AssetImage('https://via.placeholder.com/150'),
-                backgroundColor: Colors.transparent,
+                backgroundColor: Colors.white,
+                radius: 25,
+                child: CircleAvatar(
+                  radius: 20.0,
+                  backgroundImage: NetworkImage(
+                      'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'),
+                  backgroundColor: Colors.transparent,
+                ),
               ),
             ),
           ),
@@ -203,55 +211,105 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return data;
   }
-}
 
-Widget _getMailsList(List<MailFilter> data) {
-  if (data.isEmpty) {
-    return CustomText(
-        'Not found data', 14, 'Poppins', kDarkGreyColor, FontWeight.w400);
+  void _showPopUpMenu(Offset offset) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.zero,
+            content: Container(
+              height: 300,
+              color: kLightWhiteColor,
+              padding: EdgeInsets.all(20),
+              child: Column(children: [
+                const CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 50,
+                  child: CircleAvatar(
+                    radius: 45.0,
+                    backgroundImage: NetworkImage(
+                        'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'),
+                    // AssetImage('images/profile.png'),
+                    backgroundColor: Colors.transparent,
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                CustomText('${ms.getUser().user!.name}', 19, 'Poppins',
+                    kBlackColor, FontWeight.w400),
+                const SizedBox(
+                  height: 4,
+                ),
+                CustomText('${ms.getUser().user!.role!.name}', 14, 'Poppins',
+                    kLightBlackColor, FontWeight.w400),
+                const SizedBox(
+                  height: 16,
+                ),
+                const Divider(
+                  height: 0.5,
+                  color: kDividerColor,
+                ),
+                ListTile(
+                  leading: Icon(Icons.logout),
+                  title: CustomText('Logout', 14, 'Poppins', kLightBlackColor,
+                      FontWeight.w400),
+                )
+              ]),
+            ),
+          );
+        });
   }
-  return ListView.builder(
+
+  Widget _getMailsList(List<MailFilter> data) {
+    if (data.isEmpty) {
+      return CustomText(
+          'Not found data', 14, 'Poppins', kDarkGreyColor, FontWeight.w400);
+    }
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: data.length,
+        itemBuilder: (BuildContext context, int idx) {
+          return Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: ExpansionTile(
+              // this.text, this.size, this.fontFamily, this.color, this.fontWeight
+              title: CustomText(
+                  data[idx].title, 20, 'Poppins', kBlackColor, FontWeight.w600),
+              backgroundColor: Colors.transparent,
+              children: [
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: data[idx].children.length,
+                  itemBuilder: (context, index) {
+                    return MailTile(data[idx].children[index]);
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider(
+                      thickness: 0,
+                    );
+                  },
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  Widget _getStatusGridView(List<StatusMail> statusList) {
+    if (statusList.isEmpty) {
+      return CustomText(
+          'Not found data', 14, 'Poppins', kDarkGreyColor, FontWeight.w400);
+    }
+    return GridView.builder(
+      itemCount: statusList.length,
       shrinkWrap: true,
-      itemCount: data.length,
-      itemBuilder: (BuildContext context, int idx) {
-        return Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: ExpansionTile(
-            // this.text, this.size, this.fontFamily, this.color, this.fontWeight
-            title: CustomText(
-                data[idx].title, 20, 'Poppins', kBlackColor, FontWeight.w600),
-            backgroundColor: Colors.transparent,
-            children: [
-              ListView.separated(
-                shrinkWrap: true,
-                itemCount: data[idx].children.length,
-                itemBuilder: (context, index) {
-                  return MailTile(data[idx].children[index]);
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const Divider(
-                    thickness: 0,
-                  );
-                },
-              ),
-            ],
-          ),
-        );
-      });
-}
-
-Widget _getStatusGridView(List<StatusMail> statusList) {
-  if (statusList.isEmpty) {
-    return CustomText(
-        'Not found data', 14, 'Poppins', kDarkGreyColor, FontWeight.w400);
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 1.75,
+      ),
+      itemBuilder: (context, position) => StatusTile(statusList[position]),
+    );
   }
-  return GridView.builder(
-    itemCount: statusList.length,
-    shrinkWrap: true,
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      childAspectRatio: 1.75,
-    ),
-    itemBuilder: (context, position) => StatusTile(statusList[position]),
-  );
 }
