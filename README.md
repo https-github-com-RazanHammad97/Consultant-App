@@ -17,6 +17,18 @@ Consultant App
 
 https://user-images.githubusercontent.com/96820269/224527734-0a4f6cb6-eb8d-4dde-8d4a-c6296d893b5a.mp4
 
+2. Save user session at the local storage.
+
+
+https://user-images.githubusercontent.com/96820269/224528085-5d7895a8-4fbb-4ff4-8ac4-b70cf190d763.mp4
+
+3. View homw data from the API requests.
+
+
+
+
+
+
 
 
 
