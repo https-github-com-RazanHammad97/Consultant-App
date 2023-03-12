@@ -23,6 +23,12 @@ https://user-images.githubusercontent.com/96820269/224527734-0a4f6cb6-eb8d-4dde-
 https://user-images.githubusercontent.com/96820269/224528085-5d7895a8-4fbb-4ff4-8ac4-b70cf190d763.mp4
 
 3. View homw data from the API requests.
+4. Add new inbox with creating sender , uploading attachment.
+
+
+https://user-images.githubusercontent.com/96820269/224529257-75e18fad-dcc7-47e6-b4bd-2671d53a5817.mp4
+
+
 
 
 
