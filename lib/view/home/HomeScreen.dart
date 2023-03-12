@@ -3,6 +3,7 @@ import 'package:consultant_app/model/status/StatusMail.dart';
 import 'package:consultant_app/view/home/HomeVM.dart';
 import 'package:consultant_app/view/listView/TagList.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
@@ -44,9 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final HomeVM viewModel = HomeVM();
+    Box box = Hive.box("myBox");
+    String role = box.get("role");
     return Scaffold(
       key: scaffoldKey,
-      drawer: MyDrawer(),
+      drawer: role=="admin"?MyDrawer():Drawer(),
       backgroundColor: kLightWhiteColor,
       appBar: AppBar(
         leading: IconButton(

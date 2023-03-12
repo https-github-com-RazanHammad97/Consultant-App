@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:consultant_app/views/categoriy_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../../../repositories/Admin/Sender/sender_screen.dart';
@@ -41,6 +44,31 @@ class _NewInboxState extends State<NewInbox> {
   InboxApi inbox = InboxApi();
 late Sender sender = Sender(senderId,senderN,categoryName: catName);
 late String selectedTags="";
+List<XFile>? images = [];
+final ImagePicker picker = ImagePicker();
+File? image;
+Future getImage(ImageSource media) async{
+  XFile? uploadedImage = (await picker.pickImage(source: media));
+  setState(() {
+    images?.add(uploadedImage!);
+
+  });
+
+}
+
+  _getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      image = imageFile;
+      image = imageFile;
+      print(imageFile);
+    }
+  }
  void fillSenderData(){
    senderN==""?senderName.text=senderN:senderName.text;
    
@@ -115,7 +143,7 @@ late String selectedTags="";
                                       "",
                                       "");
                                   // if(mounted){
-                                  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Sender Created")));
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Sender Created")));
                                   //
                                   // }
                                 },
@@ -335,6 +363,10 @@ late String selectedTags="";
                             leading: MyTextButton(
                               text: 'Add Image',
                               onPressed: () {
+                               var file= _getFromGallery();
+                                inbox.uploadAttachment(image!.path, "https://palmail.betweenltd.com/api/attachments");
+                                // getImage(ImageSource.gallery);
+                                // print("images $images");
                                 // _getFromGallery();
                               },
                             ),

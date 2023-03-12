@@ -14,6 +14,8 @@ class AuthApi extends AuthRepository {
   @override
   Future<String> login(String email, String pass) async {
     String token="";
+
+    String role="guest";
     String url = "$baseUrl" "/" "$loginEndPoint";
     Map data = {
       'email': email,
@@ -25,13 +27,17 @@ class AuthApi extends AuthRepository {
       print("fail request login");
       token = "";
       ms.writeToHiveBox("token", token);
+      role="guest";
+      ms.writeToHiveBox("role", role);
     }
 
     else if  (val.toString().contains("token")){
       print("print success request");
       // print(val["token"]);
       token= val["token"];
+      role=val["user"]["role"]["name"];
       ms.writeToHiveBox("token", token);
+      ms.writeToHiveBox("role", role);
     }
 
     return token;
