@@ -28,6 +28,9 @@ https://user-images.githubusercontent.com/96820269/224528085-5d7895a8-4fbb-4ff4-
 
 https://user-images.githubusercontent.com/96820269/224529257-75e18fad-dcc7-47e6-b4bd-2671d53a5817.mp4
 
+5. Admin control panel.
+
+
 
 
 
