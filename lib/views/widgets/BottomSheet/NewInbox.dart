@@ -1,5 +1,6 @@
 import 'package:consultant_app/views/categoriy_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
@@ -32,26 +33,26 @@ class _NewInboxState extends State<NewInbox> {
   TextEditingController mailDate = TextEditingController();
 
   late String result = "";
-  late int id=1;
+  late int id = 1;
   late List tags;
   late String status;
-  late String senderN="";
-  late int senderId=1;
+  late String senderN = "";
+  late int senderId = 1;
   late String catName;
   InboxApi inbox = InboxApi();
-late Sender sender = Sender(senderId,senderN,categoryName: catName);
-late String selectedTags="";
- void fillSenderData(){
-   senderN==""?senderName.text=senderN:senderName.text;
-   
+  late Sender sender = Sender(senderId, senderN, categoryName: catName);
+  late String selectedTags = "";
+  void fillSenderData() {
+    senderN == "" ? senderName.text = senderN : senderName.text;
+  }
 
- }
- @override
+  @override
   void initState() {
-   print(senderName.text);
+    print(senderName.text);
     fillSenderData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -68,13 +69,13 @@ late String selectedTags="";
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50),
+                    topLeft: Radius.circular(50.r),
+                    topRight: Radius.circular(50.r),
                   ),
                 ),
                 child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 12.0, right: 12, top: 12),
+                        EdgeInsets.only(left: 12.w, right: 12.w, top: 12.h),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -106,7 +107,7 @@ late String selectedTags="";
                                   var mail = await inbox.createInbox(
                                       mailTitle.text,
                                       mailDescription.text,
-                                     senderId,
+                                      senderId,
                                       mailArchiveNo.text,
                                       (DateTime.now()).toString(),
                                       mailDescicion.text,
@@ -130,39 +131,40 @@ late String selectedTags="";
                             ),
                             child: MyListTile(
                               title: customTextField(
-                                senderName.text==""?"Sender":senderName.text,
+                                senderName.text == ""
+                                    ? "Sender"
+                                    : senderName.text,
                                 false,
                                 controller: senderName,
                                 preIcon: Icon(Icons.person_outline),
                               ),
                               trailing: TextButton(
-                                onPressed: () async{
-                                  Sender senderResult =await Navigator.push(context,new MaterialPageRoute(builder: (context)=>SenderScreen()));
-                                print("Razan Sender Data$senderResult");
-                                senderName.text=senderResult.name;
+                                onPressed: () async {
+                                  Sender senderResult = await Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (context) =>
+                                              SenderScreen()));
+                                  print("Razan Sender Data$senderResult");
+                                  senderName.text = senderResult.name;
 
-                                catName = senderResult.categoryName!;
-
-
-                                  },
+                                  catName = senderResult.categoryName!;
+                                },
                                 child: Image.asset(
                                   "assets/images/warning.png",
                                 ),
                               ),
                               subTitle: Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 12, bottom: 12),
+                                    EdgeInsets.only(top: 12.h, bottom: 12.h),
                                 child: Column(
                                   children: [
-                                    Row(
-                                      children: [
-                                        customTextField(
-                                          "Phone",
-                                          false,
-                                          controller: senderPhone,
-                                          preIcon: Icon(Icons.mobile_friendly),
-                                        )
-                                      ],
+                                    customTextField(
+                                      "Phone",
+                                      false,
+                                      controller: senderPhone,
+                                      preIcon:
+                                      const Icon(Icons.mobile_friendly),
                                     ),
                                     Row(
                                       crossAxisAlignment:
@@ -187,9 +189,7 @@ late String selectedTags="";
 
                                                 result = senderResult.name!;
                                                 id = senderResult.id!;
-                                                setState(() {
-
-                                                });
+                                                setState(() {});
                                                 print("Razan cat id = $id");
                                                 print("catValue $result");
                                               },
@@ -238,33 +238,35 @@ late String selectedTags="";
                             widget: Column(
                               children: [
                                 MyListTile(
-                                  leading: TextButton( onPressed: () async {
-                                    DateTime? pickedDate = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        //get today's date
-                                        firstDate: DateTime(2000),
-                                        //DateTime.now() - not to allow to choose before today.
-                                        lastDate: DateTime(2101));
+                                  leading: TextButton(
+                                      onPressed: () async {
+                                        DateTime? pickedDate = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            //get today's date
+                                            firstDate: DateTime(2000),
+                                            //DateTime.now() - not to allow to choose before today.
+                                            lastDate: DateTime(2101));
 
-                                    if (pickedDate != null) {
-                                      print(
-                                          pickedDate); //get the picked date in the format => 2022-07-04 00:00:00.000
-                                      String formattedDate =
-                                      DateFormat('yyyy-MM-dd').format(
-                                          pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
-                                      print(
-                                          formattedDate); //formatted date output using intl package =>  2022-07-04
-                                      //You can format date as per your need
+                                        if (pickedDate != null) {
+                                          print(
+                                              pickedDate); //get the picked date in the format => 2022-07-04 00:00:00.000
+                                          String formattedDate =
+                                              DateFormat('yyyy-MM-dd').format(
+                                                  pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+                                          print(
+                                              formattedDate); //formatted date output using intl package =>  2022-07-04
+                                          //You can format date as per your need
 
-                                      setState(() {
-                                        mailDate.text =
-                                            formattedDate; //set foratted date to TextField value.
-                                      });
-                                    } else {
-                                      print("Date is not selected");
-                                    }
-                                  },child: Icon(Icons.calculate_outlined)),
+                                          setState(() {
+                                            mailDate.text =
+                                                formattedDate; //set foratted date to TextField value.
+                                          });
+                                        } else {
+                                          print("Date is not selected");
+                                        }
+                                      },
+                                      child: Icon(Icons.calculate_outlined)),
                                   title: Text("Date"),
                                   subTitle: customTextField(
                                     mailDate.text == ""
@@ -278,8 +280,12 @@ late String selectedTags="";
                                   leading: Icon(Icons.archive_outlined),
                                   title: CustomText("Archive", 20, "Poppins",
                                       Colors.black, FontWeight.normal),
-                                  subTitle: customTextField("2022/6019", false,controller: mailArchiveNo,
-                                  border: InputBorder.none,),
+                                  subTitle: customTextField(
+                                    "2022/6019",
+                                    false,
+                                    controller: mailArchiveNo,
+                                    border: InputBorder.none,
+                                  ),
                                 ),
                               ],
                             ),
@@ -287,21 +293,24 @@ late String selectedTags="";
                           MyCard(
                               widget: MyListTile(
                             leading: Icon(Icons.tag),
-                            title:selectedTags==""? Text("Tags"):Text(selectedTags),
-                            trailing:
-                                TextButton(
-                                    onPressed: () async{
-                                 var tagg=  await Navigator.push(context, new MaterialPageRoute(builder: (context)=>TagScreen()));
+                            title: selectedTags == ""
+                                ? Text("Tags")
+                                : Text(selectedTags),
+                            trailing: TextButton(
+                                onPressed: () async {
+                                  var tagg = await Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (context) => TagScreen()));
 
-                                 if(mounted){
-                                   print("selected tag $selectedTags");
-                                   selectedTags=tagg;
-                                 }
-                                  setState(() {
-
-                                  });
-                                  },
-                                    child: SvgPicture.asset("assets/images/arrow2.svg")),
+                                  if (mounted) {
+                                    print("selected tag $selectedTags");
+                                    selectedTags = tagg;
+                                  }
+                                  setState(() {});
+                                },
+                                child: SvgPicture.asset(
+                                    "assets/images/arrow2.svg")),
                           )),
                           MyCard(
                             widget: MyListTile(
@@ -328,7 +337,11 @@ late String selectedTags="";
                               child: CustomText("Decission", 18, "Poppins",
                                   Colors.black, FontWeight.bold),
                             ),
-                            subTitle: customTextField("Add Decision ..", false,border: InputBorder.none,),
+                            subTitle: customTextField(
+                              "Add Decision ..",
+                              false,
+                              border: InputBorder.none,
+                            ),
                           )),
                           MyCard(
                               widget: MyListTile(
@@ -339,8 +352,6 @@ late String selectedTags="";
                               },
                             ),
                           )),
-
-
                         ],
                       ),
                     )),

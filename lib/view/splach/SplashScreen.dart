@@ -37,7 +37,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     // AuthApi().login("test67@test.net", "123456");
     // AuthApi().register("test6lk;k7@test.net", "123456","123456");
     print(
@@ -46,8 +45,10 @@ class _SplashScreenState extends State<SplashScreen> {
     // print("test$token");
     // print(isLoggedIn);
 
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.push(
+    Future.delayed(
+      const Duration(seconds: 5),
+      () {
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => token == null ? LoginScreen() : HomeScreen(),
@@ -74,12 +75,15 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Image(
-              image: AssetImage('assets/images/logo.png'),
+              image: AssetImage('assets/images/logo.jpg'),
+            ),
+            SizedBox(
+              height: 30.h,
             ),
             Text(
               'Complaints App',
-              style: GoogleFonts.caveat(
-                fontSize: 50.sp,
+              style: GoogleFonts.nunito(
+                fontSize: 45.sp,
                 color: const Color(0xFFFFF1DC),
                 fontWeight: FontWeight.w600,
               ),

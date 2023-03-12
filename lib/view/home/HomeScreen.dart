@@ -50,8 +50,13 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: kLightWhiteColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.menu,color: Colors.blue,),
-          onPressed: (){scaffoldKey.currentState!.openDrawer();},
+          icon: Icon(
+            Icons.menu,
+            color: Colors.blue,
+          ),
+          onPressed: () {
+            scaffoldKey.currentState!.openDrawer();
+          },
         ),
         backgroundColor: kLightWhiteColor,
         // leading: IconButton(
@@ -64,14 +69,14 @@ class _HomeScreenState extends State<HomeScreen> {
         //   ),
         // ),
         elevation: 0,
-        actions:  <Widget>[
+        actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 20, top: 10),
             child: CircleAvatar(
               backgroundColor: Colors.white,
               radius: 25,
               child: TextButton(
-                onPressed: (){
+                onPressed: () {
                   showUserContainer();
                 },
                 child: CircleAvatar(

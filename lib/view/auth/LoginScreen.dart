@@ -50,9 +50,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: <Widget>[
                         Center(
                           child: Image(
-                            image: AssetImage('images/logo.png'),
-                            height: 75.h,
-                            width: 56.w,
+                            image: AssetImage('assets/images/logo.jpg'),
+                            height: 90.h,
+                            width: 90.w,
                           ),
                         ),
                         SizedBox(
@@ -61,8 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Center(
                           child: Text(
                             authModel.authScreenTitle,
-                            style: GoogleFonts.caveat(
-                              fontSize: 32.sp,
+                            style: GoogleFonts.nunito(
+                              fontSize: 26.sp,
                               color: const Color(0xFFFFF1DC),
                             ),
                           ),
@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     alignment: Alignment.topCenter,
                     padding: EdgeInsets.only(
-                      top: 200.h,
+                      top: 210.h,
                       // bottom: 132.h,
                       right: 30.w,
                       left: 30.w,
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           AnimatedContainer(
                             width: 367.w,
-                            height: login ? 560.h : 670.h,
+                            height: login ? 560.h : 665.h,
                             duration: const Duration(
                               seconds: 2,
                             ),
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: 50.w,
                     left: 50.w,
                     // bottom: 251,
-                    top: 250.h,
+                    top: 264.h,
                     child: Material(
                       elevation: 1,
                       color: Colors.transparent,
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: BoxDecoration(
                                 color: login
                                     ? const Color(0xFF579BB1)
-                                    : Colors.white,
+                                    : const Color(0xFFEEEEEE),
                                 borderRadius: BorderRadius.circular(22.r),
                               ),
                               duration: const Duration(
@@ -140,27 +140,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ? Colors.white
                                         : const Color(0xFF579BB1),
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 14,
+                                    fontSize: 15.sp,
                                   ),
                                 ),
                               ),
                             ),
                             AnimatedContainer(
-                              width: !login ? 210.w : 123.w,
+                              width: !login ? 221.w : 127.w,
                               duration: const Duration(
                                 seconds: 1,
                               ),
                               decoration: BoxDecoration(
                                 color: !login
                                     ? const Color(0xFF579BB1)
-                                    : Colors.white,
+                                    : const Color(0xFFEEEEEE),
                                 borderRadius: BorderRadius.circular(22.r),
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  setState(() {
-                                    login = !login;
-                                  });
+                                  setState(
+                                    () {
+                                      login = !login;
+                                    },
+                                  );
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -170,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ? Colors.white
                                         : const Color(0xFF579BB1),
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 14,
+                                    fontSize: 15.sp,
                                   ),
                                 ),
                               ),
