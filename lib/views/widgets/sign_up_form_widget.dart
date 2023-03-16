@@ -1,6 +1,7 @@
 import 'package:consultant_app/view_models/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 
 import '../../data/repositories/Auth/auth_api.dart';
 import '../../data/services/main_services.dart';
@@ -81,9 +82,11 @@ class _signUpFormState extends State<signUpForm> {
              // ms.saveToken(token!);
               print("Razan token value after sign up$token");
              if(token!=null){
+               Box box =Hive.box("myBox");
                ms.saveToken(token);
                if (mounted) {
                  Navigator.pushNamed(context, "/Home");
+                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("you are an ${box.get("role")}")));
                }
              }
 

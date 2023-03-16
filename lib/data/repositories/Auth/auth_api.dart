@@ -59,6 +59,7 @@ class AuthApi extends AuthRepository {
   Future<String?> register(String email, String pass,  String name) async {
     String url = "$baseUrl" "/" "$registerEndpoint";
     String? token;
+    String role = "guest";
     Map data = {
       'email': email,
       'password': pass,
@@ -75,6 +76,8 @@ class AuthApi extends AuthRepository {
     else if  (val.toString().contains("token")){
       token= val["token"];
       ms.writeToHiveBox("token", token);
+      role = val["user"]["role"]["name"];
+      ms.writeToHiveBox("token", role);
       print(token);
     }
 
@@ -96,6 +99,8 @@ class AuthApi extends AuthRepository {
   Future<void> logOut() async {
     String url = "$baseUrl" "/" "$logOutEndPoint";
      await service.authPostData(url);
+    ms.writeToHiveBox("token", "");
+    ms.writeToHiveBox("role", "");
 
 
    // await SessionManager().destroy();

@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   getTokenValue() async {
     Box box = Hive.box("myBox");
-    var val = await ms.readFromHiveBox("token");
+    var val = box.get("token");
     token = val;
   }
 
@@ -41,7 +41,9 @@ class _SplashScreenState extends State<SplashScreen> {
     // AuthApi().login("test67@test.net", "123456");
     // AuthApi().register("test6lk;k7@test.net", "123456","123456");
     print(
-        "Razan splash screen token ${ms.readFromHiveBox("token")}"); // this built twice
+        "Razan splash screen token ${ms.readFromHiveBox("token")}");
+    print(
+        "Razan splash screen token ${ms.readFromHiveBox("role")}");// this built twice
     // print(token==null ? "null token" : "token isn't null");
     // print("test$token");
     // print(isLoggedIn);

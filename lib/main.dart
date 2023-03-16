@@ -53,9 +53,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    //Box box = Hive.box("myBox");
+    Box box = Hive.box("myBox");
     //print(box.get("roro"));
-    // print(box.get("token"));
+    print(box.get("token"));
     // print(box.get("isLoggedIn"));
 
     return ScreenUtilInit(
@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: Colors.blue,
               ),
-              initialRoute: '/Category',
+              initialRoute: '/',
               routes: {
                 // When navigating to the "/" route, build the FirstScreen widget.
                 '/': (context) => SplashScreen(),

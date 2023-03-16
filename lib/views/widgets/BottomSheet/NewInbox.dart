@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter/scheduler.dart';
 import 'package:consultant_app/views/categoriy_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,26 +35,25 @@ class _NewInboxState extends State<NewInbox> {
   TextEditingController mailDate = TextEditingController();
 
   late String result = "";
-  late int id=1;
+  late int id = 1;
   late List tags;
   late String status;
-  late String senderN="";
-  late int senderId=1;
+  late String senderN = "";
+  late int senderId = 1;
   late String catName;
   InboxApi inbox = InboxApi();
-late Sender sender = Sender(senderId,senderN,categoryName: catName);
-late String selectedTags="";
-List<XFile>? images = [];
-final ImagePicker picker = ImagePicker();
-File? image;
-Future getImage(ImageSource media) async{
-  XFile? uploadedImage = (await picker.pickImage(source: media));
-  setState(() {
-    images?.add(uploadedImage!);
+  late Sender sender = Sender(senderId, senderN, categoryName: catName);
+  late String selectedTags = "";
+  List<XFile>? images = [];
+  final ImagePicker picker = ImagePicker();
+  File? image;
 
-  });
-
-}
+  Future getImage(ImageSource media) async {
+    XFile? uploadedImage = (await picker.pickImage(source: media));
+    setState(() {
+      images?.add(uploadedImage!);
+    });
+  }
 
   _getFromGallery() async {
     PickedFile? pickedFile = await ImagePicker().getImage(
@@ -69,17 +68,18 @@ Future getImage(ImageSource media) async{
       print(imageFile);
     }
   }
- void fillSenderData(){
-   senderN==""?senderName.text=senderN:senderName.text;
-   
 
- }
- @override
+  void fillSenderData() {
+    senderN == "" ? senderName.text = senderN : senderName.text;
+  }
+
+  @override
   void initState() {
-   print(senderName.text);
+    print(senderName.text);
     fillSenderData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -121,7 +121,7 @@ Future getImage(ImageSource media) async{
                               MyTextButton(
                                 text: "Done",
                                 onPressed: () async {
-                                  Navigator.pop(context);
+                                 // Navigator.pop(context);
                                   print("Razan sender name ${senderName.text}");
                                   print(
                                       "Razan sender Phone ${senderPhone.text}");
@@ -134,7 +134,7 @@ Future getImage(ImageSource media) async{
                                   var mail = await inbox.createInbox(
                                       mailTitle.text,
                                       mailDescription.text,
-                                     senderId,
+                                      senderId,
                                       mailArchiveNo.text,
                                       (DateTime.now()).toString(),
                                       mailDescicion.text,
@@ -142,8 +142,16 @@ Future getImage(ImageSource media) async{
                                       "",
                                       "",
                                       "");
+
                                   // if(mounted){
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Sender Created")));
+                                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                                    Navigator.pop(context);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text("Sender and mail created Created")));
+                                  });
+
+
                                   //
                                   // }
                                 },
@@ -158,21 +166,25 @@ Future getImage(ImageSource media) async{
                             ),
                             child: MyListTile(
                               title: customTextField(
-                                senderName.text==""?"Sender":senderName.text,
+                                senderName.text == ""
+                                    ? "Sender"
+                                    : senderName.text,
                                 false,
                                 controller: senderName,
                                 preIcon: Icon(Icons.person_outline),
                               ),
                               trailing: TextButton(
-                                onPressed: () async{
-                                  Sender senderResult =await Navigator.push(context,new MaterialPageRoute(builder: (context)=>SenderScreen()));
-                                print("Razan Sender Data$senderResult");
-                                senderName.text=senderResult.name;
+                                onPressed: () async {
+                                  Sender senderResult = await Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (context) =>
+                                              SenderScreen()));
+                                  print("Razan Sender Data$senderResult");
+                                  senderName.text = senderResult.name;
 
-                                catName = senderResult.categoryName!;
-
-
-                                  },
+                                  catName = senderResult.categoryName!;
+                                },
                                 child: Image.asset(
                                   "assets/images/warning.png",
                                 ),
@@ -215,9 +227,7 @@ Future getImage(ImageSource media) async{
 
                                                 result = senderResult.name!;
                                                 id = senderResult.id!;
-                                                setState(() {
-
-                                                });
+                                                setState(() {});
                                                 print("Razan cat id = $id");
                                                 print("catValue $result");
                                               },
@@ -266,33 +276,35 @@ Future getImage(ImageSource media) async{
                             widget: Column(
                               children: [
                                 MyListTile(
-                                  leading: TextButton( onPressed: () async {
-                                    DateTime? pickedDate = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        //get today's date
-                                        firstDate: DateTime(2000),
-                                        //DateTime.now() - not to allow to choose before today.
-                                        lastDate: DateTime(2101));
+                                  leading: TextButton(
+                                      onPressed: () async {
+                                        DateTime? pickedDate = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            //get today's date
+                                            firstDate: DateTime(2000),
+                                            //DateTime.now() - not to allow to choose before today.
+                                            lastDate: DateTime(2101));
 
-                                    if (pickedDate != null) {
-                                      print(
-                                          pickedDate); //get the picked date in the format => 2022-07-04 00:00:00.000
-                                      String formattedDate =
-                                      DateFormat('yyyy-MM-dd').format(
-                                          pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
-                                      print(
-                                          formattedDate); //formatted date output using intl package =>  2022-07-04
-                                      //You can format date as per your need
+                                        if (pickedDate != null) {
+                                          print(
+                                              pickedDate); //get the picked date in the format => 2022-07-04 00:00:00.000
+                                          String formattedDate =
+                                              DateFormat('yyyy-MM-dd').format(
+                                                  pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+                                          print(
+                                              formattedDate); //formatted date output using intl package =>  2022-07-04
+                                          //You can format date as per your need
 
-                                      setState(() {
-                                        mailDate.text =
-                                            formattedDate; //set foratted date to TextField value.
-                                      });
-                                    } else {
-                                      print("Date is not selected");
-                                    }
-                                  },child: Icon(Icons.calculate_outlined)),
+                                          setState(() {
+                                            mailDate.text =
+                                                formattedDate; //set foratted date to TextField value.
+                                          });
+                                        } else {
+                                          print("Date is not selected");
+                                        }
+                                      },
+                                      child: Icon(Icons.calculate_outlined)),
                                   title: Text("Date"),
                                   subTitle: customTextField(
                                     mailDate.text == ""
@@ -306,8 +318,12 @@ Future getImage(ImageSource media) async{
                                   leading: Icon(Icons.archive_outlined),
                                   title: CustomText("Archive", 20, "Poppins",
                                       Colors.black, FontWeight.normal),
-                                  subTitle: customTextField("2022/6019", false,controller: mailArchiveNo,
-                                  border: InputBorder.none,),
+                                  subTitle: customTextField(
+                                    "2022/6019",
+                                    false,
+                                    controller: mailArchiveNo,
+                                    border: InputBorder.none,
+                                  ),
                                 ),
                               ],
                             ),
@@ -315,21 +331,24 @@ Future getImage(ImageSource media) async{
                           MyCard(
                               widget: MyListTile(
                             leading: Icon(Icons.tag),
-                            title:selectedTags==""? Text("Tags"):Text(selectedTags),
-                            trailing:
-                                TextButton(
-                                    onPressed: () async{
-                                 var tagg=  await Navigator.push(context, new MaterialPageRoute(builder: (context)=>TagScreen()));
+                            title: selectedTags == ""
+                                ? Text("Tags")
+                                : Text(selectedTags),
+                            trailing: TextButton(
+                                onPressed: () async {
+                                  var tagg = await Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (context) => TagScreen()));
 
-                                 if(mounted){
-                                   print("selected tag $selectedTags");
-                                   selectedTags=tagg;
-                                 }
-                                  setState(() {
-
-                                  });
-                                  },
-                                    child: SvgPicture.asset("assets/images/arrow2.svg")),
+                                  if (mounted) {
+                                    print("selected tag $selectedTags");
+                                    selectedTags = tagg;
+                                  }
+                                  setState(() {});
+                                },
+                                child: SvgPicture.asset(
+                                    "assets/images/arrow2.svg")),
                           )),
                           MyCard(
                             widget: MyListTile(
@@ -356,23 +375,26 @@ Future getImage(ImageSource media) async{
                               child: CustomText("Decission", 18, "Poppins",
                                   Colors.black, FontWeight.bold),
                             ),
-                            subTitle: customTextField("Add Decision ..", false,border: InputBorder.none,),
+                            subTitle: customTextField(
+                              "Add Decision ..",
+                              false,
+                              border: InputBorder.none,
+                            ),
                           )),
                           MyCard(
                               widget: MyListTile(
                             leading: MyTextButton(
                               text: 'Add Image',
                               onPressed: () {
-                               var file= _getFromGallery();
-                                inbox.uploadAttachment(image!.path, "https://palmail.betweenltd.com/api/attachments");
+                                var file = _getFromGallery();
+                                inbox.uploadAttachment(image!.path,
+                                    "https://palmail.betweenltd.com/api/attachments");
                                 // getImage(ImageSource.gallery);
                                 // print("images $images");
                                 // _getFromGallery();
                               },
                             ),
                           )),
-
-
                         ],
                       ),
                     )),
